@@ -8,7 +8,6 @@ import styled from "styled-components";
 const StyledPage = styled.div`
   width: 100%;
   height: 100vh;
-  background: url("/img-bg-1.png");
   background-size: cover;
   background-position-y: -100px;
 `;
