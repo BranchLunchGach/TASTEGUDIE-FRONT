@@ -1,9 +1,10 @@
 import React from "react";
 import Home from "../components/commons/Home";
 import BackSpace from "../components/commons/BackSpace";
-import ".//MenuResultPage.css";
+import "./MenuResultPage.css";
 import Retry from "../components/commons/Retry";
 import styled from "styled-components";
+import { useLocation } from "react-router-dom"; // useLocation import 추가
 
 const StyledPage = styled.div`
   width: 100%;
@@ -13,6 +14,9 @@ const StyledPage = styled.div`
 `;
 
 const MenuResultPage = () => {
+  const location = useLocation(); // location hook 사용
+  const menuData = location.state?.menuData || []; // 전달받은 데이터
+
   return (
     <StyledPage className="menu-result-page">
       <Home className="main-header" />
@@ -25,16 +29,23 @@ const MenuResultPage = () => {
       </div>
 
       <div className="menu-result-content">
-        <div className="menu-result-box">
-          <div className="menu-image 1" />
-          <p className="menu-title">메뉴 이름</p>
-          <p className="menu-desc">메뉴 추천 이유설명</p>
-        </div>
-        <div className="menu-result-box">
-          <div className="menu-image 2" />
-          <p className="menu-title">메뉴 이름</p>
-          <p className="menu-desc">메뉴 추천 이유설명</p>
-        </div>
+        {menuData.length > 0 ? (
+          menuData.map((menu, index) => (
+            <div className="menu-result-box" key={index}>
+              <img
+                className="menu-image"
+                src={menu.imgUrl}
+                alt={menu.menuName}
+              />
+              <p className="menu-title">{menu.menuName}</p>
+              <p className="menu-desc">{menu.recoReason[0]}</p>
+              <p className="menu-desc">{menu.recoReason[1]}</p>
+              <p className="menu-desc">{menu.recoReason[2]}</p>
+            </div>
+          ))
+        ) : (
+          <p>메뉴가 없습니다.</p>
+        )}
       </div>
       <Retry />
     </StyledPage>
