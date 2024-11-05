@@ -106,7 +106,7 @@ const MenuRecommendOption = () => {
                 </div>
             </div>
 
-            <Link to="test"><button className='menu-recommend-btn' onClick={handleRecommendStart}>추천 시작</button></Link>
+            <Link to="/menu-result"><button className='menu-recommend-btn' onClick={handleRecommendStart}>추천 시작</button></Link>
 
         </div>
     );
