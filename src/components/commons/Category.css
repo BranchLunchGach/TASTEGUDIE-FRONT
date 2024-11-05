@@ -1,0 +1,41 @@
+* {
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: "LOTTERIA CHAB-Regular";
+  src: url("https://anima-uploads.s3.amazonaws.com/projects/658d21c21e7516556beeee1c/fonts/chab.ttf")
+    format("truetype");
+}
+
+button {
+  border: none;
+  border-radius: 100px;
+  padding: 14px 34px;
+  font-family: "LOTTERIA CHAB-Regular", Helvetica;
+  font-weight: 400;
+  font-size: 22px;
+  text-align: center;
+}
+
+.yellow {
+  background: #fdd83e;
+  color: black;
+}
+
+.black {
+  background: black;
+  color: #fdd83e;
+}
+
+#menu {
+  rotate: 9deg;
+}
+
+#course {
+  rotate: -9deg;
+}
+
+#sign-in {
+  rotate: 6deg;
+}
