@@ -1,7 +1,7 @@
 import React from 'react';
 import './MenuRecommendPage.css';
-import MenuRecommendOption from './MenuRecommendOption';
-import MenuRecommendTitle from './MenuRecommendTitle';
+import MenuRecommendOption from '../components/menu/MenuRecommendOption';
+import MenuRecommendTitle from '../components/menu/MenuRecommendTitle';
 
 const MenuRecommendPage = () => {
     return (

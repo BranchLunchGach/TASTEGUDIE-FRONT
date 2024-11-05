@@ -4,6 +4,7 @@ import $ from 'jquery';
 import 'jquery-ui/ui/widgets/draggable';
 import 'jquery-ui/ui/widgets/droppable';
 import axios from 'axios';
+import {Link, NavLink} from 'react-router-dom'
 
 const MenuRecommendOption = () => {
 
@@ -105,7 +106,7 @@ const MenuRecommendOption = () => {
                 </div>
             </div>
 
-            <button className='menu-recommend-btn' onClick={handleRecommendStart}>추천 시작</button>
+            <Link to="/menu-result"><button className='menu-recommend-btn' onClick={handleRecommendStart}>추천 시작</button></Link>
 
         </div>
     );

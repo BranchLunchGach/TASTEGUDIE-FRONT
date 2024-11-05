@@ -1,0 +1,62 @@
+.menu-result-page {
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+}
+
+.sub-header {
+  display: flex;
+  align-items: center;
+}
+
+.title {
+  display: flex;
+  flex-direction: column;
+}
+
+.main-title {
+  font-size: 80px;
+  font-weight: 400;
+  font-family: "LOTTERIA CHAB-Regular", Helvetica;
+  margin: 0;
+}
+
+.sub-title {
+  font-size: 30px;
+  font-weight: 400;
+  font-family: "Inter-Regular", Helvetica;
+}
+
+.menu-result-content {
+  display: flex;
+  justify-content: space-between;
+  width: 1201px;
+  margin: 20px auto;
+}
+
+.menu-result-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.menu-title {
+  font-family: "Inter-Bold", Helvetica;
+  font-weight: 700;
+  font-size: 50px;
+  margin: 30px 0 0 0;
+}
+
+.menu-desc {
+  font-family: "Inter-Medium", Helvetica;
+  font-weight: 500;
+  font-size: 38px;
+  margin: 36px 0 0 0;
+}
+
+.menu-image {
+  width: 451px;
+  height: 451px;
+  border-radius: 100%;
+  background-color: lightgray;
+}
