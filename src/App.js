@@ -3,17 +3,16 @@ import './App.css';
 import MenuRecommendPage from './pages/MenuRecommendPage';
 import MenuResultPage from './pages/MenuResultPage';
 import MainPage from './pages/MainPage';
+import LoginPage from './pages/user/LoginPage';
+import JoinPage from './pages/user/JoinPage';
+import Navirouter from './Navirouter';
+
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Routes>
-          <Route path='/' element={<MainPage />} />
-          {/* <Route path='login/:id' element={<Login />} /> */}
-          <Route path='menu' element={<MenuRecommendPage />} />
-          <Route path='/menu-result' element={<MenuResultPage />} />
-        </Routes>
+        <Navirouter />
       </BrowserRouter>
     </div>
   );
