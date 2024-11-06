@@ -41,7 +41,7 @@ const MenuRecommendOption = () => {
   
 // 날씨받아오는 api(1. 위치값 받아서 2. 날씨값 받음)
 const getWeather = () => {
-  const API_KEY = '805fab532c1fcfee082773dc98aaf62c';
+  const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
     function onGeoOk(position) {
         const latitude = position.coords.latitude;
         const longitude = position.coords.longitude;
