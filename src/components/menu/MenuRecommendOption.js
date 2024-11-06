@@ -9,7 +9,8 @@ import { useNavigate } from "react-router-dom"; // useNavigate import 추가
 const MenuRecommendOption = () => {
   const [clickedItems, setClickedItems] = useState(Array(13).fill(false));
   const navigate = useNavigate(); // navigate hook 사용
-
+  const [weather, setWeather] = useState("");
+  
   useEffect(() => {
     $(".draggable-item").draggable();
 
@@ -18,7 +19,55 @@ const MenuRecommendOption = () => {
         $(this).addClass("ui-state-highlight").find("p").html("Dropped!");
       },
     });
+    getWeather();
   }, []);
+
+  // 받아온 날씨 값을 우리 db에 맞게 변환
+  useEffect(()=>{
+    if(weather === ""){
+      console.log("왜 빈값이라도 안 넣으면 안돌아가지??...");
+    } else {
+      if(weather === "Rain" || weather === "Thunderstorm" || weather === "Drizzle" || weather === "Squall") {
+        setWeather("비");
+      } else if(weather === "Snow") {
+        setWeather("눈");
+      } else if(weather === "Clear") {
+        setWeather("맑음");
+      } else {
+        setWeather("구름");
+      }
+    }
+  }, [weather]);
+  
+// 날씨받아오는 api(1. 위치값 받아서 2. 날씨값 받음)
+const getWeather = () => {
+  const API_KEY = '805fab532c1fcfee082773dc98aaf62c';
+    function onGeoOk(position) {
+        const latitude = position.coords.latitude;
+        const longitude = position.coords.longitude;
+
+        // 날씨 API 요청
+        fetch(
+            `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${API_KEY}&units=metric`
+        )
+            .then(response => response.json())
+            .then(data => {
+                // 날씨 정보 출력
+                const id = data.weather[0].id;
+                setWeather(data.weather[0].main);
+            })
+            .catch(error => {
+                console.error("날씨 정보를 가져오는 중 오류가 발생했습니다.", error);
+            });
+    }
+
+    function onGeoError() {
+        alert("위치를 찾을 수 없습니다. 날씨 정보를 불러올 수 없습니다.");
+    }
+
+    // 사용자의 위치를 가져옴
+    navigator.geolocation.getCurrentPosition(onGeoOk, onGeoError);
+}
 
   const handleClick = (index) => {
     const selectedCount = clickedItems.filter((item) => item).length;
@@ -51,6 +100,8 @@ const MenuRecommendOption = () => {
       }
       return acc;
     }, {});
+
+    selectedItems.weather = weather;
 
     try {
       const response = await axios.post(
