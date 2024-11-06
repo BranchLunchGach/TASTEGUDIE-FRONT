@@ -65,7 +65,7 @@ const MenuRecommendOption = () => {
       );
 
       if (response.status === 201) {
-        console.log(response.data); // 성공적인 서버 응답 처리
+        console.log("response.data="+response.data[0].menuName); // 성공적인 서버 응답 처리
         // 서버 응답 데이터를 MenuResultPage로 이동
         navigate("/menu-result", { state: { menuData: response.data } });
       } else {
@@ -77,48 +77,31 @@ const MenuRecommendOption = () => {
   };
 
   return (
-    <div className="container">
-      <div className="sub-container">
-        <div className="menu-option-container">
-          {/* 드래그 가능한 메뉴 항목 */}
-          {[
-            "한식",
-            "양식",
-            "중식",
-            "일식",
-            "면 및 만두류",
-            "밥류",
-            "국 및 탕류",
-            "빵 및 과자류",
-            "튀김류",
-            "구이류",
-            "술과 어울리는",
-            "가벼운",
-            "든든한",
-            "국물있는",
-          ].map((item, index) => (
-            <div
-              key={index}
-              className={`draggable-item item-type${index < 10 ? 1 : 2}`}
-              value={item}
-              onClick={() => handleClick(index)}
-              style={{ backgroundColor: clickedItems[index] ? "#FDD83E" : "" }}
-            >
-              {item}
+    <div className='container'>
+        <div className='sub-container'>
+            <div className='menu-option-container'>
+                <div className='draggable-item item-type1 nation' value="한식" onClick={() => handleClick(0)} style={{ backgroundColor: clickedItems[0] ? '#FDD83E' : '' }}>한식</div>
+                <div className='draggable-item item-type1 nation' value="양식" onClick={() => handleClick(1)} style={{ backgroundColor: clickedItems[1] ? '#FDD83E' : '' }}>양식</div>
+                <div className='draggable-item item-type1 nation' value="중식" onClick={() => handleClick(2)} style={{ backgroundColor: clickedItems[2] ? '#FDD83E' : '' }}>중식</div>
+                <div className='draggable-item item-type1 nation' value="일식" onClick={() => handleClick(3)} style={{ backgroundColor: clickedItems[3] ? '#FDD83E' : '' }}>일식</div>
+                <div className='draggable-item item-type1 category' value="면 및 만두류" onClick={() => handleClick(4)} style={{ backgroundColor: clickedItems[4] ? '#FDD83E' : '' }}>면</div>
+                <div className='draggable-item item-type1 category' value="밥류" onClick={() => handleClick(5)} style={{ backgroundColor: clickedItems[5] ? '#FDD83E' : '' }}>밥</div>
+                <div className='draggable-item item-type1 category' value="국 및 탕류" onClick={() => handleClick(6)} style={{ backgroundColor: clickedItems[6] ? '#FDD83E' : '' }}>탕</div>
+                <div className='draggable-item item-type1 category' value="빵 및 과자류" onClick={() => handleClick(7)} style={{ backgroundColor: clickedItems[7] ? '#FDD83E' : '' }}>빵</div>
+                <div className='draggable-item item-type1 category' value="튀김류" onClick={() => handleClick(8)} style={{ backgroundColor: clickedItems[8] ? '#FDD83E' : '' }}>튀김</div>
+                <div className='draggable-item item-type1 category' value="구이류" onClick={() => handleClick(9)} style={{ backgroundColor: clickedItems[9] ? '#FDD83E' : '' }}>구이</div>
+                <div className='draggable-item item-type2 keyword' value="술과 어울리는" onClick={() => handleClick(10)} style={{ backgroundColor: clickedItems[10] ? '#FDD83E' : '' }}>술과 어울리는</div>
+                <div className='draggable-item item-type2 keyword' value="가벼운" onClick={() => handleClick(11)} style={{ backgroundColor: clickedItems[11] ? '#FDD83E' : '' }}>가벼운</div>
+                <div className='draggable-item item-type2 keyword' value="든든한" onClick={() => handleClick(12)} style={{ backgroundColor: clickedItems[12] ? '#FDD83E' : '' }}>든든한</div>
+                <div className='draggable-item item-type2 soup' value="true" onClick={() => handleClick(13)} style={{ backgroundColor: clickedItems[13] ? '#FDD83E' : '' }}>국물있는</div>
             </div>
-          ))}
+            <div id="droppable" className='menu-option-exclude-container'>
+                <p>제외할 카테고리</p>
+            </div>
         </div>
-
-        <div id="droppable" className="menu-option-exclude-container">
-          <p>제외할 카테고리</p>
-        </div>
-      </div>
-
-      <button className="menu-recommend-btn" onClick={handleRecommendStart}>
-        추천 시작
-      </button>
+        <button className='menu-recommend-btn' onClick={handleRecommendStart}>추천 시작</button>
     </div>
-  );
+);
 };
 
 export default MenuRecommendOption;
