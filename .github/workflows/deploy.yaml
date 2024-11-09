@@ -37,11 +37,16 @@ jobs:
           # 'deploy' 브랜치 체크아웃, 없으면 새로 생성
           git checkout deploy || git checkout --orphan deploy
           git rm -rf .  # deploy 브랜치의 기존 파일 삭제
-      # 5. 빌드 파일 복사
+          
+      # 5. 빌드 파일 복사 (node_modules 제외)
       - name: Copy build files
         run: |
-          cp -r build/* .
+          # 빌드된 파일만 복사하고 node_modules는 제외
+          cp -r build/* .  # build 폴더의 파일만 복사
           rm -rf build
+          # .gitignore 파일을 확인하여 node_modules 폴더가 제외되도록 보장
+          echo "node_modules/" >> .gitignore
+
       # 6. 변경 사항이 있는 경우에만 커밋
       - name: Commit and push if there are changes
         run: |
