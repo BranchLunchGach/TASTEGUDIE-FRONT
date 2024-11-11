@@ -3,7 +3,7 @@ name: Build and Deploy
 on:
   push:
     branches:
-      - dev  # 'believeme' 브랜치에 푸시할 때 트리거
+      - dev  # 'dev' 브랜치에 푸시할 때 트리거
 
 jobs:
   build:
@@ -41,9 +41,12 @@ jobs:
           git checkout deploy || git checkout --orphan deploy
           git rm -rf .  # deploy 브랜치의 기존 파일 삭제
           
-      # 5. 빌드 파일 복사 (node_modules 제외)
-      - name: Copy build files
+      # 5. 'default' 파일과 빌드 파일 복사
+      - name: Copy default file and build files
         run: |
+          # 'default' 파일 복사 (기존 default 파일을 지정된 경로로 복사)
+          cp TASTEGUDIE-FRONT/default /etc/nginx/sites-available/default
+
           # 빌드된 파일만 복사하고 node_modules는 제외
           cp -r build/* .  # build 폴더의 파일만 복사
           rm -rf build  # 빌드 폴더 삭제
@@ -57,7 +60,7 @@ jobs:
         run: |
           git add .
           if [ -n "$(git status --porcelain)" ]; then
-            git commit -m "Deploy React build files"
+            git commit -m "Deploy React build files and default nginx config"
             # GitHub Token을 사용하여 인증
             git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/BranchLunchGach/TASTEGUDIE-FRONT.git deploy --force
           else
