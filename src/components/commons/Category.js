@@ -31,7 +31,7 @@ const Category = ({ scrollToPage }) => {
         </Link>
       </li>
       <li>
-        <Link to="/sign-in">
+        <Link to="/login">
           <button className="yellow" id="sign-in">
             SIGN IN
           </button>

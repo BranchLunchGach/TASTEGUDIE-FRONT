@@ -5,6 +5,7 @@ import LoginPage from "./pages/user/LoginPage";
 import JoinPage from "./pages/user/JoinPage";
 import MenuRecommendPage from "./pages/MenuRecommendPage";
 import MenuResultPage from "./pages/MenuResultPage";
+import Callback from "./components/user/Callback";
 
 const Navirouter = () => {
   return (
@@ -15,6 +16,7 @@ const Navirouter = () => {
           { <Route path='/join' element={<JoinPage />} /> } 
           <Route path='menu' element={<MenuRecommendPage />} />
           <Route path='/menu-result' element={<MenuResultPage />} />
+          <Route path='/callback' element={<Callback />} />
         </Routes>
     </div>
   );

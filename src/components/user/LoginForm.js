@@ -22,43 +22,59 @@ const LoginForm = () => {
         //let password = $('#passinput').val();
 
         let formData = new FormData();
-        formData.append("username",user.id);
+        formData.append("username",user.username);
         formData.append("password",user.password);
-
+        console.log("username= "+ formData.get("username"));
+        console.log("password= "+ formData.get("password"));
 
         axios({
             url:"http://localhost:9000/login",
             method:"post",
-            data:formData
+            data:formData,
+           // console.log('formData=>'+formData);
+          
         })
         .then((res)=>{
             alert("성공이다.");
             console.log(res);
+            let token = res.headers.authorization;
+            localStorage.setItem("Authorization",token);
+            window.location.href="http://localhost:3000";
         })
         .catch((error)=>{
+            alert("id와 password가 올바르지 않습니다.")
             console.log(error);
         })
     }
+    const googleApi = ()=>{
+        
+        const googleUrl = "https://accounts.google.com/o/oauth2/v2/auth?"
+            +"client_id="
+            + process.env.REACT_APP_GOOGLE_LOGIN_API_KEY
+            +  "&redirect_uri=" 
+            + "http://localhost:3000/callback" 
+            + "&response_type=code"
+            + "&scope=email%20profile";
 
-    const google = ()=>{
-        console.log("google api key ="+process.env.REACT_APP_GOOGLE_LOGIN_API_KEY);
-        const googleUrl = "https://accounts.google.com/o/oauth2/v2/auth?client_id="
-        + process.env.REACT_APP_GOOGLE_LOGIN_API_KEY
-        +  "&redirect_uri=" + "http://localhost:3000/menu" +
-        "&response_type=code &scope=email profile";
+            window.location.href=googleUrl;
+          
+                
+           
 
-        console.log(googleUrl);
+        
+
     }
+    
     return (
         <div>
             <form>
-                <input type='text' name='id' id='idinput' placeholder='아이디' onChange={handleForm}></input>
+                <input type='text' name='username' id='idinput' placeholder='아이디' onChange={handleForm}></input>
                 <input type='text' name='password' id='passinput' placeholder='비밀번호' onChange={handleForm}></input>
             </form>
             <button type='submit' onClick={login} >로그인</button> 
             <button><Link to={"/join"}> 회원가입</Link></button> 
             <br/>
-            <img style={{width : "100px"}} src={구글}  alt='' onClick={google}/>
+            <img style={{width : "100px"}} src={구글}  alt='' onClick={googleApi} />
             
         </div>
     );
