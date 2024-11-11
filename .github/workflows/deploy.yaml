@@ -39,9 +39,16 @@ jobs:
           git config --global user.email "cain1227@naver.com"  # 사용자 이메일
           # 'deploy' 브랜치 체크아웃, 없으면 새로 생성
           git checkout deploy || git checkout --orphan deploy
-          git rm -rf .  # deploy 브랜치의 기존 파일 삭제
           
-      # 5. 'default' 파일과 빌드 파일 복사
+      # 5. 기존 파일 삭제 (default 파일 제외)
+      - name: Delete old files except default
+        run: |
+          # 모든 파일 삭제하되, 'default' 파일은 제외
+          git rm -rf .  # 기존 파일 삭제
+          git reset HEAD default  # 'default' 파일 삭제 목록에서 제외
+          git checkout -- default  # 'default' 파일 복원
+
+      # 6. 'default' 파일 복사
       - name: Copy default file and build files
         run: |
           # 'default' 파일 복사 (기존 default 파일을 지정된 경로로 복사)
@@ -55,7 +62,7 @@ jobs:
           # .gitignore 업데이트
           git add .gitignore
 
-      # 6. 변경 사항이 있는 경우에만 커밋 및 푸시
+      # 7. 변경 사항이 있는 경우에만 커밋 및 푸시
       - name: Commit and push if there are changes
         run: |
           git add .
