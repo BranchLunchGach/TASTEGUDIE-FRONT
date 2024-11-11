@@ -10,7 +10,7 @@ const MenuRecommendOption = () => {
   const [clickedItems, setClickedItems] = useState(Array(13).fill(false));
   const navigate = useNavigate(); // navigate hook 사용
   const [weather, setWeather] = useState("");
-  
+
   useEffect(() => {
     $(".draggable-item").draggable();
 
@@ -23,51 +23,56 @@ const MenuRecommendOption = () => {
   }, []);
 
   // 받아온 날씨 값을 우리 db에 맞게 변환
-  useEffect(()=>{
-    if(weather === ""){
+  useEffect(() => {
+    if (weather === "") {
       console.log("왜 빈값이라도 안 넣으면 안돌아가지??...");
     } else {
-      if(weather === "Rain" || weather === "Thunderstorm" || weather === "Drizzle" || weather === "Squall") {
+      if (
+        weather === "Rain" ||
+        weather === "Thunderstorm" ||
+        weather === "Drizzle" ||
+        weather === "Squall"
+      ) {
         setWeather("비");
-      } else if(weather === "Snow") {
+      } else if (weather === "Snow") {
         setWeather("눈");
-      } else if(weather === "Clear") {
+      } else if (weather === "Clear") {
         setWeather("맑음");
       } else {
         setWeather("구름");
       }
     }
   }, [weather]);
-  
-// 날씨받아오는 api(1. 위치값 받아서 2. 날씨값 받음)
-const getWeather = () => {
-  const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
-    function onGeoOk(position) {
-        const latitude = position.coords.latitude;
-        const longitude = position.coords.longitude;
 
-        // 날씨 API 요청
-        fetch(
-            `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${API_KEY}&units=metric`
-        )
-            .then(response => response.json())
-            .then(data => {
-                // 날씨 정보 출력
-                const id = data.weather[0].id;
-                setWeather(data.weather[0].main);
-            })
-            .catch(error => {
-                console.error("날씨 정보를 가져오는 중 오류가 발생했습니다.", error);
-            });
+  // 날씨받아오는 api(1. 위치값 받아서 2. 날씨값 받음)
+  const getWeather = () => {
+    const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
+    function onGeoOk(position) {
+      const latitude = position.coords.latitude;
+      const longitude = position.coords.longitude;
+
+      // 날씨 API 요청
+      fetch(
+        `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${API_KEY}&units=metric`
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          // 날씨 정보 출력
+          const id = data.weather[0].id;
+          setWeather(data.weather[0].main);
+        })
+        .catch((error) => {
+          console.error("날씨 정보를 가져오는 중 오류가 발생했습니다.", error);
+        });
     }
 
     function onGeoError() {
-        alert("위치를 찾을 수 없습니다. 날씨 정보를 불러올 수 없습니다.");
+      alert("위치를 찾을 수 없습니다. 날씨 정보를 불러올 수 없습니다.");
     }
 
     // 사용자의 위치를 가져옴
     navigator.geolocation.getCurrentPosition(onGeoOk, onGeoError);
-}
+  };
 
   const handleClick = (index) => {
     const selectedCount = clickedItems.filter((item) => item).length;
@@ -116,7 +121,7 @@ const getWeather = () => {
       );
 
       if (response.status === 201) {
-        console.log("response.data="+response.data[0].menuName); // 성공적인 서버 응답 처리
+        console.log("response.data=" + response.data[0].menuName); // 성공적인 서버 응답 처리
         // 서버 응답 데이터를 MenuResultPage로 이동
         navigate("/menu-result", { state: { menuData: response.data } });
       } else {
@@ -128,31 +133,131 @@ const getWeather = () => {
   };
 
   return (
-    <div className='container'>
-        <div className='sub-container'>
-            <div className='menu-option-container'>
-                <div className='draggable-item item-type1 nation' value="한식" onClick={() => handleClick(0)} style={{ backgroundColor: clickedItems[0] ? '#FDD83E' : '' }}>한식</div>
-                <div className='draggable-item item-type1 nation' value="양식" onClick={() => handleClick(1)} style={{ backgroundColor: clickedItems[1] ? '#FDD83E' : '' }}>양식</div>
-                <div className='draggable-item item-type1 nation' value="중식" onClick={() => handleClick(2)} style={{ backgroundColor: clickedItems[2] ? '#FDD83E' : '' }}>중식</div>
-                <div className='draggable-item item-type1 nation' value="일식" onClick={() => handleClick(3)} style={{ backgroundColor: clickedItems[3] ? '#FDD83E' : '' }}>일식</div>
-                <div className='draggable-item item-type1 category' value="면 및 만두류" onClick={() => handleClick(4)} style={{ backgroundColor: clickedItems[4] ? '#FDD83E' : '' }}>면</div>
-                <div className='draggable-item item-type1 category' value="밥류" onClick={() => handleClick(5)} style={{ backgroundColor: clickedItems[5] ? '#FDD83E' : '' }}>밥</div>
-                <div className='draggable-item item-type1 category' value="국 및 탕류" onClick={() => handleClick(6)} style={{ backgroundColor: clickedItems[6] ? '#FDD83E' : '' }}>탕</div>
-                <div className='draggable-item item-type1 category' value="빵 및 과자류" onClick={() => handleClick(7)} style={{ backgroundColor: clickedItems[7] ? '#FDD83E' : '' }}>빵</div>
-                <div className='draggable-item item-type1 category' value="튀김류" onClick={() => handleClick(8)} style={{ backgroundColor: clickedItems[8] ? '#FDD83E' : '' }}>튀김</div>
-                <div className='draggable-item item-type1 category' value="구이류" onClick={() => handleClick(9)} style={{ backgroundColor: clickedItems[9] ? '#FDD83E' : '' }}>구이</div>
-                <div className='draggable-item item-type2 keyword' value="술과 어울리는" onClick={() => handleClick(10)} style={{ backgroundColor: clickedItems[10] ? '#FDD83E' : '' }}>술과 어울리는</div>
-                <div className='draggable-item item-type2 keyword' value="가벼운" onClick={() => handleClick(11)} style={{ backgroundColor: clickedItems[11] ? '#FDD83E' : '' }}>가벼운</div>
-                <div className='draggable-item item-type2 keyword' value="든든한" onClick={() => handleClick(12)} style={{ backgroundColor: clickedItems[12] ? '#FDD83E' : '' }}>든든한</div>
-                <div className='draggable-item item-type2 soup' value="true" onClick={() => handleClick(13)} style={{ backgroundColor: clickedItems[13] ? '#FDD83E' : '' }}>국물있는</div>
-            </div>
-            <div id="droppable" className='menu-option-exclude-container'>
-                <p>제외할 카테고리</p>
-            </div>
+    <div className="container">
+      <div className="sub-container">
+        <div className="menu-option-container">
+          <div
+            className="draggable-item item-type1 nation"
+            value="한식"
+            onClick={() => handleClick(0)}
+            style={{ backgroundColor: clickedItems[0] ? "#FDD83E" : "" }}
+          >
+            한식
+          </div>
+          <div
+            className="draggable-item item-type1 nation"
+            value="양식"
+            onClick={() => handleClick(1)}
+            style={{ backgroundColor: clickedItems[1] ? "#FDD83E" : "" }}
+          >
+            양식
+          </div>
+          <div
+            className="draggable-item item-type1 nation"
+            value="중식"
+            onClick={() => handleClick(2)}
+            style={{ backgroundColor: clickedItems[2] ? "#FDD83E" : "" }}
+          >
+            중식
+          </div>
+          <div
+            className="draggable-item item-type1 nation"
+            value="일식"
+            onClick={() => handleClick(3)}
+            style={{ backgroundColor: clickedItems[3] ? "#FDD83E" : "" }}
+          >
+            일식
+          </div>
+          <div
+            className="draggable-item item-type1 category"
+            value="면 및 만두류"
+            onClick={() => handleClick(4)}
+            style={{ backgroundColor: clickedItems[4] ? "#FDD83E" : "" }}
+          >
+            면
+          </div>
+          <div
+            className="draggable-item item-type1 category"
+            value="밥류"
+            onClick={() => handleClick(5)}
+            style={{ backgroundColor: clickedItems[5] ? "#FDD83E" : "" }}
+          >
+            밥
+          </div>
+          <div
+            className="draggable-item item-type1 category"
+            value="국 및 탕류"
+            onClick={() => handleClick(6)}
+            style={{ backgroundColor: clickedItems[6] ? "#FDD83E" : "" }}
+          >
+            탕
+          </div>
+          <div
+            className="draggable-item item-type1 category"
+            value="빵 및 과자류"
+            onClick={() => handleClick(7)}
+            style={{ backgroundColor: clickedItems[7] ? "#FDD83E" : "" }}
+          >
+            빵
+          </div>
+          <div
+            className="draggable-item item-type1 category"
+            value="튀김류"
+            onClick={() => handleClick(8)}
+            style={{ backgroundColor: clickedItems[8] ? "#FDD83E" : "" }}
+          >
+            튀김
+          </div>
+          <div
+            className="draggable-item item-type1 category"
+            value="구이류"
+            onClick={() => handleClick(9)}
+            style={{ backgroundColor: clickedItems[9] ? "#FDD83E" : "" }}
+          >
+            구이
+          </div>
+          <div
+            className="draggable-item item-type2 keyword"
+            value="술과 어울리는"
+            onClick={() => handleClick(10)}
+            style={{ backgroundColor: clickedItems[10] ? "#FDD83E" : "" }}
+          >
+            술과 어울리는
+          </div>
+          <div
+            className="draggable-item item-type2 keyword"
+            value="가벼운"
+            onClick={() => handleClick(11)}
+            style={{ backgroundColor: clickedItems[11] ? "#FDD83E" : "" }}
+          >
+            가벼운
+          </div>
+          <div
+            className="draggable-item item-type2 keyword"
+            value="든든한"
+            onClick={() => handleClick(12)}
+            style={{ backgroundColor: clickedItems[12] ? "#FDD83E" : "" }}
+          >
+            든든한
+          </div>
+          <div
+            className="draggable-item item-type2 soup"
+            value="true"
+            onClick={() => handleClick(13)}
+            style={{ backgroundColor: clickedItems[13] ? "#FDD83E" : "" }}
+          >
+            국물있는
+          </div>
         </div>
-        <button className='menu-recommend-btn' onClick={handleRecommendStart}>추천 시작</button>
+        <div id="droppable" className="menu-option-exclude-container">
+          <p>제외할 카테고리</p>
+        </div>
+      </div>
+      <button className="menu-recommend-btn" onClick={handleRecommendStart}>
+        추천 시작
+      </button>
     </div>
-);
+  );
 };
 
 export default MenuRecommendOption;
