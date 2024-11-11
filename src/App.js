@@ -6,6 +6,7 @@ import MainPage from './pages/MainPage';
 import LoginPage from './pages/user/LoginPage';
 import JoinPage from './pages/user/JoinPage';
 import Navirouter from './Navirouter';
+import MenuOption from './components/menu/MenuOption';
 
 
 function App() {
@@ -13,7 +14,7 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Navirouter />
-      </BrowserRouter>
+      </BrowserRouter> 
     </div>
   );
 }
