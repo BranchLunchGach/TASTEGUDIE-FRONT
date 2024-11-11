@@ -1,11 +1,10 @@
-import Header from "../components/layouts/Header";
+import Header1 from "../components/layouts/Header1";
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import "./MainPage.css";
 
 const StyledPage = styled.div`
   position: relative; /* Allow absolute positioning of children */
-  width: 100%;
   height: 100vh;
 `;
 
@@ -104,11 +103,12 @@ const MainPage = () => {
   return (
     <>
       <div className="header">
-        <Header scrollToPage={scrollToPage} />
+        <Header1 scrollToPage={scrollToPage} />
       </div>
 
       <div className="outer" ref={outerDivRef}>
-        <div currentPage={currentPage} />
+        {/* warning 발생해서 div 특성값 currentPage => currentpage 로 변경 */}
+        <div currentpage={currentPage} />
         <img className="bg-behind" src="/bg-img.jpg" alt="Background" />
         <img className="bg-front" src="/Exclude.png" alt="Foreground" />
         <div className="comment">
@@ -125,5 +125,4 @@ const MainPage = () => {
     </>
   );
 };
-
 export default MainPage;

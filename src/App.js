@@ -8,7 +8,6 @@ import JoinPage from './pages/user/JoinPage';
 import Navirouter from './Navirouter';
 import MenuOption from './components/menu/MenuOption';
 
-
 function App() {
   return (
     <div className="App">
