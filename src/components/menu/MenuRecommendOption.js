@@ -33,9 +33,8 @@ const MenuRecommendOption = () => {
         setWeather("눈");
       } else if(weather === "Clear") {
         setWeather("맑음");
-      } else {
-        setWeather("구름");
       }
+      console.log("처리 마무리 weather = "+weather);
     }
   }, [weather]);
   
@@ -43,8 +42,10 @@ const MenuRecommendOption = () => {
 const getWeather = () => {
   const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
     function onGeoOk(position) {
-        const latitude = position.coords.latitude;
-        const longitude = position.coords.longitude;
+        const latitude = position.lat;
+        const longitude = position.lon;
+      
+        console.log("lat= "+latitude +"long= "+longitude);
 
         // 날씨 API 요청
         fetch(
@@ -66,7 +67,17 @@ const getWeather = () => {
     }
 
     // 사용자의 위치를 가져옴
-    navigator.geolocation.getCurrentPosition(onGeoOk, onGeoError);
+
+    fetch('http://ip-api.com/json/')
+  .then(response => response.json())
+  .then(position => {
+    onGeoOk(position);
+    
+  })
+  .catch(error => onGeoError(error));
+
+
+   // navigator.geolocation.getCurrentPosition(onGeoOk, onGeoError);
 }
 
   const handleClick = (index) => {
