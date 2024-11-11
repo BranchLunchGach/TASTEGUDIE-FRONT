@@ -1,0 +1,26 @@
+App
+    public
+        images
+        index.html
+        .ttf (폰트 파일)
+    src
+        assets
+        components
+            commons
+                BackSpace.js // 뒤로가기 버튼 (이미지 + 뒤로가기 기능)
+                Category.js // 메뉴/코스/로그인 카테고리 (링크 연결)
+                Home.js // 메인 페이지 이동 로고 버튼 (이미지)
+                LoadingBar.js // 로딩바
+                Retry.js // 재추천 버튼 (이미지)
+            layouts // 페이지 공통 레이아웃
+                Header1.js // MainPage.js용 헤더
+                Header2.js // 그 외 페이지용 헤더
+            menu
+                MenuRecommendOption.js
+                MenuRecommendTitle.js
+        pages
+            LoadingPage.js
+            MainPage.js
+            MenuResultPage.js // 메뉴 추천 결과 페이지
+    App.js
+    index.js

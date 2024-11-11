@@ -4,7 +4,7 @@ import BackSpace from "../components/commons/BackSpace";
 import "./MenuResultPage.css";
 import Retry from "../components/commons/Retry";
 import styled from "styled-components";
-import { useLocation } from "react-router-dom"; // useLocation import 추가
+import { Link, useLocation } from "react-router-dom"; // useLocation import 추가
 
 const StyledPage = styled.div`
   width: 100%;
@@ -19,7 +19,9 @@ const MenuResultPage = () => {
 
   return (
     <StyledPage className="menu-result-page">
-      <Home className="main-header" />
+      <Link to="/">
+        <Home className="main-header" />
+      </Link>
       <div className="sub-header">
         <BackSpace className="back-space" />
         <div className="title">

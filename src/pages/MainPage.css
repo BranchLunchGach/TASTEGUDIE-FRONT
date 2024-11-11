@@ -1,5 +1,4 @@
 body {
-  margin: 0;
   overflow-y: hidden;
 }
 
@@ -16,7 +15,6 @@ body {
 
 .inner {
   height: 100vh;
-
   position: relative;
   z-index: 1.5; /* Lower z-index */
 }
@@ -49,7 +47,9 @@ body {
   font-weight: 400;
   color: #fdd83e;
   font-size: 96px;
-  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
 }
 
 p {
