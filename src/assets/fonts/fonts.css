@@ -1,0 +1,10 @@
+@font-face {
+  font-family: "Noto Sans KR";
+  src: url("/public/NotoSansKR-VariableFont_wght.ttf");
+}
+
+@font-face {
+  font-family: "LOTTERIA CHAB-Regular";
+  src: url("https://anima-uploads.s3.amazonaws.com/projects/658d21c21e7516556beeee1c/fonts/chab.ttf")
+    format("truetype");
+}

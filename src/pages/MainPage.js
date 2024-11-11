@@ -1,11 +1,10 @@
-import Header from "../components/layouts/Header";
+import Header1 from "../components/layouts/Header1";
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import "./MainPage.css";
 
 const StyledPage = styled.div`
   position: relative; /* Allow absolute positioning of children */
-  width: 100%;
   height: 100vh;
 `;
 
@@ -104,7 +103,7 @@ const MainPage = () => {
   return (
     <>
       <div className="header">
-        <Header scrollToPage={scrollToPage} />
+        <Header1 scrollToPage={scrollToPage} />
       </div>
 
       <div className="outer" ref={outerDivRef}>
@@ -125,5 +124,4 @@ const MainPage = () => {
     </>
   );
 };
-
 export default MainPage;
