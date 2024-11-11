@@ -45,7 +45,6 @@ jobs:
         run: |
           # 모든 파일 삭제하되, 'default' 파일은 제외
           git rm -rf .  # 기존 파일 삭제
-          git reset HEAD default  # 'default' 파일 삭제 목록에서 제외
           git checkout -- default  # 'default' 파일 복원
 
       # 6. 'default' 파일 복사
