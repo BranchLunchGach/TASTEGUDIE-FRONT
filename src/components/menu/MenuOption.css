@@ -9,8 +9,7 @@ h3 {
     display: flex; /* 플렉스 박스 사용 */
     justify-content: center; /* 가로 중앙 정렬 */
     align-items: center; /* 세로 중앙 정렬 */
-    height: 100vh; /* 화면 전체 높이 사용 */
-    margin-right: -5vw; /* 왼쪽으로 조금 이동 (조정 가능) */
+    height: 80vh; /* 화면 전체 높이 사용 */
   }
   
   p {
@@ -21,7 +20,7 @@ h3 {
   }
   .page {
     width: 30vw;
-    height: 44vw;
+    height: 30vw;
     background-color: #111111;
     float: left;
     margin-bottom: 0.5em;
@@ -31,12 +30,15 @@ h3 {
   .page:nth-child(even) {
     clear: both;
   }
+  .page:nth-child(1), .page:nth-last-child(1) {
+    background-color: burlywood !important;
+  }
   .book {
     perspective: 250vw;
   }
   .book .pages {
     width: 45vw; /* 60 */
-    height: 43vw; /* 44 */
+    height: 35vw; /* 44 */
     position: relative;
     transform-style: preserve-3d;
     backface-visibility: hidden;
@@ -51,12 +53,11 @@ h3 {
     position: absolute;
     top: 0;
     width: 22.5vw; /* 30 */
-    height: 40vw; /* 44 */
+    height: 35vw; /* 44 */
     transform-origin: 0 0;
     transition: transform 1.4s;
     backface-visibility: hidden;
     transform-style: preserve-3d;
-    cursor: pointer;
     user-select: none;
     background-color: #f0f0f0;
     border: 3px solid #000000;
@@ -150,7 +151,6 @@ h3 {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 2em 0;
     line-height: 1.5em;
   }
   .page:nth-child(odd){

@@ -30,7 +30,6 @@ body {
 
 .bg-front {
   position: absolute; /* Positioned in front */
-  /* top: -6%; */
   left: 0;
   width: 100%;
   height: 100vh; /* Maintain aspect ratio */

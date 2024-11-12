@@ -1,15 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 // 스타일 정의
 const Form = styled.form`
+  width: 80%;
   display: flex;
   flex-wrap: wrap;
-  gap: 1.5vw;
   padding: 1vw;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  background-color: #f9f9f9;
   font-size: 1vw;
 `;
 
@@ -18,25 +15,17 @@ const Title = styled.h3`
   font-size: 1.4vw;
   color: #333;
   margin-bottom: 1vw;
+  margin-top: 0.3vw;
 `;
 
 const Label = styled.label`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  width: 45%;
+  width: 100%;
   padding: 1vw;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  background-color: ${(props) => (props.isSelected ? '#007bff' : '#ffffff')};
-  color: ${(props) => (props.isSelected ? '#ffffff' : '#333')};
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  transition: box-shadow 0.3s ease;
   cursor: pointer;
 
-  &:hover {
-    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.15);
-  }
 `;
 
 const Span = styled.span`
@@ -46,8 +35,8 @@ const Span = styled.span`
   line-height: 1.2;
 `;
 
-const FoodForm = () => {
-  const [selectedFoods, setSelectedFoods] = useState([]);
+const FoodForm = (props) => {
+  const [selectedFoods, setSelectedFoods] = useState(props.selectedFoods, props.setSelectedFoods);
   const [isAllChecked, setIsAllChecked] = useState(false);
 
   const handleFoodChange = (value, event) => {
@@ -61,7 +50,7 @@ const FoodForm = () => {
       } else {
         // 모든 항목을 선택
         setSelectedFoods([
-          "한식", "양식", "일식", "중식", "아시안", "상관없음"
+          "한식", "양식", "일식", "중식", "아시안"
         ]);
         setIsAllChecked(true);
       }
@@ -80,53 +69,66 @@ const FoodForm = () => {
       setIsAllChecked(false); // "상관없음" 해제
     }
   };
+  
+  useEffect(()=>{
+    props.onFoodChange(selectedFoods);
+  }, [selectedFoods])
 
   return (
     <div>
       <Title> === 음식의 종류를 선택하세요 ===</Title>
+      <label
+        onClick={(event) => handleFoodChange("상관없음", event)}
+        style={{cursor:"pointer", display: "block", textAlign: "right", marginRight:"30px" }}
+      >
+        상관없음
+      </label>
       <Form>
-        <Label
-          isSelected={selectedFoods.includes("한식")}
-          onClick={(event) => handleFoodChange("한식", event)}
-        >
-          한식<br />
-          <Span>ex. 국밥, 김치찌개, 부대찌개, 한정식, 치킨</Span>
-        </Label>
-        <Label
-          isSelected={selectedFoods.includes("양식")}
-          onClick={(event) => handleFoodChange("양식", event)}
-        >
-          양식<br />
-          <Span>ex. 파스타, 피자, 스테이크, 햄버거, 샐러드</Span>
-        </Label>
-        <Label
-          isSelected={selectedFoods.includes("일식")}
-          onClick={(event) => handleFoodChange("일식", event)}
-        >
-          일식<br />
-          <Span>ex. 돈까스, 라멘, 샤브샤브, 딤섬, 오므라이스, 초밥</Span>
-        </Label>
-        <Label
-          isSelected={selectedFoods.includes("중식")}
-          onClick={(event) => handleFoodChange("중식", event)}
-        >
-          중식<br />
-          <Span>ex. 짜장면, 탕수육, 짬뽕, 울면, 탄탄면, 깐쇼새우</Span>
-        </Label>
-        <Label
-          isSelected={selectedFoods.includes("아시안")}
-          onClick={(event) => handleFoodChange("아시안", event)}
-        >
-          아시안 음식<br />
-          <Span>ex. 월남쌈, 팟타이, 쌀국수, 분짜</Span>
-        </Label>
-        <Label
-          isSelected={selectedFoods.includes("상관없음")}
-          onClick={(event) => handleFoodChange("상관없음", event)}
-        >
-          상관없음<br />
-          <Span>ex. 모두 선택</Span>
-        </Label>
+        <div style={{display:"flex", alignItems:"center"}}>
+          <img alt='aa' src='/icon_naver-login.png' style={{width:"2vw", height:"2vw"}}/>
+          <Label
+            onClick={(event) => handleFoodChange("한식", event)}
+          >
+            한식 &nbsp; {selectedFoods.includes("한식")?"✅":""}<br />
+            <Span>ex. 국밥, 김치찌개, 불고기, 한정식</Span>
+          </Label>
+        </div>
+        <div style={{display:"flex", alignItems:"center"}}>
+          <img alt='aa' src='/icon_naver-login.png' style={{width:"2vw", height:"2vw"}}/>
+          <Label
+            onClick={(event) => handleFoodChange("양식", event)}
+          >
+            양식 &nbsp; {selectedFoods.includes("양식")?"✅":""}<br />
+            <Span>ex. 파스타, 피자, 스테이크, 햄버거</Span>
+          </Label>
+        </div>
+        <div style={{display:"flex", alignItems:"center"}}>
+          <img alt='aa' src='/icon_naver-login.png' style={{width:"2vw", height:"2vw"}}/>
+          <Label
+            onClick={(event) => handleFoodChange("일식", event)}
+          >
+            일식 &nbsp; {selectedFoods.includes("일식")?"✅":""}<br />
+            <Span>ex. 돈까스, 라멘, 샤브샤브, 초밥</Span>
+          </Label>
+        </div>
+        <div style={{display:"flex", alignItems:"center"}}>
+          <img alt='aa' src='/icon_naver-login.png' style={{width:"2vw", height:"2vw"}}/>
+          <Label
+            onClick={(event) => handleFoodChange("중식", event)}
+          >
+            중식 &nbsp; {selectedFoods.includes("중식")?"✅":""}<br />
+            <Span>ex. 짜장면, 짬뽕, 탄탄면, 깐쇼새우</Span>
+          </Label>
+        </div>
+        <div style={{display:"flex", alignItems:"center"}}>
+          <img alt='aa' src='/icon_naver-login.png' style={{width:"2vw", height:"2vw"}}/>
+          <Label
+            onClick={(event) => handleFoodChange("아시안", event)}
+          >
+            아시안 음식 &nbsp; {selectedFoods.includes("아시안")?"✅":""}<br />
+            <Span>ex. 월남쌈, 팟타이, 쌀국수, 분짜</Span>
+          </Label>
+        </div>
       </Form>
     </div>
   );
