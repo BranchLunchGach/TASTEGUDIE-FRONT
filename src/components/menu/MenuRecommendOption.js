@@ -47,8 +47,8 @@ const MenuRecommendOption = () => {
   const getWeather = () => {
     const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
     function onGeoOk(position) {
-      const latitude = position.lat;
-      const longitude = position.lon;
+      const latitude = position.coords.latitude;
+      const longitude = position.coords.longitude;
 
       console.log("lat= " + latitude + "long= " + longitude);
 
