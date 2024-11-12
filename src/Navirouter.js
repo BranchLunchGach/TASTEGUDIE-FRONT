@@ -4,20 +4,10 @@ import MainPage from "./pages/MainPage";
 import LoadingPage from "./pages/LoadingPage";
 import MenuResultPage from "./pages/MenuResultPage";
 import MenuRecommendPage from "./pages/MenuRecommendPage";
-import LoginPage from "./pages/user/LoginPage";
+import Callback from "./components/user/Callback";
+import LoginPage from './pages/user/LoginPage'
 import JoinPage from "./pages/user/JoinPage";
 import MyPage from "./pages/user/MyPage";
-
-// merge conflict 해결
-// =======
-// import { BrowserRouter, Routes, Route } from "react-router-dom";
-// import MainPage from "./pages/MainPage";
-// import LoginPage from "./pages/user/LoginPage";
-// import JoinPage from "./pages/user/JoinPage";
-// import MenuRecommendPage from "./pages/MenuRecommendPage";
-// import MenuResultPage from "./pages/MenuResultPage";
-// >>>>>>> 494bd93984936dc09e1e2974348fc548bfd6b641
-//import Callback from "./components/user/Callback";
 
 const Navirouter = () => {
   return (
@@ -28,6 +18,7 @@ const Navirouter = () => {
         <Route path="/menu-result" element={<MenuResultPage />} />
         <Route path="/course" element={<LoadingPage />} />
         <Route path="/sign-in" element={<LoginPage />} />
+        <Route path='/callback' element={<Callback />} />
         <Route path="/sign-up" element={<JoinPage />} />
         <Route path="/mypage" element={<MyPage />} />
       </Routes>

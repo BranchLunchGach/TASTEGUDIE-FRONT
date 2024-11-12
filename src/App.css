@@ -2,6 +2,5 @@
   width: 1920px;
   height: 1080px;
   text-align: center;
-  background-image: url('./images/Group\ 119.jpg');
-  background-size: 100%;
+  background-image: url("/public/img-bg_main.jpg");
 }
