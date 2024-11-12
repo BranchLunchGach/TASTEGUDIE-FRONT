@@ -54,7 +54,7 @@ const LoginForm = () => {
             +  "&redirect_uri=" 
             + "http://localhost:3000/callback" 
             + "&response_type=code"
-            + "&scope=email%20profile";
+            + "&scope=email%20profile%20https://www.googleapis.com/auth/user.birthday.read";
 
             window.location.href=googleUrl;
           

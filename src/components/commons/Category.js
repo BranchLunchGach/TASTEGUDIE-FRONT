@@ -46,27 +46,7 @@ const Category = () => {
       <Link to="/sign-in">
         <StyledButton style={signInStyle}>SIGN IN</StyledButton>
       </Link>
-      <li>
-        <Link to="/menu">
-          <button className="yellow" id="menu">
-            MENU
-          </button>
-        </Link>
-      </li>
-      <li>
-        <Link to="/course">
-          <button className="black" id="course">
-            COURSE
-          </button>
-        </Link>
-      </li>
-      <li>
-        <Link to="/login">
-          <button className="yellow" id="sign-in">
-            SIGN IN
-          </button>
-        </Link>
-      </li>
+      
     </StyledCategory>
   );
 };
