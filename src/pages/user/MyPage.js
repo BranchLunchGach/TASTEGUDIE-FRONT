@@ -1,14 +1,15 @@
 import React from 'react';
 import Header2 from '../../components/layouts/Header2';
-import RegisterForm from '../../components/user/RegisterForm';
+import MyPageForm from '../../components/user/MyPageForm';
 
-const JoinPage = () => {
+const MyPage = () => {
+
     return (
         <div>
             <Header2 />
-            <RegisterForm />
+            <MyPageForm />            
         </div>
     );
 };
 
-export default JoinPage;
+export default MyPage;

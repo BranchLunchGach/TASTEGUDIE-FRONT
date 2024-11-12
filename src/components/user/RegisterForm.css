@@ -1,0 +1,137 @@
+.container {
+    width: 45%;
+    padding: 100px;
+}
+
+.register-title {
+    width: 90%;
+    margin: auto;
+    text-align: left;
+    font-size: 50px;
+}
+
+.register-info {
+    width: 90%;
+    text-align: left;
+    font-size: 20px;
+
+    margin: auto;
+    margin-top: 60px;
+}
+
+.register-container {
+    border: 5px solid lightgray;
+    border-radius: 20px;
+    background-color: white;
+    margin: auto;
+    margin-top: 50px;
+}
+
+.register-sub-container>p {
+    color:red;
+    font-size: 17px;
+    margin: 0px;
+    text-align: left;
+}
+
+.register-sub-container {
+    width: 75%;
+    margin: auto;
+    margin-top: 80px;
+    margin-bottom: 40px;
+}
+
+.register-form>label {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    margin-top: 40px;
+}
+
+.register-form>label>span {
+    font-size: 17px;
+    padding-left: 5px;
+    margin-bottom: 5px;
+}
+
+/* 전체 셀렉트 박스 컨테이너 */
+.date-select-container {
+    display: flex;
+    gap: 10px;
+  }
+
+  /* 셀렉트 박스 스타일 */
+  .date-select {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: white;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    text-align: center;
+    color: gray;
+    width: 80px; /* 각 셀렉트 박스의 너비 */
+    position: relative;
+  }
+
+  /* 셀렉트 박스의 화살표 추가 */
+  .date-select::after {
+    content: '▼';
+    position: absolute;
+    right: 10px;
+    pointer-events: none;
+    font-size: 12px;
+    color: #555;
+  }
+
+.date-select-container select {
+    max-height: 200px; /* 옵션 목록의 최대 높이 설정 */
+    overflow-y: auto;  /* 세로 스크롤 활성화 */
+}
+
+
+/* 라디오 버튼 숨기기 */
+input[type="radio"] {
+    display: none;
+  }
+
+  /* 라벨 스타일 */
+  .gender-toggle {
+    display: inline-flex;
+    border: 2px solid #ccc;
+    border-radius: 20px;
+    overflow: hidden;
+    width: 100px;
+  }
+
+  /* 선택되지 않은 상태 */
+  .gender-toggle label {
+    flex: 1;
+    padding: 8px;
+    text-align: center;
+    cursor: pointer;
+    color: black;
+    background-color: white;
+    font-weight: bold;
+  }
+
+  /* 선택된 상태 */
+  input[type="radio"]:checked + label {
+    color: white;
+    background-color: black;
+  }
+
+  #register-button {
+    width: 100%;
+    height: 35px;
+    margin-top: 90px;
+  }
+
+  .register-form input {
+    width: 100%;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+  }
