@@ -4,6 +4,10 @@ import MainPage from "./pages/MainPage";
 import LoadingPage from "./pages/LoadingPage";
 import MenuResultPage from "./pages/MenuResultPage";
 import MenuRecommendPage from "./pages/MenuRecommendPage";
+import LoginPage from "./pages/user/LoginPage";
+import JoinPage from "./pages/user/JoinPage";
+import MyPage from "./pages/user/MyPage";
+
 // merge conflict 해결
 // =======
 // import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -23,7 +27,9 @@ const Navirouter = () => {
         <Route path="/menu" element={<MenuRecommendPage />} />
         <Route path="/menu-result" element={<MenuResultPage />} />
         <Route path="/course" element={<LoadingPage />} />
-        <Route path="/sign-in" element={<LoadingPage />} />
+        <Route path="/sign-in" element={<LoginPage />} />
+        <Route path="/sign-up" element={<JoinPage />} />
+        <Route path="/mypage" element={<MyPage />} />
       </Routes>
       {/* merge conflict 해결 */}
       {/* 

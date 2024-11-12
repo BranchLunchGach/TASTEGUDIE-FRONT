@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import $ from 'jquery';
 import axios from 'axios';
 import {Link} from 'react-router-dom'
 import 구글 from '../../images/구글.png'
@@ -57,12 +56,6 @@ const LoginForm = () => {
             + "&scope=email%20profile";
 
             window.location.href=googleUrl;
-          
-                
-           
-
-        
-
     }
     
     return (
@@ -72,7 +65,7 @@ const LoginForm = () => {
                 <input type='text' name='password' id='passinput' placeholder='비밀번호' onChange={handleForm}></input>
             </form>
             <button type='submit' onClick={login} >로그인</button> 
-            <button><Link to={"/join"}> 회원가입</Link></button> 
+            <button><Link to={"/sign-up"}> 회원가입</Link></button> 
             <br/>
             <img style={{width : "100px"}} src={구글}  alt='' onClick={googleApi} />
             
