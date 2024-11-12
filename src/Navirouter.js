@@ -31,15 +31,6 @@ const Navirouter = () => {
         <Route path="/sign-up" element={<JoinPage />} />
         <Route path="/mypage" element={<MyPage />} />
       </Routes>
-      {/* merge conflict 해결 */}
-      {/* 
-          <Route path='/' element={<MainPage />} />
-          { <Route path='/login' element={<LoginPage />} /> } 
-          { <Route path='/join' element={<JoinPage />} /> } 
-          <Route path='menu' element={<MenuRecommendPage />} />
-          <Route path='/menu-result' element={<MenuResultPage />} />
-          <Route path='/callback' element={<Callback />} />
-        </Routes> */}
     </div>
   );
 };
