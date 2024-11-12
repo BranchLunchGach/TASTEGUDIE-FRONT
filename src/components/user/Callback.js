@@ -33,7 +33,7 @@ const Callback = () => {
                 })
                 .then((res)=>{
                     console.log(res.data);
-                    //user.userNo=res.data.userNo;
+                    user.userNo=res.data.userNo;
                 })
             }
 
@@ -45,7 +45,7 @@ const Callback = () => {
                 .then((res)=>{
                     let token = res.headers.authorization;
                     localStorage.setItem("Authorization",token);
-                    //window.location.href="http://localhost:3000";
+                    window.location.href="http://localhost:3000";
                 })
             
         })
