@@ -22,7 +22,6 @@ const Navirouter = () => {
         <Route path="/sign-up" element={<JoinPage />} />
         <Route path="/mypage" element={<MyPage />} />
       </Routes>
-      
     </div>
   );
 };
