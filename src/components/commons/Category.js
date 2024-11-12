@@ -46,7 +46,6 @@ const Category = () => {
       <Link to="/sign-in">
         <StyledButton style={signInStyle}>SIGN IN</StyledButton>
       </Link>
-
     </StyledCategory>
   );
 };
