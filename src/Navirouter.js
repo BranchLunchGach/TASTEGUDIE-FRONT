@@ -13,6 +13,7 @@ import MenuRecommendPage from "./pages/MenuRecommendPage";
 // import MenuRecommendPage from "./pages/MenuRecommendPage";
 // import MenuResultPage from "./pages/MenuResultPage";
 // >>>>>>> 494bd93984936dc09e1e2974348fc548bfd6b641
+//import Callback from "./components/user/Callback";
 
 const Navirouter = () => {
   return (
@@ -25,14 +26,14 @@ const Navirouter = () => {
         <Route path="/sign-in" element={<LoadingPage />} />
       </Routes>
       {/* merge conflict 해결 */}
-      {/* =======
+      {/* 
           <Route path='/' element={<MainPage />} />
           { <Route path='/login' element={<LoginPage />} /> } 
           { <Route path='/join' element={<JoinPage />} /> } 
           <Route path='menu' element={<MenuRecommendPage />} />
           <Route path='/menu-result' element={<MenuResultPage />} />
-        </Routes>
->>>>>>> 494bd93984936dc09e1e2974348fc548bfd6b641 */}
+          <Route path='/callback' element={<Callback />} />
+        </Routes> */}
     </div>
   );
 };

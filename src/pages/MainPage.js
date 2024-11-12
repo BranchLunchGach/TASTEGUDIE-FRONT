@@ -107,7 +107,8 @@ const MainPage = () => {
       </div>
 
       <div className="outer" ref={outerDivRef}>
-        <div currentPage={currentPage} />
+        {/* warning 발생해서 div 특성값 currentPage => currentpage 로 변경 */}
+        <div currentpage={currentPage} />
         <img className="bg-behind" src="/bg-img.jpg" alt="Background" />
         <img className="bg-front" src="/Exclude.png" alt="Foreground" />
         <div className="comment">
