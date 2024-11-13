@@ -1,234 +1,185 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-const FoodCategoryFormWrapper = styled.div`
-  .food-category-form {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.5vw;
-    padding: 1vw;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    background-color: #f9f9f9;
-    font-size: 1vw;
-    max-height: 32vw;
-    overflow-y: auto;
-    width: 100%;
-    box-sizing: border-box;
-  }
+const Label = styled.label`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 80%;
+  padding: 1vw;
+  cursor: pointer;
+  `;
 
-  h3 {
-    text-align: center;
-    font-size: 1.4vw;
-    color: #333;
-    margin-bottom: 1vw;
-  }
+const Form = styled.form`
+  display: flex;
+  flex-wrap: wrap;
+  padding: 1vw;
+  font-size: 1vw;
+  max-height: 25vw;
+  margin-left: 2vw;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
 
-  label {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    width: 38%;
-    padding: 1vw;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background-color: #ffffff;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    transition: box-shadow 0.3s ease;
-    margin-bottom: 1vw;
-    height: 5.5vw;
-    box-sizing: border-box;
-    word-wrap: break-word;
-    min-height: 7vw;
+  &::-webkit-scrollbar{
+    display:none;
   }
+  `;
 
-  label:hover {
-    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.15);
-  }
-
-  input[type="checkbox"] {
-    margin-right: 0.6vw;
-    width: 1.2vw;
-    height: 1.2vw;
-    cursor: pointer;
-  }
-
-  label[style] {
-    color: gray;
-  }
+const Title = styled.h3`
+  text-align: center;
+  font-size: 1.4vw;
+  color: #333;
+  margin-bottom: 1vw;
+  margin-top: 0.3vw;
 `;
 
-const FoodCategoryForm = () => {
-  const [selectedFoodCategorys, setSelectedFoodCategorys] = useState([]);
+const Span = styled.span`
+  font-size: 0.8vw;
+  color: #666;
+  margin-top: 0.3vw;
+  line-height: 1.2;
+`;
+
+const FoodCategoryForm = (props) => {
+  const [selectedFoodCategorys, setSelectedFoodCategorys] = useState(props.selectedFoodCategorys, props.setSelectedFoodCategorys);
   const [isAllChecked, setIsAllChecked] = useState(false);
 
-  const handleFoodChange = (event) => {
-    const value = event.target.value;
+  const handleFoodChange = (value, event) => {
+    event.preventDefault(); // 페이지 이동 방지
 
     if (value === "상관없음") {
-      if (event.target.checked) {
-        setSelectedFoodCategorys(["한식", "양식", "일식", "중식", "아시안", "상관없음"]);
-        setIsAllChecked(true);
-      } else {
-        setSelectedFoodCategorys([]);
+      // '상관없음' 클릭 시, 모든 선택을 토글
+      if (isAllChecked) {
+        setSelectedFoodCategorys([]); // 모든 항목 해제
         setIsAllChecked(false);
+      } else {
+        // 모든 항목을 선택
+        setSelectedFoodCategorys([
+          "튀김류", "조림 및 찜류", "찌개 및 전골류", "부침류", "무침 및 절임류", "빵류", "볶음류", "밥류", "면류", "국 및 탕류", "구이류"
+        ]);
+        setIsAllChecked(true);
       }
     } else {
-      setSelectedFoodCategorys((prevSelectedFoods) =>
-        event.target.checked
-          ? [...prevSelectedFoods, value]
-          : prevSelectedFoods.filter((food) => food !== value)
-      );
+      // "상관없음"을 제외한 선택을 처리
+      setSelectedFoodCategorys((prevSelectedFoodCategorys) => {
+        if (prevSelectedFoodCategorys.includes("상관없음")) {
+          // "상관없음"이 선택되었을 경우, 다른 항목 클릭 시 '상관없음' 해제
+          return [value];
+        }
+        // 선택된 항목을 토글 (추가/제거)
+        return prevSelectedFoodCategorys.includes(value)
+          ? prevSelectedFoodCategorys.filter((food) => food !== value)
+          : [...prevSelectedFoodCategorys, value];
+      });
+      setIsAllChecked(false); // "상관없음" 해제
     }
   };
 
+  useEffect(()=>{
+    props.onFoodChange(selectedFoodCategorys);
+  }, [selectedFoodCategorys])
+
   return (
-    <FoodCategoryFormWrapper>
-      <h3> === 메뉴의 카테고리를 선택하세요 ===</h3>
-      <form className='food-category-form'>
-        <label>
-          <input
-            type="checkbox"
-            value="한식"
-            checked={selectedFoodCategorys.includes("한식")}
-            onChange={handleFoodChange}
-            disabled={isAllChecked && selectedFoodCategorys.includes("한식")}
-          />
-          면류
-        </label>
-        <br />
-        <label>
-          <input
-            type="checkbox"
-            value="양식"
-            checked={selectedFoodCategorys.includes("양식")}
-            onChange={handleFoodChange}
-            disabled={isAllChecked && selectedFoodCategorys.includes("양식")}
-          />
-          빵류
-        </label>
-        <br />
-        <label>
-          <input
-            type="checkbox"
-            value="일식"
-            checked={selectedFoodCategorys.includes("일식")}
-            onChange={handleFoodChange}
-            disabled={isAllChecked && selectedFoodCategorys.includes("일식")}
-          />
-          볶음류
-        </label>
-        <br />
-        <label>
-          <input
-            type="checkbox"
-            value="중식"
-            checked={selectedFoodCategorys.includes("중식")}
-            onChange={handleFoodChange}
-            disabled={isAllChecked && selectedFoodCategorys.includes("중식")}
-          />
-          밥류
-        </label>
-        <br />
-        <label>
-          <input
-            type="checkbox"
-            value="아시안"
-            checked={selectedFoodCategorys.includes("아시안")}
-            onChange={handleFoodChange}
-            disabled={isAllChecked && selectedFoodCategorys.includes("아시안")}
-          />
-          튀김류
-        </label>
-        <br />
-        <label>
-          <input
-            type="checkbox"
-            value="아시안"
-            checked={selectedFoodCategorys.includes("아시안")}
-            onChange={handleFoodChange}
-            disabled={isAllChecked && selectedFoodCategorys.includes("아시안")}
-          />
-          구이류
-        </label>
-        <br />
-        <label>
-          <input
-            type="checkbox"
-            value="아시안"
-            checked={selectedFoodCategorys.includes("아시안")}
-            onChange={handleFoodChange}
-            disabled={isAllChecked && selectedFoodCategorys.includes("아시안")}
-          />
-          찌개 및 전골류
-        </label>
-        <br />
-        <label>
-          <input
-            type="checkbox"
-            value="아시안"
-            checked={selectedFoodCategorys.includes("아시안")}
-            onChange={handleFoodChange}
-            disabled={isAllChecked && selectedFoodCategorys.includes("아시안")}
-          />
-          찜류
-        </label>
-        <br />
-        <label>
-          <input
-            type="checkbox"
-            value="아시안"
-            checked={selectedFoodCategorys.includes("아시안")}
-            onChange={handleFoodChange}
-            disabled={isAllChecked && selectedFoodCategorys.includes("아시안")}
-          />
-          죽 및 스프류
-        </label>
-        <br />
-        <label>
-          <input
-            type="checkbox"
-            value="아시안"
-            checked={selectedFoodCategorys.includes("아시안")}
-            onChange={handleFoodChange}
-            disabled={isAllChecked && selectedFoodCategorys.includes("아시안")}
-          />
-          조림류
-        </label>
-        <br />
-        <label>
-          <input
-            type="checkbox"
-            value="아시안"
-            checked={selectedFoodCategorys.includes("아시안")}
-            onChange={handleFoodChange}
-            disabled={isAllChecked && selectedFoodCategorys.includes("아시안")}
-          />
-          전 및 부침류
-        </label>
-        <br />
-        <label>
-          <input
-            type="checkbox"
-            value="아시안"
-            checked={selectedFoodCategorys.includes("아시안")}
-            onChange={handleFoodChange}
-            disabled={isAllChecked && selectedFoodCategorys.includes("아시안")}
-          />
-          국 및 탕류
-        </label>
-        <br />
-        <label style={{ color: "gray" }}>
-          <input
-            type="checkbox"
-            value="상관없음"
-            checked={selectedFoodCategorys.includes("상관없음")}
-            onChange={handleFoodChange}            
-          />
-          상관없음
-        </label>
-      </form>
-    </FoodCategoryFormWrapper>
+    <div>
+      <Title>=== 카테고리를 선택하세요 ===</Title>
+      <label
+        onClick={(event) => handleFoodChange("상관없음", event)}
+        style={{cursor:"pointer", display: "block", textAlign: "right", marginRight:"30px" }}
+      >
+        상관없음
+      </label>
+      <Form>
+        <div style={{display:"flex", alignItems:"center", width:"80%"}}>
+          <img alt='aa' src='/icon_naver-login.png' style={{width:"2vw", height:"2vw"}}/>
+          <Label
+            onClick={(event) => handleFoodChange("튀김류", event)}
+          >
+            튀김류 &nbsp; {selectedFoodCategorys.includes("튀김류")?"✅":""}
+          </Label>
+        </div>
+        <div style={{display:"flex", alignItems:"center", width:"80%"}}>
+          <img alt='aa' src='/icon_naver-login.png' style={{width:"2vw", height:"2vw"}}/>
+          <Label
+            onClick={(event) => handleFoodChange("조림 및 찜류", event)}
+          >
+            조림 및 찜류 &nbsp; {selectedFoodCategorys.includes("조림 및 찜류")?"✅":""}
+          </Label>
+        </div>
+        <div style={{display:"flex", alignItems:"center", width:"80%"}}>
+          <img alt='aa' src='/icon_naver-login.png' style={{width:"2vw", height:"2vw"}}/>
+          <Label
+            onClick={(event) => handleFoodChange("찌개 및 전골류", event)}
+          >
+            찌개 및 전골류 &nbsp; {selectedFoodCategorys.includes("찌개 및 전골류")?"✅":""}
+          </Label>
+        </div>
+        <div style={{display:"flex", alignItems:"center", width:"80%"}}>
+          <img alt='aa' src='/icon_naver-login.png' style={{width:"2vw", height:"2vw"}}/>
+          <Label
+            onClick={(event) => handleFoodChange("부침류", event)}
+          >
+            부침류 &nbsp; {selectedFoodCategorys.includes("부침류")?"✅":""}
+          </Label>
+        </div>
+        <div style={{display:"flex", alignItems:"center", width:"80%"}}>
+          <img alt='aa' src='/icon_naver-login.png' style={{width:"2vw", height:"2vw"}}/>
+          <Label
+            onClick={(event) => handleFoodChange("무침 및 절임류", event)}
+          >
+            무침 및 절임류 &nbsp; {selectedFoodCategorys.includes("무침 및 절임류")?"✅":""}
+          </Label>
+        </div>
+        <div style={{display:"flex", alignItems:"center", width:"80%"}}>
+          <img alt='aa' src='/icon_naver-login.png' style={{width:"2vw", height:"2vw"}}/>
+          <Label
+            onClick={(event) => handleFoodChange("빵류", event)}
+          >
+            빵류 &nbsp; {selectedFoodCategorys.includes("빵류")?"✅":""}
+          </Label>
+        </div>
+        <div style={{display:"flex", alignItems:"center", width:"80%"}}>
+          <img alt='aa' src='/icon_naver-login.png' style={{width:"2vw", height:"2vw"}}/>
+          <Label
+            onClick={(event) => handleFoodChange("볶음류", event)}
+          >
+            볶음류 &nbsp; {selectedFoodCategorys.includes("볶음류")?"✅":""}
+          </Label>
+        </div>
+        <div style={{display:"flex", alignItems:"center", width:"80%"}}>
+          <img alt='aa' src='/icon_naver-login.png' style={{width:"2vw", height:"2vw"}}/>
+          <Label
+            onClick={(event) => handleFoodChange("밥류", event)}
+          >
+            밥류 &nbsp; {selectedFoodCategorys.includes("밥류")?"✅":""}
+          </Label>
+        </div>
+        <div style={{display:"flex", alignItems:"center", width:"80%"}}>
+          <img alt='aa' src='/icon_naver-login.png' style={{width:"2vw", height:"2vw"}}/>
+          <Label
+            onClick={(event) => handleFoodChange("면류", event)}
+          >
+            면류 &nbsp; {selectedFoodCategorys.includes("면류")?"✅":""}
+          </Label>
+        </div>
+        <div style={{display:"flex", alignItems:"center", width:"80%"}}>
+          <img alt='aa' src='/icon_naver-login.png' style={{width:"2vw", height:"2vw"}}/>
+          <Label
+            onClick={(event) => handleFoodChange("국 및 탕류", event)}
+          >
+            국 및 탕류 &nbsp; {selectedFoodCategorys.includes("국 및 탕류")?"✅":""}
+          </Label>
+        </div>
+        <div style={{display:"flex", alignItems:"center", width:"80%"}}>
+          <img alt='aa' src='/icon_naver-login.png' style={{width:"2vw", height:"2vw"}}/>
+          <Label
+            onClick={(event) => handleFoodChange("구이류", event)}
+          >
+            구이류 &nbsp; {selectedFoodCategorys.includes("구이류")?"✅":""}
+          </Label>
+        </div>
+      </Form>
+      <Title>스크롤을 내려주세요</Title>
+    </div>
   );
 };
 

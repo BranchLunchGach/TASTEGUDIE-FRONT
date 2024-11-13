@@ -172,7 +172,7 @@ const LoginForm = () => {
 
         <div style={flexRowBetweenStyle}>
           <StyledP>
-            <Link to={"/join"} style={linkStyle}>
+            <Link to={"/sign-up"} style={linkStyle}>
               회원가입
             </Link>
           </StyledP>

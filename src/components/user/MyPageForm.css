@@ -1,0 +1,107 @@
+.container {
+    width: 45%;
+    padding: 100px;
+}
+
+.mypage-title {
+    width: 90%;
+    margin: auto;
+    text-align: left;
+    font-size: 50px;
+}
+
+.mypage-info {
+    width: 90%;
+    text-align: left;
+    font-size: 20px;
+
+    margin: auto;
+    margin-top: 60px;
+}
+
+.mypage-container {
+    border: 5px solid lightgray;
+    border-radius: 20px;
+    background-color: white;
+    margin: auto;
+    margin-top: 50px;
+}
+
+.mypage-sub-container {
+    width: 75%;
+    margin: auto;
+    margin-top: 80px;
+    margin-bottom: 40px;
+}
+
+.mypage-form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.mypage-form>div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 50px;
+    width: 100%;
+}
+
+.mypage-form input {
+    border: 1px solid #ccc;
+    border-radius: 15px;
+    width: 40px;
+    padding: 14px;
+    margin-top: 10px;
+}
+
+.mypage-form span {
+    font-size: 17px;
+}
+
+.mypage-form>div>div {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.mypage-form>div>div>button {
+    padding: 10px 20px 10px 20px;
+    margin-top: 10px;
+    border: 1px solid black;
+    border-radius: 10px;
+    height: 80%;
+    background-color: #FDD83E;
+    font-weight: bold;
+}
+
+.mypage-form>div>div>input {
+    width: 80%;
+    margin-right: 30px;
+}
+
+.name-gender {
+    display: flex;
+    flex-direction: row;
+
+    width: 100%;
+}
+
+.name-gender>div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+#name-div {
+    width: 90%;
+}
+
+#name-div>input{
+    width: 90%;
+}
+
+#gender-div>input {
+    width: 30%;
+}
