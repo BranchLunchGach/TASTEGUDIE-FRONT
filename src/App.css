@@ -1,6 +1,6 @@
 .App {
-  width: 1920px;
-  height: 1080px;
+  width: 100vw;
   text-align: center;
   background-image: url("/public/img-bg_main.jpg");
+  background-attachment: fixed;
 }

@@ -11,6 +11,9 @@ html, body{
     font-size: 14px;
     font-family:"Noto Sans KR"
 }
+p {
+    font-size: medium;
+}
 `;
 
 export default GlobalStyle;
