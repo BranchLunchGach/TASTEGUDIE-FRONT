@@ -8,6 +8,7 @@ const Form = styled.form`
   flex-wrap: wrap;
   padding: 1vw;
   font-size: 1vw;
+  margin-left: 2vw;
 `;
 
 const Title = styled.h3`
@@ -123,7 +124,7 @@ const MenuKeywordPage = (props) => {
         </label>
         <Form>
         <div style={{display:"flex", alignItems:"center"}}>
-            <img alt='aa' src='/icon_naver-login.png' style={{width:"2vw", height:"2vw"}}/>
+            <img alt='aa' src='/light.png' style={{width:"2vw", height:"2vw"}}/>
             <Label
               onClick={(event) => handleFoodChange("가벼운", event)}
             >
@@ -132,7 +133,7 @@ const MenuKeywordPage = (props) => {
             </Label>
           </div>
           <div style={{display:"flex", alignItems:"center"}}>
-            <img alt='aa' src='/icon_naver-login.png' style={{width:"2vw", height:"2vw"}}/>
+            <img alt='aa' src='/heavy.png' style={{width:"2vw", height:"2vw"}}/>
             <Label
               onClick={(event) => handleFoodChange("든든한", event)}
             >
@@ -141,7 +142,7 @@ const MenuKeywordPage = (props) => {
             </Label>
           </div>
           <div style={{display:"flex", alignItems:"center"}}>
-            <img alt='aa' src='/icon_naver-login.png' style={{width:"2vw", height:"2vw"}}/>
+            <img alt='aa' src='/alcohol.png' style={{width:"2vw", height:"2vw"}}/>
             <Label
               onClick={(event) => handleFoodChange("술과 어울리는", event)}
             >
@@ -153,30 +154,31 @@ const MenuKeywordPage = (props) => {
       </div>
       <div>
         <Title> === 국물 유무를 선택하세요 ===</Title>
+        <label
+          onClick={(event) => handleSoupChange("상관없음", event)}
+          style={{cursor:"pointer", display: "block", textAlign: "right", marginRight:"30px" }}
+        >
+          상관없음
+        </label>
         <Form>
           <div style={{display:"flex", alignItems:"center"}}>
-            <img alt='aa' src='/icon_naver-login.png' style={{width:"2vw", height:"2vw"}}/>
+            <img alt='aa' src='/soupYes.png' style={{width:"2vw", height:"2vw"}}/>
             <Label
               onClick={(event) => handleSoupChange("있음", event)}
             >
-              있음 &nbsp; {selectedFoodKeywords.includes("있음")?"✅":""}<br/>
+              있음 &nbsp; {selectedSoup.includes("있음")?"✅":""}<br/>
               <Span>ex. 짬뽕, 잔치국수, 쌀국수</Span>
             </Label>
           </div>
           <div style={{display:"flex", alignItems:"center"}}>
-            <img alt='aa' src='/icon_naver-login.png' style={{width:"2vw", height:"2vw"}}/>
+            <img alt='aa' src='/soupNo.png' style={{width:"2vw", height:"2vw"}}/>
             <Label
               onClick={(event) => handleSoupChange("없음", event)}
             >
-              없음 &nbsp; {selectedFoodKeywords.includes("없음")?"✅":""}<br/>
+              없음 &nbsp; {selectedSoup.includes("없음")?"✅":""}<br/>
               <Span>ex. 치킨, 피자</Span>
             </Label>
           </div>
-          <Label
-            onClick={(event) => handleSoupChange("상관없음", event)}
-          >
-            상관없음
-          </Label>
         </Form>
       </div>
     </div>

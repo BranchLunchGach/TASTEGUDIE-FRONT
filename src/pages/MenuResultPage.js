@@ -36,6 +36,8 @@ const MenuResultPage = () => {
 
   useEffect(() => {
     local(menu);
+    console.log(location.state.coreKeyword);
+    console.log(location.state.mainKeyword);
 
     /*
     if(localStorage.getItem("selectMenuName")===null){
