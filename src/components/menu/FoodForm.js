@@ -8,6 +8,7 @@ const Form = styled.form`
   flex-wrap: wrap;
   padding: 1vw;
   font-size: 1vw;
+  margin-left: 2vw;
 `;
 
 const Title = styled.h3`
@@ -85,7 +86,7 @@ const FoodForm = (props) => {
       </label>
       <Form>
         <div style={{display:"flex", alignItems:"center"}}>
-          <img alt='aa' src='/icon_naver-login.png' style={{width:"2vw", height:"2vw"}}/>
+          <img alt='aa' src='/korean.png' style={{width:"2vw", height:"2vw"}}/>
           <Label
             onClick={(event) => handleFoodChange("한식", event)}
           >
@@ -94,7 +95,7 @@ const FoodForm = (props) => {
           </Label>
         </div>
         <div style={{display:"flex", alignItems:"center"}}>
-          <img alt='aa' src='/icon_naver-login.png' style={{width:"2vw", height:"2vw"}}/>
+          <img alt='aa' src='/western.png' style={{width:"2vw", height:"2vw"}}/>
           <Label
             onClick={(event) => handleFoodChange("양식", event)}
           >
@@ -103,7 +104,7 @@ const FoodForm = (props) => {
           </Label>
         </div>
         <div style={{display:"flex", alignItems:"center"}}>
-          <img alt='aa' src='/icon_naver-login.png' style={{width:"2vw", height:"2vw"}}/>
+          <img alt='aa' src='/japanese.png' style={{width:"2vw", height:"2vw"}}/>
           <Label
             onClick={(event) => handleFoodChange("일식", event)}
           >
@@ -112,7 +113,7 @@ const FoodForm = (props) => {
           </Label>
         </div>
         <div style={{display:"flex", alignItems:"center"}}>
-          <img alt='aa' src='/icon_naver-login.png' style={{width:"2vw", height:"2vw"}}/>
+          <img alt='aa' src='/chinese.png' style={{width:"2vw", height:"2vw"}}/>
           <Label
             onClick={(event) => handleFoodChange("중식", event)}
           >
@@ -121,7 +122,7 @@ const FoodForm = (props) => {
           </Label>
         </div>
         <div style={{display:"flex", alignItems:"center"}}>
-          <img alt='aa' src='/icon_naver-login.png' style={{width:"2vw", height:"2vw"}}/>
+          <img alt='aa' src='/asian.png' style={{width:"2vw", height:"2vw"}}/>
           <Label
             onClick={(event) => handleFoodChange("아시안", event)}
           >
