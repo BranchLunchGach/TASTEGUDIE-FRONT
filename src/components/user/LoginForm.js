@@ -63,14 +63,14 @@ const StyledSubTitle = styled.p`
 
 const flexRowBetweenStyle = {
   display: "flex",
-  "justify-content": "space-between",
+  justifyContent: "space-between",
 };
 const flexRowEvenlyStyle = {
   display: "flex",
-  "justify-content": "space-evenly",
+  justifyContent: "space-evenly",
 };
 const linkStyle = {
-  "text-decoration": "none",
+  textDecoration: "none",
   color: "#6282F4",
 }
 
@@ -97,12 +97,15 @@ const LoginForm = () => {
         let formData = new FormData();
         formData.append("username",user.username);
         formData.append("password",user.password);
-
-
+        let token = localStorage.getItem("Authorization");
+        console.log("token="+token);
         axios({
             url:"http://localhost:9000/login",
             method:"post",
             data:formData,
+            headers:{
+              Authorization:token
+            }
            
           
         })
@@ -152,7 +155,7 @@ const LoginForm = () => {
           <h3>아이디</h3>
           <StyledInput
             type="text"
-            name="id"
+            name="username"
             id="idinput"
             placeholder="이메일 형식으로 입력"
             onChange={handleForm}
