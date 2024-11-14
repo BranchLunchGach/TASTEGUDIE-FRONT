@@ -8,11 +8,12 @@ import { HelloProvider } from "./context/HelloContext";
 function App() {
   return (
     <div className="App">
-      <HelloProvider>
-        <BrowserRouter>
-          <Navirouter />
-        </BrowserRouter>
-      </HelloProvider>
+      <BrowserRouter>
+        <Navirouter /> 
+        <ResDetailPage />
+        <MainPage />
+        <ChoiceListPage />
+      </BrowserRouter>
     </div>
   );
 }
