@@ -1,9 +1,9 @@
 import { BrowserRouter } from "react-router-dom";
 import "./App.css";
 import Navirouter from "./Navirouter";
-import ResDetailPage from './ResDetailPage';
-import MainPage from './MainPage';
-import ChoiceListPage from './ChoiceListPage';
+import ResDetailPage from "./pages/restaurent/ResDetailPage";
+import MainPage from "./pages/MainPage";
+import ChoiceListPage from "./pages/ChoiceListPage";
 import { HelloProvider } from "./context/HelloContext";
 
 
