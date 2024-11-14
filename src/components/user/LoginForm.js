@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import "./LoginForm.css";
 
-//css
 const StyledContentBox = styled.div`
   display: flex;
   justify-content: space-between;
@@ -72,70 +71,64 @@ const flexRowEvenlyStyle = {
 const linkStyle = {
   "text-decoration": "none",
   color: "#6282F4",
-}
+};
 
 //component
 const LoginForm = () => {
-    const [user, setUser] = useState({
-        username: "",
-        password: "",
+  const [user, setUser] = useState({
+    username: "",
+    password: "",
+  });
+
+  const handleForm = (e) => {
+    setUser({
+      ...user,
+      [e.target.name]: e.target.value,
     });
-    
-    const handleForm = (e) => {
-        setUser({
-          ...user,
-          [e.target.name]: e.target.value,
-        });
-    };
-     
+  };
 
-    const login= (e)=>{
-        e.preventDefault();
-        //let id = $('#idinput').val();
-        //let password = $('#passinput').val();
+  const login = (e) => {
+    e.preventDefault();
+    //let id = $('#idinput').val();
+    //let password = $('#passinput').val();
 
-        let formData = new FormData();
-        formData.append("username",user.username);
-        formData.append("password",user.password);
+    let formData = new FormData();
+    formData.append("username", user.username);
+    formData.append("password", user.password);
 
+    axios({
+      url: "http://localhost:9000/login",
+      method: "post",
+      data: formData,
+    })
+      .then((res) => {
+        let token = res.headers.authorization;
+        localStorage.setItem("Authorization", token);
+        window.location.href = "http://localhost:3000";
+      })
+      .catch((error) => {
+        alert("id와 password가 올바르지 않습니다.");
+        console.log(error);
+      });
+  };
 
-        axios({
-            url:"http://localhost:9000/login",
-            method:"post",
-            data:formData,
-           
-          
-        })
-        .then((res)=>{
-            let token = res.headers.authorization;
-            localStorage.setItem("Authorization",token);
-            window.location.href="http://localhost:3000";
-        })
-        .catch((error)=>{
-            alert("id와 password가 올바르지 않습니다.")
-            console.log(error);
-        })
-    }
+  const googleApi = () => {
+    const googleUrl =
+      "https://accounts.google.com/o/oauth2/v2/auth?" +
+      "client_id=" +
+      process.env.REACT_APP_GOOGLE_LOGIN_API_KEY +
+      "&redirect_uri=" +
+      "http://localhost:3000/callback" +
+      "&response_type=code" +
+      "&scope=email%20profile" +
+      "%20https://www.googleapis.com/auth/user.birthday.read" +
+      "%20https://www.googleapis.com/auth/user.addresses.read" +
+      "%20https://www.googleapis.com/auth/user.phonenumbers.read" +
+      "%20https://www.googleapis.com/auth/profile.agerange.read" +
+      "%20https://www.googleapis.com/auth/user.gender.read";
+    window.location.href = googleUrl;
+  };
 
-    const googleApi = ()=>{
-        
-        const googleUrl = "https://accounts.google.com/o/oauth2/v2/auth?"
-            +"client_id="
-            + process.env.REACT_APP_GOOGLE_LOGIN_API_KEY
-            +  "&redirect_uri=" 
-            + "http://localhost:3000/callback" 
-            + "&response_type=code"
-            + "&scope=email%20profile"
-            + "%20https://www.googleapis.com/auth/user.birthday.read"
-            + "%20https://www.googleapis.com/auth/user.addresses.read"
-            + "%20https://www.googleapis.com/auth/user.phonenumbers.read"
-            + "%20https://www.googleapis.com/auth/profile.agerange.read"
-            + "%20https://www.googleapis.com/auth/user.gender.read";
-            window.location.href=googleUrl;
-          
-      };
-      
-  
   return (
     <StyledContentBox>
       <div>

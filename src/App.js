@@ -4,14 +4,17 @@ import Navirouter from "./Navirouter";
 import ResRecommResultPage from "./pages/restaurent/ResRecommResultPage";
 import ResDetailPage from "./pages/restaurent/ResDetailPage";
 import MainPage from "./pages/MainPage";
+import SelectPage from "./pages/ChoiceListPage";
+import ChoiceListPage from "./pages/ChoiceListPage";
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
         {/* <Navirouter /> */}
-        <ResDetailPage />
+        {/* <ResDetailPage /> */}
         {/* <MainPage /> */}
+        <ChoiceListPage />
       </BrowserRouter>
     </div>
   );
