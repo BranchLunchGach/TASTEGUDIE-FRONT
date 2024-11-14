@@ -3,6 +3,19 @@ import './RegisterForm.css';
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import $ from 'jquery';
+import styled from 'styled-components';
+
+
+const StyledButton = styled.button`
+  width: 100%;
+  font-size: medium;
+  font-weight: bold;
+  padding: 10px 0;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  background: black;
+`;
 
 const RegisterForm = () => {
     const SPRING_IP = process.env.REACT_APP_SPRING_IP;
@@ -136,7 +149,7 @@ const RegisterForm = () => {
             console.log("[2]="+phonearray[2].length);
             
             if( phonearray[1].length < 3| phonearray[2].length <4){
-                alert("알맞은 숫자를 입력해주세요.");
+                alert("알맞은 번호를 입력해주세요.");
     
             }
         }
@@ -159,7 +172,7 @@ const RegisterForm = () => {
        }else if(checkResult !=="비밀번호가 일치합니다."){
         alert("비밀번호가 일치하지 않습니다.");
         $('#password2').focus();
-       }else if($('#phone').val() !== "" && phonearray.length !== 3  ){
+       }else if($('#phone').val() === "" || phonearray.length !== 3  ){
             alert("전화번호를 010-1111-1111 형식으로 넣어주세요.")
             $('#phone').focus();
        }else if(!isemailCheck){
@@ -167,6 +180,7 @@ const RegisterForm = () => {
             $('#emailbtn').focus();
        }
        else{
+        
         //회원가입 요청
             axios({
                 method:"POST",
@@ -206,6 +220,7 @@ const RegisterForm = () => {
                 errMessage += err.response.data.timestamp;
                 alert(errMessage);
             }); 
+            
         }//else
     };// 가입하기 완료
 
@@ -254,6 +269,7 @@ const RegisterForm = () => {
         if(emailCode == code){
             alert("일치합니다.");
             setIsEmailCheck(true);
+            $('#userId').attr("readOnly",true);
         }else{
             console.log("code="+code);
             console.log("emailCode="+emailCode);
@@ -280,13 +296,13 @@ const RegisterForm = () => {
                         <label>
                             <span>*아이디</span>
                             <input type='text' id="userId" name="userId" placeholder='abc@google.com' onChange={changeValue}/>
-                            <button id="emailbtn" onClick={sendEmail}>메일 전송하기</button>
+                            <StyledButton id="emailbtn" onClick={sendEmail}>인증번호 보내기</StyledButton>
                         </label>
                         
                         <label>
                             <span>*인증 코드</span>
                             <input type='text' id="code" name="code"/>
-                            <button id="codetbn" onClick={checkCode}>인증하기</button>
+                            <StyledButton id="codetbn" onClick={checkCode}>인증하기</StyledButton>
                         </label>
 
                         <label>
@@ -308,7 +324,7 @@ const RegisterForm = () => {
                         </label>
 
                         <label>
-                            <span>전화번호</span>
+                            <span>*전화번호</span>
                             <input type='text' id="phone" name="phone" placeholder='010-1111-1111'  onChange={changeValue}/>
                         </label>
 
@@ -351,7 +367,7 @@ const RegisterForm = () => {
                             </div>
                         </label>
 
-                        <button type='submit' id="register-button" onClick={submitJoin}>회원가입</button>
+                        <StyledButton type='submit' id="register-button" onClick={submitJoin}>회원가입</StyledButton>
                     </form>
                 </div>
             </div>
