@@ -8,6 +8,11 @@ import Callback from "./components/user/Callback";
 import LoginPage from './pages/user/LoginPage'
 import JoinPage from "./pages/user/JoinPage";
 import MyPage from "./pages/user/MyPage";
+import FindIDPWDPage from "./pages/user/FindIDPWDPage";
+import Hello from "./pages/Hello";
+import ListArea from "./components/api/ListArea"
+import HelloResultPage from "./pages/HelloResultPage";
+import HelloResultCompletePage from "./pages/HelloResultCompletePage";
 
 const Navirouter = () => {
   return (
@@ -21,6 +26,11 @@ const Navirouter = () => {
         <Route path='/callback' element={<Callback />} />
         <Route path="/sign-up" element={<JoinPage />} />
         <Route path="/mypage" element={<MyPage />} />
+        <Route path="/findidpwd" element={<FindIDPWDPage />} />
+        <Route path="/hello" element={<Hello />} />
+        <Route path="/naverapitest" element={<ListArea />} />
+        <Route path="/hello/result" element={<HelloResultPage />} />
+        <Route path="/hello/result/complete" element={<HelloResultCompletePage />} />
       </Routes>
     </div>
   );

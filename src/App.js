@@ -1,13 +1,16 @@
 import { BrowserRouter } from "react-router-dom";
 import "./App.css";
 import Navirouter from "./Navirouter";
+import { HelloProvider } from "./context/HelloContext";
 
 function App() {
   return (
     <div className="App">
-      <BrowserRouter>
-        <Navirouter />
-      </BrowserRouter>
+      <HelloProvider>
+        <BrowserRouter>
+          <Navirouter />
+        </BrowserRouter>
+      </HelloProvider>
     </div>
   );
 }

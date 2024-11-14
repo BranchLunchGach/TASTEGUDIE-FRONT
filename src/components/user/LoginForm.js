@@ -174,7 +174,7 @@ const LoginForm = () => {
             </Link>
           </StyledP>
           <StyledP>
-            <Link to={"/join"} style={linkStyle}>
+            <Link to={"/findidpwd"} style={linkStyle}>
               아이디/비밀번호 찾기
             </Link>
           </StyledP>
