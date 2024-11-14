@@ -15,6 +15,7 @@ import ListArea from "./components/api/ListArea"
 import HelloResultPage from "./pages/HelloResultPage";
 import HelloResultCompletePage from "./pages/HelloResultCompletePage";
 import ChoiceListPage from "./pages/ChoiceListPage";
+import AiPage from "./components/AI/AiPage";
 
 const Navirouter = () => {
   return (
@@ -29,12 +30,12 @@ const Navirouter = () => {
         <Route path='/callback' element={<Callback />} />
         <Route path="/sign-up" element={<JoinPage />} />
         <Route path="/mypage" element={<MyPage />} />
-
         <Route path="/hello" element={<Hello />} />
         <Route path="/naverapitest" element={<ListArea />} />
         <Route path="/hello/result" element={<HelloResultPage />} />
         <Route path="/hello/result/complete" element={<HelloResultCompletePage />} />
         <Route path="/find" element={<FindIDPWDPage />} />
+        <Route path="/ai" element={<AiPage />} />
       </Routes>
     </div>
   );

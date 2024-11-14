@@ -30,7 +30,7 @@ const StyledOptionBox = styled.div`
     transform: translateY(3vh);
     -webkit-transition: 0.3s transform ease-out;
     transition: 0.3s transform ease-out;
-
+  }
 
 `;
 const StyledNameBox = styled.div`
