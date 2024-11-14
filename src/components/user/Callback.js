@@ -1,9 +1,12 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+
 
 const Callback = () => {
-    
+    const navigator = useNavigate();
+    const SPRING_IP = process.env.REACT_APP_SPRING_IP;
+    const FRONT_IP = process.env.REACT_APP_FRONT_IP; 
     useEffect(()=>{
         console.log("callback page start");
         console.log("url = "+ window.location);
@@ -12,7 +15,7 @@ const Callback = () => {
         console.log("code= "+code );
         
         axios({
-            url:"http://localhost:9000/auth/google/code?code="+code,
+            url: SPRING_IP+"/auth/google/code?code="+code,
             method:"get",
         })
         .then((res)=>{
@@ -26,7 +29,7 @@ const Callback = () => {
                    // window.location.href = "http://localhost:3000/extra";
                 //일단은 그냥 회원가입 진행
                 axios({
-                    url:"http://localhost:9000/users",
+                    url:SPRING_IP+"/users",
                     method:"POST",
                     data:user,
                 })
@@ -37,20 +40,22 @@ const Callback = () => {
             }
 
                 axios({
-                    url:"http://localhost:9000/auth/google/token",
+                    url: SPRING_IP+"/auth/google/token",
                     method: "POST",
                     data:user,
                 })
                 .then((res)=>{
                     let token = res.headers.authorization;
                     localStorage.setItem("Authorization",token);
-                    window.location.href="http://localhost:3000";
+                    navigator("/");
+                    
                 })
             
         })
         .catch((error)=>{
             console.log(error);
-            window.location.href="http://localhost:3000/Error";
+            navigator("/error");
+            
         })
             
     },[])

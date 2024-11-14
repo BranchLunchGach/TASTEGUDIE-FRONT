@@ -90,91 +90,102 @@ const FoodCategoryForm = (props) => {
       </label>
       <Form>
         <div style={{display:"flex", alignItems:"center", width:"80%"}}>
-          <img alt='aa' src='/icon_naver-login.png' style={{width:"2vw", height:"2vw"}}/>
+          <img alt='aa' src='/fry.png' style={{width:"2vw", height:"2vw"}}/>
           <Label
             onClick={(event) => handleFoodChange("튀김류", event)}
           >
-            튀김류 &nbsp; {selectedFoodCategorys.includes("튀김류")?"✅":""}
+            튀김류 &nbsp; {selectedFoodCategorys.includes("튀김류")?"✅":""}<br/>
+            <Span>ex. 돈가스, 탕수육, 깐쇼새우</Span>
           </Label>
         </div>
         <div style={{display:"flex", alignItems:"center", width:"80%"}}>
-          <img alt='aa' src='/icon_naver-login.png' style={{width:"2vw", height:"2vw"}}/>
+          <img alt='aa' src='/jorim.png' style={{width:"2vw", height:"2vw"}}/>
           <Label
             onClick={(event) => handleFoodChange("조림 및 찜류", event)}
           >
-            조림 및 찜류 &nbsp; {selectedFoodCategorys.includes("조림 및 찜류")?"✅":""}
+            조림 및 찜류 &nbsp; {selectedFoodCategorys.includes("조림 및 찜류")?"✅":""}<br/>
+            <Span>ex. 족발, 보쌈, 갈비찜</Span>
           </Label>
         </div>
         <div style={{display:"flex", alignItems:"center", width:"80%"}}>
-          <img alt='aa' src='/icon_naver-login.png' style={{width:"2vw", height:"2vw"}}/>
+          <img alt='aa' src='/soup.png' style={{width:"2vw", height:"2vw"}}/>
           <Label
             onClick={(event) => handleFoodChange("찌개 및 전골류", event)}
           >
-            찌개 및 전골류 &nbsp; {selectedFoodCategorys.includes("찌개 및 전골류")?"✅":""}
+            찌개 및 전골류 &nbsp; {selectedFoodCategorys.includes("찌개 및 전골류")?"✅":""}<br/>
+            <Span>ex. 샤브샤브, 나베, 만두전골</Span>
           </Label>
         </div>
         <div style={{display:"flex", alignItems:"center", width:"80%"}}>
-          <img alt='aa' src='/icon_naver-login.png' style={{width:"2vw", height:"2vw"}}/>
+          <img alt='aa' src='/buchim.png' style={{width:"2vw", height:"2vw"}}/>
           <Label
             onClick={(event) => handleFoodChange("부침류", event)}
           >
-            부침류 &nbsp; {selectedFoodCategorys.includes("부침류")?"✅":""}
+            부침류 &nbsp; {selectedFoodCategorys.includes("부침류")?"✅":""}<br/>
+            <Span>ex. 김치전, 감자전, 부추전</Span>
           </Label>
         </div>
         <div style={{display:"flex", alignItems:"center", width:"80%"}}>
-          <img alt='aa' src='/icon_naver-login.png' style={{width:"2vw", height:"2vw"}}/>
+          <img alt='aa' src='/muchim.png' style={{width:"2vw", height:"2vw"}}/>
           <Label
             onClick={(event) => handleFoodChange("무침 및 절임류", event)}
           >
-            무침 및 절임류 &nbsp; {selectedFoodCategorys.includes("무침 및 절임류")?"✅":""}
+            무침 및 절임류 &nbsp; {selectedFoodCategorys.includes("무침 및 절임류")?"✅":""}<br/>
+            <Span>ex. 골뱅이무침, 육회, 샐러드</Span>
           </Label>
         </div>
         <div style={{display:"flex", alignItems:"center", width:"80%"}}>
-          <img alt='aa' src='/icon_naver-login.png' style={{width:"2vw", height:"2vw"}}/>
+          <img alt='aa' src='/bbang.png' style={{width:"2vw", height:"2vw"}}/>
           <Label
             onClick={(event) => handleFoodChange("빵류", event)}
           >
-            빵류 &nbsp; {selectedFoodCategorys.includes("빵류")?"✅":""}
+            빵류 &nbsp; {selectedFoodCategorys.includes("빵류")?"✅":""}<br/>
+            <Span>ex. 피자, 핫도그, 햄버거</Span>
           </Label>
         </div>
         <div style={{display:"flex", alignItems:"center", width:"80%"}}>
-          <img alt='aa' src='/icon_naver-login.png' style={{width:"2vw", height:"2vw"}}/>
+          <img alt='aa' src='/bokkeum.png' style={{width:"2vw", height:"2vw"}}/>
           <Label
             onClick={(event) => handleFoodChange("볶음류", event)}
           >
-            볶음류 &nbsp; {selectedFoodCategorys.includes("볶음류")?"✅":""}
+            볶음류 &nbsp; {selectedFoodCategorys.includes("볶음류")?"✅":""}<br/>
+            <Span>ex. 제육볶음, 떡볶이, 팔보채</Span>
           </Label>
         </div>
         <div style={{display:"flex", alignItems:"center", width:"80%"}}>
-          <img alt='aa' src='/icon_naver-login.png' style={{width:"2vw", height:"2vw"}}/>
+          <img alt='aa' src='/rice.png' style={{width:"2vw", height:"2vw"}}/>
           <Label
             onClick={(event) => handleFoodChange("밥류", event)}
           >
-            밥류 &nbsp; {selectedFoodCategorys.includes("밥류")?"✅":""}
+            밥류 &nbsp; {selectedFoodCategorys.includes("밥류")?"✅":""}<br/>
+            <Span>ex. 초밥, 오므라이스, 김밥</Span>
           </Label>
         </div>
         <div style={{display:"flex", alignItems:"center", width:"80%"}}>
-          <img alt='aa' src='/icon_naver-login.png' style={{width:"2vw", height:"2vw"}}/>
+          <img alt='aa' src='/noodle.png' style={{width:"2vw", height:"2vw"}}/>
           <Label
             onClick={(event) => handleFoodChange("면류", event)}
           >
-            면류 &nbsp; {selectedFoodCategorys.includes("면류")?"✅":""}
+            면류 &nbsp; {selectedFoodCategorys.includes("면류")?"✅":""}<br/>
+            <Span>ex. 콩국수, 라멘, 짬뽕</Span>
           </Label>
         </div>
         <div style={{display:"flex", alignItems:"center", width:"80%"}}>
-          <img alt='aa' src='/icon_naver-login.png' style={{width:"2vw", height:"2vw"}}/>
+          <img alt='aa' src='/guk.png' style={{width:"2vw", height:"2vw"}}/>
           <Label
             onClick={(event) => handleFoodChange("국 및 탕류", event)}
           >
-            국 및 탕류 &nbsp; {selectedFoodCategorys.includes("국 및 탕류")?"✅":""}
+            국 및 탕류 &nbsp; {selectedFoodCategorys.includes("국 및 탕류")?"✅":""}<br/>
+            <Span>ex. 곰탕, 설렁탕, 육개장</Span>
           </Label>
         </div>
         <div style={{display:"flex", alignItems:"center", width:"80%"}}>
-          <img alt='aa' src='/icon_naver-login.png' style={{width:"2vw", height:"2vw"}}/>
+          <img alt='aa' src='/gu2.png' style={{width:"2vw", height:"2vw"}}/>
           <Label
             onClick={(event) => handleFoodChange("구이류", event)}
           >
-            구이류 &nbsp; {selectedFoodCategorys.includes("구이류")?"✅":""}
+            구이류 &nbsp; {selectedFoodCategorys.includes("구이류")?"✅":""}<br/>
+            <Span>ex. 삼겹살, 떡갈비, 스테이크</Span>
           </Label>
         </div>
       </Form>

@@ -4,7 +4,6 @@ import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import "./LoginForm.css";
 
-//css
 const StyledContentBox = styled.div`
   display: flex;
   justify-content: space-between;
@@ -72,37 +71,40 @@ const flexRowEvenlyStyle = {
 const linkStyle = {
   textDecoration: "none",
   color: "#6282F4",
-}
+};
 
 //component
 const LoginForm = () => {
-    const navigator = useNavigate();
-    const [user, setUser] = useState({
-        username: "",
-        password: "",
+  const navigator = useNavigate();
+  const SPRING_IP = process.env.REACT_APP_SPRING_IP;
+  const FRONT_IP = process.env.REACT_APP_FRONT_IP; 
+  const [user, setUser] = useState({
+      username: "",
+      password: "",
     });
-    
-    const handleForm = (e) => {
-        setUser({
-          ...user,
-          [e.target.name]: e.target.value,
-        });
-    };
-     
+ 
 
-    const login= (e)=>{
-        e.preventDefault();
-        //let id = $('#idinput').val();
-        //let password = $('#passinput').val();
+  const handleForm = (e) => {
+    setUser({
+      ...user,
+      [e.target.name]: e.target.value,
+    
+    });
+  }
+  const login = (e) => {
+    e.preventDefault();
+    
+    //let id = $('#idinput').val();
+    //let password = $('#passinput').val();
+
 
         let formData = new FormData();
         formData.append("username",user.username);
         formData.append("password",user.password);
-        let token = localStorage.getItem("Authorization");
-        console.log("token="+token);
-        console.log("url="+process.env.REACT_APP_BACK_IP+"/login");
+        //console.log("token="+token);
+        //console.log("url="+process.env.REACT_APP_BACK_IP+"/login");
         axios({
-            url:process.env.REACT_APP_BACK_IP+"/login",
+            url:SPRING_IP+"/login",
             method:"post",
             data:formData,
            
@@ -111,11 +113,12 @@ const LoginForm = () => {
         .then((res)=>{
             let token = res.headers.authorization;
             localStorage.setItem("Authorization",token);
-            window.location.href="http://localhost:3000";
+            navigator("/");
         })
         .catch((error)=>{
             alert("id와 password가 올바르지 않습니다.")
             console.log(error);
+            navigator("/error");
         })
     }
 
@@ -125,7 +128,7 @@ const LoginForm = () => {
             +"client_id="
             + process.env.REACT_APP_GOOGLE_LOGIN_API_KEY
             +  "&redirect_uri=" 
-            + process.env.REACT_APP_FRONT_IP+"/callback" 
+            + FRONT_IP+"/callback" 
             + "&response_type=code"
             + "&scope=email%20profile"
             + "%20https://www.googleapis.com/auth/user.birthday.read"
@@ -138,6 +141,7 @@ const LoginForm = () => {
       };
       
   
+
   return (
     <StyledContentBox>
       <div>
