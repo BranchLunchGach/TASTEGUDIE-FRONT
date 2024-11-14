@@ -8,6 +8,7 @@ import Callback from "./components/user/Callback";
 import LoginPage from './pages/user/LoginPage'
 import JoinPage from "./pages/user/JoinPage";
 import MyPage from "./pages/user/MyPage";
+import FindIDPWDPage from "./pages/user/FindIDPWDPage";
 
 const Navirouter = () => {
   return (
@@ -21,6 +22,7 @@ const Navirouter = () => {
         <Route path='/callback' element={<Callback />} />
         <Route path="/sign-up" element={<JoinPage />} />
         <Route path="/mypage" element={<MyPage />} />
+        <Route path="/find" element={<FindIDPWDPage />} />
       </Routes>
     </div>
   );

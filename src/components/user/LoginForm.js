@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import "./LoginForm.css";
 
@@ -76,6 +76,7 @@ const linkStyle = {
 
 //component
 const LoginForm = () => {
+    const navigator = useNavigate();
     const [user, setUser] = useState({
         username: "",
         password: "",
@@ -99,13 +100,11 @@ const LoginForm = () => {
         formData.append("password",user.password);
         let token = localStorage.getItem("Authorization");
         console.log("token="+token);
+        console.log("url="+process.env.REACT_APP_BACK_IP+"/login");
         axios({
-            url:"http://localhost:9000/login",
+            url:process.env.REACT_APP_BACK_IP+"/login",
             method:"post",
             data:formData,
-            headers:{
-              Authorization:token
-            }
            
           
         })
@@ -126,7 +125,7 @@ const LoginForm = () => {
             +"client_id="
             + process.env.REACT_APP_GOOGLE_LOGIN_API_KEY
             +  "&redirect_uri=" 
-            + "http://localhost:3000/callback" 
+            + process.env.REACT_APP_FRONT_IP+"/callback" 
             + "&response_type=code"
             + "&scope=email%20profile"
             + "%20https://www.googleapis.com/auth/user.birthday.read"
@@ -177,7 +176,7 @@ const LoginForm = () => {
             </Link>
           </StyledP>
           <StyledP>
-            <Link to={"/join"} style={linkStyle}>
+            <Link to={"/find"} style={linkStyle}>
               아이디/비밀번호 찾기
             </Link>
           </StyledP>

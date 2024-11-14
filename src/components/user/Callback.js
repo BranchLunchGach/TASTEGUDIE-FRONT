@@ -25,7 +25,6 @@ const Callback = () => {
                  //이 사이에 추가 정보 입력받으러 간다.
                    // window.location.href = "http://localhost:3000/extra";
                 //일단은 그냥 회원가입 진행
-                alert("userNo== 0 axios 시작");
                 axios({
                     url:"http://localhost:9000/users",
                     method:"POST",
