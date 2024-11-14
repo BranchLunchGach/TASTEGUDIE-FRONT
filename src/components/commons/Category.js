@@ -37,11 +37,11 @@ const signInStyle = {
 const Category = () => {
   return (
     <StyledCategory className="category">
-      <Link to="/menu">
+      <Link to="/choice">
         <StyledButton style={menuStyle}>MENU</StyledButton>
       </Link>
-      <Link to="/course">
-        <StyledButton style={courseStyle}>COURSE</StyledButton>
+      <Link to="/mypage">
+        <StyledButton style={courseStyle}>MyPage</StyledButton>
       </Link>
       <Link to="/sign-in">
         <StyledButton style={signInStyle}>SIGN IN</StyledButton>

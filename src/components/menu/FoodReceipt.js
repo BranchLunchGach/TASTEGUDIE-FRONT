@@ -17,11 +17,11 @@ const FoodReceipt = ({ food }) => {
     }, 0);
 
     return (
-        <div style={{ width: '300px', height:"600px", marginTop:"3vh", border: '1px solid', backgroundColor: "white" }}>
-            <h2 style={{ textAlign: 'center', margin: '10px 0' }}>TASTE GUIDE</h2>
+        <div style={{ width: '300px', height:"650px", marginTop:"3vh", border: '1px solid', backgroundColor: "white" }}>
+            <h2 style={{ textAlign: 'center', margin: '10px 0' }}>TASTE GUIDE<br/>menu</h2>
             <div style={{ width:"90%", margin:"auto", display: 'flex', justifyContent: 'space-between', padding: '10px 0' }}>
                 <span>{formattedDate}</span>
-                <span>No.</span>
+                <span>No.1</span>
             </div>
             <table border="1" style={{ width: '90%', margin:"auto", borderCollapse: 'collapse', textAlign: 'center' }}>
                 <thead>
@@ -35,7 +35,7 @@ const FoodReceipt = ({ food }) => {
                     {menuItems.map((section, index) => (
                         <React.Fragment key={index}>
                             <tr>
-                                <td rowSpan={section.items.length + 1} style={{ fontWeight: 'bold', textAlign: 'left', paddingLeft: '10px', backgroundColor: 'lightgray' }}>
+                                <td rowSpan={section.items.length + 1} style={{ width:"40%" ,fontWeight: 'bold', textAlign: 'center', backgroundColor: 'lightgray' }}>
                                     {section.category}
                                 </td>
                             </tr>
