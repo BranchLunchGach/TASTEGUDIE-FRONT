@@ -75,6 +75,8 @@ const linkStyle = {
 
 //component
 const LoginForm = () => {
+  const SPRING_IP = process.env.REACT_APP_SPRING_IP;
+  const FRONT_IP = process.env.REACT_APP_FRONT_IP; 
   const [user, setUser] = useState({
     username: "",
     password: "",
@@ -89,6 +91,7 @@ const LoginForm = () => {
 
   const login = (e) => {
     e.preventDefault();
+    const navigator = useNavigate();
     //let id = $('#idinput').val();
     //let password = $('#passinput').val();
 
@@ -97,14 +100,14 @@ const LoginForm = () => {
     formData.append("password", user.password);
 
     axios({
-      url: "http://localhost:9000/login",
+      url: SPRING_IP+"/login",
       method: "post",
       data: formData,
     })
       .then((res) => {
         let token = res.headers.authorization;
         localStorage.setItem("Authorization", token);
-        window.location.href = "http://localhost:3000";
+        navigator("/");
       })
       .catch((error) => {
         alert("id와 password가 올바르지 않습니다.");
@@ -118,7 +121,7 @@ const LoginForm = () => {
       "client_id=" +
       process.env.REACT_APP_GOOGLE_LOGIN_API_KEY +
       "&redirect_uri=" +
-      "http://localhost:3000/callback" +
+      FRONT_IP+"/callback" +
       "&response_type=code" +
       "&scope=email%20profile" +
       "%20https://www.googleapis.com/auth/user.birthday.read" +

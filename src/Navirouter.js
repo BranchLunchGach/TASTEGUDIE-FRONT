@@ -21,6 +21,7 @@ const Navirouter = () => {
         <Route path='/callback' element={<Callback />} />
         <Route path="/sign-up" element={<JoinPage />} />
         <Route path="/mypage" element={<MyPage />} />
+        {/* <Route path="/error" element={<Error />} /> */}
       </Routes>
     </div>
   );

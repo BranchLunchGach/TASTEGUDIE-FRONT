@@ -111,7 +111,7 @@ const MenuRecommendOption = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:9000/menu",
+        process.env.REACT_APP_SPRING_IP+"/menu",
         selectedItems,
         {
           headers: {

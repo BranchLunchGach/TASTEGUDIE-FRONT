@@ -140,7 +140,7 @@ function MenuOption() {
 
   const recommand = () => {
     axios({
-      url: "http://localhost:9000/menu",
+      url: process.env.REACT_APP_SPRING_IP+"/menu",
       method: "post",
       data: {
         nation: selectedFoods.join(","),
