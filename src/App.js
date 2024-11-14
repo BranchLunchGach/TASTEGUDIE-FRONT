@@ -11,10 +11,10 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        {/* <Navirouter /> */}
+         <Navirouter /> 
         {/* <ResDetailPage /> */}
         {/* <MainPage /> */}
-        <ChoiceListPage />
+        {/* <ChoiceListPage /> */}
       </BrowserRouter>
     </div>
   );

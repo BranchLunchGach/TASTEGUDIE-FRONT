@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import "./FindIDPWDForm.css";
+import axios from "axios";
+import $ from "jquery";
 
 const StyledContentBox = styled.div`
   display: flex;
@@ -53,6 +55,19 @@ const StyledHr = styled.hr`
 `;
 
 const FindIDPWDForm = () => {
+  const findId = ()=>{
+    let name = $('#')
+    /*
+    axios({
+      url:process.env.REACT_APP_FRONT_IP+"findId",
+      method:"POST",
+      data:{
+        name:"",
+        phone:""
+      }
+    });
+    */
+  }
   return (
     <>
       <StyledContentBox>
@@ -61,12 +76,12 @@ const FindIDPWDForm = () => {
           <StyledFindIDPWDBox>
             <StyledForm>
               <StyledP>이름</StyledP>
-              <StyledInput type="text" placeholder="가입 시 입력한 이름" />
+              <StyledInput type="text" name="name"id="name" placeholder="가입 시 입력한 이름" />
               <StyledP>전화번호</StyledP>
-              <StyledInput type="text" placeholder="가입 시 입력한 전화번호" />
+              <StyledInput type="text" name="phone" id="phone" placeholder="가입 시 입력한 전화번호" />
             </StyledForm>
 
-            <StyledButton type="submit">아이디 찾기</StyledButton>
+            <StyledButton type="submit" onClick={findId}>아이디 찾기</StyledButton>
           </StyledFindIDPWDBox>
         </div>
 

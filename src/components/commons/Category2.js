@@ -34,7 +34,11 @@ const signInStyle = {
   rotate: "6deg",
 };
 
-const Category = () => {
+const Category2 = () => {
+  const logout=()=>{
+    localStorage.removeItem("Authorization");
+    window.location.href="http://localhost:3000"
+  }
   return (
     <StyledCategory className="category">
       <Link to="/choice">
@@ -43,11 +47,11 @@ const Category = () => {
       <Link to="/mypage">
         <StyledButton style={courseStyle}>MyPage</StyledButton>
       </Link>
-      <Link to="/sign-in">
-        <StyledButton style={signInStyle}>SIGN IN</StyledButton>
-      </Link>
+      
+        <StyledButton style={signInStyle} onClick={logout}>Log Out</StyledButton>
+        
     </StyledCategory>
   );
 };
 
-export default Category;
+export default Category2;
