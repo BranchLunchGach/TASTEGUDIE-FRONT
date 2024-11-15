@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const StyledContentBox = styled.div`
@@ -66,72 +66,85 @@ const StyledSubTitle = styled.p`
 
 const flexRowBetweenStyle = {
   display: "flex",
-  "justify-content": "space-between",
+  justifyContent: "space-between",
 };
 const flexRowEvenlyStyle = {
   display: "flex",
-  "justify-content": "space-evenly",
+  justifyContent: "space-evenly",
 };
 const linkStyle = {
-  "text-decoration": "none",
+  textDecoration: "none",
   color: "#6282F4",
 };
 
 //component
 const LoginForm = () => {
+  const navigator = useNavigate();
+  const SPRING_IP = process.env.REACT_APP_SPRING_IP;
+  const FRONT_IP = process.env.REACT_APP_FRONT_IP; 
   const [user, setUser] = useState({
-    username: "",
-    password: "",
-  });
+      username: "",
+      password: "",
+    });
+ 
 
   const handleForm = (e) => {
     setUser({
       ...user,
       [e.target.name]: e.target.value,
+    
     });
-  };
-
+  }
   const login = (e) => {
     e.preventDefault();
+    
     //let id = $('#idinput').val();
     //let password = $('#passinput').val();
 
-    let formData = new FormData();
-    formData.append("username", user.username);
-    formData.append("password", user.password);
 
-    axios({
-      url: "http://localhost:9000/login",
-      method: "post",
-      data: formData,
-    })
-      .then((res) => {
-        let token = res.headers.authorization;
-        localStorage.setItem("Authorization", token);
-        window.location.href = "http://localhost:3000";
-      })
-      .catch((error) => {
-        alert("id와 password가 올바르지 않습니다.");
-        console.log(error);
-      });
-  };
+        let formData = new FormData();
+        formData.append("username",user.username);
+        formData.append("password",user.password);
+        //console.log("token="+token);
+        //console.log("url="+process.env.REACT_APP_BACK_IP+"/login");
+        axios({
+            url:SPRING_IP+"/login",
+            method:"post",
+            data:formData,
+           
+          
+        })
+        .then((res)=>{
+            let token = res.headers.authorization;
+            localStorage.setItem("Authorization",token);
+            navigator("/");
+        })
+        .catch((error)=>{
+            alert("id와 password가 올바르지 않습니다.")
+            console.log(error);
+            navigator("/error");
+        })
+    }
 
-  const googleApi = () => {
-    const googleUrl =
-      "https://accounts.google.com/o/oauth2/v2/auth?" +
-      "client_id=" +
-      process.env.REACT_APP_GOOGLE_LOGIN_API_KEY +
-      "&redirect_uri=" +
-      "http://localhost:3000/callback" +
-      "&response_type=code" +
-      "&scope=email%20profile" +
-      "%20https://www.googleapis.com/auth/user.birthday.read" +
-      "%20https://www.googleapis.com/auth/user.addresses.read" +
-      "%20https://www.googleapis.com/auth/user.phonenumbers.read" +
-      "%20https://www.googleapis.com/auth/profile.agerange.read" +
-      "%20https://www.googleapis.com/auth/user.gender.read";
-    window.location.href = googleUrl;
-  };
+    const googleApi = ()=>{
+        
+        const googleUrl = "https://accounts.google.com/o/oauth2/v2/auth?"
+            +"client_id="
+            + process.env.REACT_APP_GOOGLE_LOGIN_API_KEY
+            +  "&redirect_uri=" 
+            + FRONT_IP+"/callback" 
+            + "&response_type=code"
+            + "&scope=email%20profile"
+            + "%20https://www.googleapis.com/auth/user.birthday.read"
+            + "%20https://www.googleapis.com/auth/user.addresses.read"
+            + "%20https://www.googleapis.com/auth/user.phonenumbers.read"
+            + "%20https://www.googleapis.com/auth/profile.agerange.read"
+            + "%20https://www.googleapis.com/auth/user.gender.read";
+            window.location.href=googleUrl;
+          
+      };
+      
+  
 
   return (
     <StyledContentBox>
@@ -149,7 +162,7 @@ const LoginForm = () => {
           <h3>아이디</h3>
           <StyledInput
             type="text"
-            name="id"
+            name="username"
             id="idinput"
             placeholder="이메일 형식으로 입력"
             onChange={handleForm}
@@ -171,7 +184,7 @@ const LoginForm = () => {
             </Link>
           </StyledP>
           <StyledP>
-            <Link to={"/join"} style={linkStyle}>
+            <Link to={"/find"} style={linkStyle}>
               아이디/비밀번호 찾기
             </Link>
           </StyledP>

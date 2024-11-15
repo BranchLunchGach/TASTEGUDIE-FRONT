@@ -3,7 +3,7 @@ name: Build and Deploy
 on:
   push:
     branches:
-      - dev  # 'believeme' 브랜치에 푸시할 때 트리거
+      - believeme  # 'believeme' 브랜치에 푸시할 때 트리거
 
 jobs:
   build:

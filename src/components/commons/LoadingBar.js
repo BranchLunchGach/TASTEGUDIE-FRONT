@@ -3,8 +3,8 @@ import "./LoadingBar.css";
 
 const LoadingBar = () => {
   return (
-    <div class="loadingio-spinner-ball-2by998twmg8">
-      <div class="ldio-yzaezf3dcmj">
+    <div className="loadingio-spinner-ball-2by998twmg8">
+      <div className="ldio-yzaezf3dcmj">
         <div></div>
       </div>
     </div>
