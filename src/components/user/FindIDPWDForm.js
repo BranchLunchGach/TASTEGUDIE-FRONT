@@ -141,6 +141,7 @@ const FindIDPWDForm = () => {
   const checkCode = (e) => {
     e.preventDefault();
     let code = $("#code").val();
+    // eslint-disable-next-line eqeqeq
     if (emailCode == code) {
       alert("일치합니다.");
       setIsEmailCheck(true);
@@ -158,6 +159,7 @@ const FindIDPWDForm = () => {
   const checkPass = () => {
     let password = $("#password").val();
     let password2 = $("#password2").val();
+    // eslint-disable-next-line eqeqeq
     if (password == password2) {
       setPassResult("비밀번호가 일치합니다.");
       $("#passResultArea").css("color", "blue");
@@ -174,7 +176,7 @@ const FindIDPWDForm = () => {
     let password = $("#password").val();
     //console.log("userId = "+userId);
     //console.log("password = "+password);
-    if (isPassEqual && password !== "") {
+    if ( isemailCheck && isPassEqual && password !== "") {
       //검증 통과
       axios({
         url: SPRING_IP + "/users",

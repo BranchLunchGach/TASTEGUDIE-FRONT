@@ -35,14 +35,17 @@ const signInStyle = {
 };
 
 const Category = () => {
+  const loginFirst= ()=>{
+    alert("로그인을 해야 이용가능합니다.");
+  }
   return (
     <StyledCategory className="category">
       <Link to="/choice">
         <StyledButton style={menuStyle}>MENU</StyledButton>
       </Link>
-      <Link to="/mypage">
-        <StyledButton style={courseStyle}>MyPage</StyledButton>
-      </Link>
+      
+        <StyledButton style={courseStyle} onClick={loginFirst}>MyPage</StyledButton>
+      
       <Link to="/sign-in">
         <StyledButton style={signInStyle}>SIGN IN</StyledButton>
       </Link>

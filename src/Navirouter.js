@@ -7,7 +7,6 @@ import MenuRecommendPage from "./pages/MenuRecommendPage";
 import Callback from "./components/user/Callback";
 import LoginPage from "./pages/user/LoginPage";
 import JoinPage from "./pages/user/JoinPage";
-import MyPage from "./pages/user/MyPage";
 import FindIDPWDPage from "./pages/user/FindIDPWDPage";
 
 import Hello from "./pages/Hello";
@@ -15,6 +14,7 @@ import ListArea from "./components/api/ListArea"
 import HelloResultPage from "./pages/HelloResultPage";
 import HelloResultCompletePage from "./pages/HelloResultCompletePage";
 import ChoiceListPage from "./pages/ChoiceListPage";
+import MyPage from "./pages/user/MyPage";
 import AiPage from "./components/AI/AiPage";
 
 const Navirouter = () => {
