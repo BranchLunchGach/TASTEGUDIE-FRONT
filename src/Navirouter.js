@@ -2,7 +2,7 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import MainPage from "./pages/MainPage";
 import LoadingPage from "./pages/LoadingPage";
-import MenuResultPage from "./pages/MenuResultPageCopy";
+import MenuResultPage from "./pages/MenuResultPage";
 import MenuRecommendPage from "./pages/MenuRecommendPage";
 import Callback from "./components/user/Callback";
 import LoginPage from "./pages/user/LoginPage";

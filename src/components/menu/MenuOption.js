@@ -170,6 +170,7 @@ function MenuOption() {
       },
     })
       .then((res) => {
+        console.log("gggg", res.data);
         navigate("/menu-result", {
           state: {
             menuData: res.data,
