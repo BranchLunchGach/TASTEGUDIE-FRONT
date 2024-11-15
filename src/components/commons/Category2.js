@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, redirect, replace, useNavigate } from "react-router-dom";
 
 const StyledCategory = styled.div`
   display: flex;
@@ -35,9 +35,11 @@ const signInStyle = {
 };
 
 const Category2 = () => {
+  const navigator = useNavigate();
   const logout=()=>{
     localStorage.removeItem("Authorization");
-    window.location.href="http://localhost:3000"
+    localStorage.removeItem("id");
+    navigator("/",{replace:true});
   }
   return (
     <StyledCategory className="category">

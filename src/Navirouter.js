@@ -7,9 +7,9 @@ import MenuRecommendPage from "./pages/MenuRecommendPage";
 import Callback from "./components/user/Callback";
 import LoginPage from './pages/user/LoginPage'
 import JoinPage from "./pages/user/JoinPage";
-import MyPage from "./pages/user/MyPage";
 import FindIDPWDPage from "./pages/user/FindIDPWDPage";
 import ChoiceListPage from "./pages/ChoiceListPage";
+import MyPage from "./pages/user/MyPage";
 
 const Navirouter = () => {
   return (

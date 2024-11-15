@@ -1,13 +1,13 @@
 import React from 'react';
 import Header2 from '../../components/layouts/Header2';
-import MyPageForm from '../../components/user/MyPageForm';
+import MyPageForm2 from '../../components/user/MyPageForm2';
 
 const MyPage = () => {
 
     return (
         <div>
             <Header2 />
-            <MyPageForm />            
+            <MyPageForm2 />            
         </div>
     );
 };

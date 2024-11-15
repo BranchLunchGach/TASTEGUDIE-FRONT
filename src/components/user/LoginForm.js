@@ -91,7 +91,7 @@ const LoginForm = () => {
     
     });
   }
-  const login = (e) => {
+  const Login = (e) => {
     e.preventDefault();
     
     //let id = $('#idinput').val();
@@ -113,6 +113,7 @@ const LoginForm = () => {
         .then((res)=>{
             let token = res.headers.authorization;
             localStorage.setItem("Authorization",token);
+            localStorage.setItem("id",res.data.userId);
             navigator("/");
         })
         .catch((error)=>{
@@ -185,7 +186,7 @@ const LoginForm = () => {
             </Link>
           </StyledP>
         </div>
-        <StyledButton type="submit" onClick={login}>
+        <StyledButton type="submit" onClick={Login}>
           로그인
         </StyledButton>
       </StyledLoginBox>

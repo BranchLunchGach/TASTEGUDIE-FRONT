@@ -47,6 +47,7 @@ const Callback = () => {
                 .then((res)=>{
                     let token = res.headers.authorization;
                     localStorage.setItem("Authorization",token);
+                    localStorage.setItem("id",res.data.userId);
                     navigator("/");
                     
                 })
