@@ -107,7 +107,6 @@ const LoginForm = () => {
             url:SPRING_IP+"/login",
             method:"post",
             data:formData,
-           
           
         })
         .then((res)=>{
