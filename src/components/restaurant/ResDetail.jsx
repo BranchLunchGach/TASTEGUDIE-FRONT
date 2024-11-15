@@ -111,6 +111,102 @@ const StyledMenuName = styled.h3`
   margin-bottom: 5px;
 `;
 
+// StyledReviewBox 추가
+const StyledReviewBox = styled(Slider)`
+  .slick-list {
+    overflow: hidden; /* 슬라이드가 화면 밖으로 넘어가지 않도록 설정 */
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .slick-track {
+    display: flex; /* 슬라이드를 가로로 배치 */
+    align-items: center; /* 슬라이드가 수직으로 정렬 */
+    width: 100%; /* 트랙의 너비를 화면 너비에 맞게 설정 */
+  }
+
+  .slick-slide {
+    display: flex;
+    justify-content: center; /* 슬라이드 개별 콘텐츠를 가로 중앙 정렬 */
+    align-items: center; /* 슬라이드 개별 콘텐츠를 세로 중앙 정렬 */
+    width: 90%; /* 슬라이드의 가로 크기를 줄여 화면에 맞춤 */
+    height: auto;
+    padding: 0 10px; /* 슬라이드 사이 여백 조정 */
+  }
+
+  width: 95%;
+  padding: 40px;
+`;
+
+const StyledReview = styled.div`
+  border: 1px solid lightgray;
+  width: 80%;
+  margin: 0 auto;
+  padding: 30px 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0px 2px 5px lightgray;
+  text-align: left;
+  font-size: 1.2rem;
+  line-height: 1.5;
+
+  position: relative;
+  overflow: visible; /* 인용 기호가 잘리지 않도록 설정 */
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: translateY(-10px); /* Hover 시 살짝 위로 올라오는 효과 */
+  }
+  
+  /* 인용 기호 */
+  &::before {
+    content: "“";
+    font-size: 3rem;
+    color: #90caf9;
+    position: absolute;
+    top: -5px;
+    left: 4px;
+  }
+  
+  &::after {
+    content: "”";
+    font-size: 3rem;
+    color: #90caf9;
+    position: absolute;
+    bottom: -15px;
+    right: 5px;
+  }
+`;
+
+const settingsReview = {
+  dots: true,
+  infinite: true, // 무한 루프
+  speed: 500,
+  slidesToShow: 1,
+  slidesToScroll: 1,
+  autoplay: true,
+  autoplaySpeed: 3000,
+};
+
+const StyledReviewerInfo = styled.div`
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+
+  img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+`;
+
+const StyledReviewerName = styled.p`
+  font-weight: bold;
+  font-size: 0.9rem;
+  color: #333;
+`;
+
 const lineHeightStyle = {
   lineHeight: "220%",
 };
@@ -122,7 +218,7 @@ const settings = {
   slidesToShow: 3,
   slidesToScroll: 1,
   autoplay: true,
-  autoplaySpeed: 2000,
+  autoplaySpeed: 3000,
   centerMode: true,
   centerPadding: "30px",
   border: "1px solid gray",
@@ -197,6 +293,19 @@ const ResDetail = ( {selectedRestaurant} ) => {
               );
             })}
           </StyledMenuBox>
+          <br />
+          <br />
+          <br />
+
+          {/* 리뷰 섹션 추가 */}
+          <StyledSubTitle>고객 리뷰</StyledSubTitle>
+          <StyledReviewBox {...settingsReview}>
+            {selectedRestaurant.textReviews.map((review, index) => (
+              <StyledReview key={index}>
+                {review}
+              </StyledReview>
+            ))}
+          </StyledReviewBox>
           <br />
           <br />
           <br />
