@@ -9,7 +9,8 @@ const GlobalStyle = createGlobalStyle`
 }
 html, body{
     font-size: 14px;
-    font-family:"Noto Sans KR"
+    font-family:"Noto Sans KR";
+    min-height:100vh;
 }
 p {
     font-size: medium;

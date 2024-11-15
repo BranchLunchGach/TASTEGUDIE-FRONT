@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Home from "../commons/Home";
 import Category from "../commons/Category";
-import Category2 from "../commons/Category2"
+import Category2 from "../commons/Category2";
 
 const StyledHeader = styled.div`
   margin: 0 5px;
@@ -16,9 +16,10 @@ const Header1 = ({ scrollToPage }) => {
 
   return (
     <StyledHeader>
-      <Home onClick={() => scrollToPage(1)} />
-       { token === null ? <Category /> : <Category2/>}
-      
+      <div onClick={() => scrollToPage(1)}>
+        <Home />
+      </div>
+      { token === null ? <Category /> : <Category2/>}
     </StyledHeader>
   );
 };

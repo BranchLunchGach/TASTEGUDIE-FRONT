@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import "./ChoiceList.css";
 
 const StyledContentBox = styled.div`
   width: 69vw;
@@ -30,16 +29,15 @@ const StyledOptionBox = styled.div`
     transform: translateY(3vh);
     -webkit-transition: 0.3s transform ease-out;
     transition: 0.3s transform ease-out;
-
+  }
 
 `;
 const StyledNameBox = styled.div`
   position: relative;
   top: 50%;
-  transform: translate(0, -25%);
+  transform: translate(0, -50%);
   display: flex;
   flex-direction: column;
-  gap: 3vw;
 `;
 const StyledName = styled.div`
   font-family: "LOTTERIA CHAB-Regular";

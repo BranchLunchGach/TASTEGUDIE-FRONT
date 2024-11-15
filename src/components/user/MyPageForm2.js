@@ -1,10 +1,15 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
-import './RegisterForm.css';
+import './MyPageForm2.css';
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import $ from 'jquery';
 import styled from 'styled-components';
 
+const StyledContainer = styled.div`
+  width: 45%;
+  padding: 100px;
+`;
 
 const StyledButton = styled.button`
   width: 100%;
@@ -16,6 +21,34 @@ const StyledButton = styled.button`
   color: white;
   background: black;
 `;
+
+const StyledInput = styled.input`
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 16px;
+  border-radius: 6px;
+  border: 1px solid lightgray;
+
+  &::placeholder {
+    font-size: medium;
+    color: lightgray;
+  }
+
+  //라디오 버튼 숨기기
+  &[type="radio"] {
+    display: none;
+  }
+
+  //선택된 상태
+  &[type="radio"]:checked + label {
+    color: white;
+    background-color: black;
+  }
+`;
+const StyledFlexContainer = styled.div`
+  display: flex;
+  justify-content: center;
+`
 
 const MyPageForm2 = () => {
     const SPRING_IP = process.env.REACT_APP_SPRING_IP;
@@ -31,13 +64,17 @@ const MyPageForm2 = () => {
                 console.log(res.data);
                 let birth = res.data.birthDate;
                 if(birth !== null){ //기존 생년월일 존재
-                    const birthDataArray = res.data.birthDate.split("-");
+                    const birthDateArray = res.data.birthDate.split("-");
                     setBirthDay({
-                        ...birthDay,year:birthDataArray[0],month:birthDataArray[1],day:birthDataArray[2]
+                        ...birthDay,year:birthDateArray[0],month:birthDateArray[1],day:birthDateArray[2]
                     });
+                    $('#year').val(birthDateArray[0]);
+                    $('#month').val(birthDateArray[1]);
+                    $('#day').val(birthDateArray[2]);
                     $('#year').attr("disabled",true);
                     $('#month').attr("disabled",true);
                     $('#day').attr("disabled",true);
+                    
 
                 }
                 let gender = res.data.gender;
@@ -53,7 +90,7 @@ const MyPageForm2 = () => {
                     $('#male').attr("checked",true);
                 }
                 setUser({
-                    ...res.data
+                    ...res.data, password:null
                 })
                 
             })
@@ -99,8 +136,8 @@ const MyPageForm2 = () => {
     //생년월일 값 변경 시
     const changeBirth = (e) => {    
         setBirthDay({ ...birthDay, [e.target.name]: e.target.value }); 
-        console.log("name = "+e.target.name);
-        console.log("value = "+e.target.value);
+        //console.log("name = "+e.target.name);
+        //console.log("value = "+e.target.value);
         
     }
 
@@ -137,13 +174,13 @@ const MyPageForm2 = () => {
     //회원정보수정
     const submitUpdate = (e)=>{
         e.preventDefault();
-        console.log(user);
+        //console.log(user);
         
         let phonearray = $('#phone').val().split("-");
-        console.log("phonearray= "+phonearray);
+        //console.log("phonearray= "+phonearray);
         //입력된 값 유효성 검사
         if(user.birthDate !== null){ //생일 값이 입력되었다면
-            console.log("birthDate="+user.birthDate);
+            //console.log("birthDate="+user.birthDate);
             if(birthDay.year ==="" | birthDay.year==="년(4자)"){
                 alert("연도를 선택해주세요");
                 $('#year').focus();
@@ -178,22 +215,22 @@ const MyPageForm2 = () => {
             $('#phone').focus();
        }
        else{
-        alert("성공")
         console.log(user);
         //회원정보 수정 요청
-        /*
+            
             axios({
                 method:"PUT",
                 url : SPRING_IP+"/users",
                 data : user,
             })
             .then((res)=>{
+                alert("수정이 완료되었습니다.");
                 navigator("/");
             })//then
             .catch((err)=>{
                 console.log(err);
             }); 
-            */
+            
         }//else
         
     };// 정보수정하기 완료
@@ -201,10 +238,11 @@ const MyPageForm2 = () => {
     
 
     return (
-        <div className='container'>
+        <StyledFlexContainer>
+        <StyledContainer>
             <h2 className='register-title'>My Page</h2>
 
-            <p className='register-info'>추가 정보를 입력하고 맞춤 추천을 받으세요!!
+            <p className='register-info'>추가 정보를 입력하고 맞춤 추천을 받으세요!! <br/>
             모든 정보를 입력할 필요는 없습니다.
             </p>
             <p className='register-info'></p>
@@ -215,12 +253,12 @@ const MyPageForm2 = () => {
                     <form className='register-form'> 
                         <label>
                             <span>이름</span>
-                            <input type='text' id="name" name="name" placeholder='홍길동' value={user.name} readOnly onChange={changeValue}/>
+                            <StyledInput type='text' id="name" name="name" placeholder='홍길동' value={user.name} readOnly onChange={changeValue}/>
                         </label>
 
                         <label>
                             <span>아이디</span>
-                            <input type='text' id="userId" name="userId" placeholder='abc@google.com'value={user.userId} readOnly onChange={changeValue}/>
+                            <StyledInput type='text' id="userId" name="userId" placeholder='abc@google.com'value={user.userId} readOnly onChange={changeValue}/>
                         </label>
                         
                         
@@ -229,12 +267,12 @@ const MyPageForm2 = () => {
 
                         <label>
                             <span>비밀번호(선택)</span>
-                            <input type='password' id="password" name="password" placeholder='비밀번호' onChange={changeValue}/>
+                            <StyledInput type='password' id="password" name="password" placeholder='비밀번호' onChange={changeValue}/>
                         </label>
 
                         <label>
                             <span>비밀번호 확인(선택)</span>
-                            <input type='password' id="password2" name="password2" placeholder='비밀번호 확인' onChange={checkEqual}/>
+                            <StyledInput type='password' id="password2" name="password2" placeholder='비밀번호 확인' onChange={checkEqual}/>
                         </label>
 
                         <div id="checkPassResult">{checkResult}</div>
@@ -243,30 +281,31 @@ const MyPageForm2 = () => {
 
                         <label>
                             <span>*전화번호</span>
-                            <input type='text' id="phone" name="phone" placeholder='010-1111-1111'  value={user.phone !== null ? user.phone : ""}  onChange={changeValue}/>
+                            <StyledInput type='text' id="phone" name="phone" placeholder='010-1111-1111'  value={user.phone !== null ? user.phone : ""}  onChange={changeValue}/>
                         </label>
 
                         <label>
                             <span>생년월일</span>
                             <div className="date-select-container">
                                 <select className="date-select" id="year" name="year" readOnly onChange={changeBirth}>
-                                    <option selected>{ birthDay.year !== "" ?birthDay.year : "년(4자"}</option>
+                                    <option id="yearOption">년(4자</option>
                                     {generateYearOptions()}
                                 </select>
                                 
                                 <select className="date-select" id="month" name="month" readOnly onChange={changeBirth}>
-                                    <option selected>{ birthDay.month !== "" ?birthDay.month : "월"}</option>
+                                    <option id="monthOption">월</option>
+                                    {/* month 는 0~11 */}
                                     {[...Array(12).keys()].map(month => (
-                                        <option key={month + 1} value={month <10 ? "0"+month+1 : month+1}>
+                                        <option key={month + 1} value={month <9 ? "0"+(month+1) : month+1}>
                                             {month + 1}
                                         </option>
                                     ))}
                                 </select>
                                 
                                 <select className="date-select" id="day" name="day" onChange= {changeBirth}>
-                                    <option selected>{ birthDay.day !== "" ?birthDay.day : "일"}</option>
+                                    <option id="dayOption">일</option>
                                     {[...Array(31).keys()].map(day => (
-                                        <option key={day + 1} value={day + 1}>
+                                        <option key={day + 1} value={day <9 ? "0"+(day+1) : day+1}>
                                             {day + 1}
                                         </option>
                                     ))}
@@ -277,19 +316,20 @@ const MyPageForm2 = () => {
                         <label>
                             <span>성별</span>
                             <div className="gender-toggle">
-                                <input type="radio" id="male" name="gender" value="MAN" onChange={changeValue}/>
+                                <StyledInput type="radio" id="male" name="gender" value="MAN" onChange={changeValue}/>
                                 <label for="male">남</label>
                                 
-                                <input type="radio" id="female" name="gender" value="WOMAN"/>
+                                <StyledInput type="radio" id="female" name="gender" value="WOMAN" onChange={changeValue}/>
                                 <label for="female">여</label>
                             </div>
                         </label>
-
+                        <br/>
                         <StyledButton type='submit' id="register-button" onClick={submitUpdate}>수정 완료</StyledButton>
                     </form>
                 </div>
             </div>
-        </div>
+        </StyledContainer>
+        </StyledFlexContainer>
     );
 };
 

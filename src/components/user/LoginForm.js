@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import "./LoginForm.css";
 
 const StyledContentBox = styled.div`
   display: flex;
@@ -46,6 +45,11 @@ const StyledInput = styled.input`
   margin-bottom: 16px;
   border-radius: 6px;
   border: 1px solid lightgray;
+
+  &::placeholder {
+    font-size: medium;
+    color: lightgray;
+  }
 `;
 const StyledP = styled.p`
   font-size: medium;

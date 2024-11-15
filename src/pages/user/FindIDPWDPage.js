@@ -2,7 +2,7 @@ import React from "react";
 import Header2 from "../../components/layouts/Header2";
 import FindIDPWDForm from "../../components/user/FindIDPWDForm";
 
-const LoginPage = () => {
+const FindIDPWDPage = () => {
   return (
     <>
       <Header2 />
@@ -11,4 +11,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default FindIDPWDPage;

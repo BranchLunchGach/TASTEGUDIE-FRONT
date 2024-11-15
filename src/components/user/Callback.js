@@ -1,12 +1,11 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 
 const Callback = () => {
     const navigator = useNavigate();
     const SPRING_IP = process.env.REACT_APP_SPRING_IP;
-    const FRONT_IP = process.env.REACT_APP_FRONT_IP; 
     useEffect(()=>{
         console.log("callback page start");
         console.log("url = "+ window.location);
@@ -59,6 +58,7 @@ const Callback = () => {
             
         })
             
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
     return (
         <div>

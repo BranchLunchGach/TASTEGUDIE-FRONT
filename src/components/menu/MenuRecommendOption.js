@@ -5,6 +5,41 @@ import "jquery-ui/ui/widgets/draggable";
 import "jquery-ui/ui/widgets/droppable";
 import axios from "axios";
 import { useNavigate } from "react-router-dom"; // useNavigate import 추가
+import styled from "styled-components";
+
+const StyledContainer = styled.div`
+  width: 1600px;
+  margin: auto;
+`;
+const StyledSubContainer = styled.div`
+  display: flex;
+  justify-content: space-around;
+`;
+const StyledDiv = styled.div`
+  width: 700px;
+  height: 400px;
+  border: 1px solid lightgray;
+  border-radius: 5%;
+
+  display: flex;
+  justify-content: space-around;
+`;
+
+const menuOptionBoxStyle = {
+  backgroundColor: "white",
+
+  display: "flex",
+  flexWrap: "wrap",
+};
+const menuOptionExcludeBoxStyle = {
+  backgroundColor: "#c0b2ea",
+  border: "1px solid black",
+  display: "flex",
+  alignItems: "center" /* 수직 중앙 정렬 */,
+  justifyContent: "center" /* 수평 중앙 정렬 */,
+  fontSize: "35px",
+  color: "gray",
+};
 
 const MenuRecommendOption = () => {
   const [clickedItems, setClickedItems] = useState(Array(13).fill(false));
@@ -134,9 +169,9 @@ const MenuRecommendOption = () => {
   };
 
   return (
-    <div className="container">
-      <div className="sub-container">
-        <div className="menu-option-container">
+    <StyledContainer>
+      <StyledSubContainer>
+        <StyledDiv style={menuOptionBoxStyle}>
           <div
             className="draggable-item item-type1 nation"
             value="한식"
@@ -249,15 +284,15 @@ const MenuRecommendOption = () => {
           >
             국물있는
           </div>
-        </div>
-        <div id="droppable" className="menu-option-exclude-container">
+        </StyledDiv>
+        <StyledDiv style={menuOptionExcludeBoxStyle} id="droppable">
           <p>제외할 카테고리</p>
-        </div>
-      </div>
+        </StyledDiv>
+      </StyledSubContainer>
       <button className="menu-recommend-btn" onClick={handleRecommendStart}>
         추천 시작
       </button>
-    </div>
+    </StyledContainer>
   );
 };
 
