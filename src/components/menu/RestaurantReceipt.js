@@ -21,7 +21,7 @@ const RestaurantReceipt = ({ restaurant }) => {
                 <span>{formattedDate}</span>
                 <span>No.2</span>
             </div>
-            <table border="1" style={{ width: '90%', margin:"auto", borderCollapse: 'collapse', textAlign: 'center' }}>
+            <table style={{ border:"1px solid", width: '90%', margin:"auto", borderCollapse: 'collapse', textAlign: 'center' }}>
                 <thead>
                     <tr>
                         <th>카테고리</th>
@@ -29,7 +29,7 @@ const RestaurantReceipt = ({ restaurant }) => {
                         <th>체크</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody style={{border:"1px solid"}}>
                     {menuItems.map((section, index) => (
                         <React.Fragment key={index}>
                             <tr>
