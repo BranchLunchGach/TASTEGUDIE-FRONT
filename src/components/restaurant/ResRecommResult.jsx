@@ -5,8 +5,9 @@ import BackSpace from "../commons/BackSpace";
 
 const StyledContentBox = styled.p`
   width: 92vw;
-  margin: -3vh auto;
+  height: 100vh;
 `;
+
 const StyledTitle = styled.p`
   display: flex;
   flex-direction: row;
@@ -21,10 +22,13 @@ const StyledSubTitle = styled.p`
   font-size: 24px;
   text-align: left;
 `;
+
 const StyledResultBox = styled.p`
   width: 70vw;
   height: 63vh;
   margin: -4vh auto 0 auto;
+  position: relative;
+  z-index: 0;
 `;
 const StyledP = styled.p`
   font-size: medium;
@@ -98,7 +102,7 @@ const ResRecommResult = () => {
             </div>
           </StyledResBox>
         </StyledResultBox>
-        <Retry />
+        <Retry className="retry" />
       </StyledContentBox>
     </>
   );
