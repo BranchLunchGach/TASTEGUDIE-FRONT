@@ -1,4 +1,5 @@
 import React from "react";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const StyledContentBox = styled.div`
@@ -65,10 +66,12 @@ const marginTopStyle = {
 };
 
 const ChoiceList = () => {
+  const navigator = useNavigate();
   return (
     <StyledContentBox>
       <div>
-        <StyledOptionBox>
+        
+        <StyledOptionBox onClick={()=>{ navigator("/menu") }}>
           <StyledNameBox>
             <StyledName>메뉴 추천</StyledName>
           </StyledNameBox>
@@ -76,7 +79,7 @@ const ChoiceList = () => {
         <StyledBookMark />
       </div>
       <div>
-        <StyledOptionBox style={secondOptionStyle}>
+        <StyledOptionBox style={secondOptionStyle}  onClick={()=>{ navigator("/ai") }}>
           <StyledNameBox>
             <StyledName style={marginTopStyle}>AI</StyledName>
             <StyledName>메뉴 추천</StyledName>
@@ -85,7 +88,7 @@ const ChoiceList = () => {
         <StyledBookMark />
       </div>
       <div>
-        <StyledOptionBox style={thirdOptionStyle}>
+        <StyledOptionBox style={thirdOptionStyle} onClick={()=>{ navigator("/hello") }}>
           <StyledNameBox>
             <StyledName style={marginTopStyle}>만남의</StyledName>
             <StyledName>장소</StyledName>
