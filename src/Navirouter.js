@@ -13,8 +13,9 @@ import FindIDPWDPage from "./pages/user/FindIDPWDPage";
 import Hello from "./pages/Hello";
 import ListArea from "./components/api/ListArea"
 import HelloResultPage from "./pages/HelloResultPage";
-import HelloResultCompletePage from "./pages/HelloResultCompletePage";
+import ResRecommResultPage from "./pages/restaurent/ResRecommResultPage";
 import ChoiceListPage from "./pages/ChoiceListPage";
+import ResDetail from "./components/restaurant/ResDetail";
 
 const Navirouter = () => {
   return (
@@ -33,8 +34,9 @@ const Navirouter = () => {
         <Route path="/hello" element={<Hello />} />
         <Route path="/naverapitest" element={<ListArea />} />
         <Route path="/hello/result" element={<HelloResultPage />} />
-        <Route path="/hello/result/complete" element={<HelloResultCompletePage />} />
+        <Route path="/hello/result/complete" element={<ResRecommResultPage />} />
         <Route path="/find" element={<FindIDPWDPage />} />
+        <Route path="/test" element={<ResDetail />} />
       </Routes>
     </div>
   );
