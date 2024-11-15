@@ -8,7 +8,7 @@ const MenuRecommendPage = () => {
   return (
     <div>
       <Header2 />
-      <MenuRecommendTitle />
+      {/* <MenuRecommendTitle /> */}
       <MenuOption />
     </div>
   );

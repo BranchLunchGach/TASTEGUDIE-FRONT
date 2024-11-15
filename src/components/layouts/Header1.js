@@ -13,7 +13,9 @@ const StyledHeader = styled.div`
 const Header1 = ({ scrollToPage }) => {
   return (
     <StyledHeader>
-      <Home onClick={() => scrollToPage(1)} />
+      <div onClick={() => scrollToPage(1)}>
+        <Home />
+      </div>
       <Category />
     </StyledHeader>
   );

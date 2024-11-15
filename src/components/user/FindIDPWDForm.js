@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import "./FindIDPWDForm.css";
 
 const StyledContentBox = styled.div`
   display: flex;
@@ -36,6 +35,11 @@ const StyledInput = styled.input`
   margin-bottom: 16px;
   border-radius: 6px;
   border: 1px solid lightgray;
+
+  &::placeholder {
+    font-size: medium;
+    color: lightgray;
+  }
 `;
 const StyledP = styled.p`
   font-size: medium;
