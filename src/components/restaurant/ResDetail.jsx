@@ -8,13 +8,11 @@ const StyledContentBox = styled.p`
   //width: 92vw
   width: 95%;
   margin: 5vh auto;
-  border: 1px solid blue;
 `;
 const StyledTitle = styled.p`
   display: flex;
   flex-direction: row;
   align-items: center;
-  border: 1px solid red;
 `;
 const StyledMainTitle = styled.p`
   font-family: "LOTTERIA CHAB-Regular";
@@ -29,6 +27,7 @@ const StyledResName = styled.p`
   font-size: 2vw;
   font-weight: bold;
   margin-bottom: 20px;
+  text-align: center;
 `;
 
 const ReviewInfo = styled.div`
@@ -51,6 +50,9 @@ const StyledButton = styled.button`
   border-radius: 20px;
   color: white;
   background: black;
+
+  display: flex;
+
 `;
 const StyledMapBox = styled.div`
   display: flex;
@@ -99,6 +101,16 @@ const StyledMenuBox = styled(Slider)`
   flex-direction: row;
   padding: 40px;
   width: 100%;
+
+  .slick-slide {
+    margin: 0 30px; /* 슬라이드 간격을 더 넓게 */
+  }
+
+  .slick-track {
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
 `;
 const StyledMenuImg = styled.img`
   width: 250px;
@@ -153,10 +165,6 @@ const StyledReview = styled.div`
   position: relative;
   overflow: visible; /* 인용 기호가 잘리지 않도록 설정 */
   transition: transform 0.3s ease;
-
-  &:hover {
-    transform: translateY(-10px); /* Hover 시 살짝 위로 올라오는 효과 */
-  }
   
   /* 인용 기호 */
   &::before {
@@ -236,13 +244,18 @@ const ResDetail = ( {selectedRestaurant} ) => {
         </StyledTitle>
 
         <StyledResultBox>
-          <StyledResName>{selectedRestaurant.restaurantName}</StyledResName>
+          <div style={{textAlign:"center"}}>
+            <StyledResName style={{display:"inline", marginLeft:"2vw"}}>
+                {selectedRestaurant.restaurantName}
+            </StyledResName>
+            <span style={{marginLeft:"1vw", color:"grey", fontSize:"1.2vw"}}>{selectedRestaurant.restaurantType}</span>
+          </div>
           <ReviewInfo>
             <p style={{margin:"3px 20px"}}>별점 : {selectedRestaurant.horoscope || 0}⭐</p>
             <p style={{margin:"3px 20px"}}>블로그 리뷰 : {selectedRestaurant.blogReviewCnt}개</p>
             <p style={{margin:"3px 20px"}}>방문자 리뷰 : {selectedRestaurant.visitorReviewCnt}개</p>
           </ReviewInfo>
-          <p style={lineHeightStyle}> 🏠 편의시설 ::
+          <p style={{textAlign: "center", lineHeight: "220%"}}> 🏠 편의시설 ::
                 {selectedRestaurant.restauranService === "0" 
                 ? "편의시설 정보를 제공하지 않습니다."
                 : selectedRestaurant.restauranService}</p>
@@ -251,7 +264,7 @@ const ResDetail = ( {selectedRestaurant} ) => {
           <StyledMapBox>
             <StyledInfoImg imgUrl={selectedRestaurant.mainImg}/>
             <StyledInfo>
-              <p>{selectedRestaurant.restauranInfo}</p>
+              <p>{selectedRestaurant.restauranInfo === "0" ? "정보를 제공하지 않습니다." : selectedRestaurant.restauranInfo}</p>
             </StyledInfo>
           </StyledMapBox>
           <br />
@@ -271,7 +284,6 @@ const ResDetail = ( {selectedRestaurant} ) => {
               <h3 style={lineHeightStyle}>⏰ 이동 시간 10분</h3>
             </StyledMapDesc>
           </StyledMapBox>
-          <StyledButton>방문하기!</StyledButton>
           <br />
           <br />
           <br />
@@ -287,8 +299,8 @@ const ResDetail = ( {selectedRestaurant} ) => {
                     src={imgUrl === "0" ? "/img-sample_nongdam.jpg" : imgUrl} 
                     alt={name} 
                   />
-                  <StyledMenuName>{name}</StyledMenuName>
-                  <p className="menuPrice">{price}</p>
+                  <StyledMenuName style={{textAlign:"center"}}>{name}</StyledMenuName>
+                  <p className="menuPrice" style={{textAlign:"center"}}>{price}</p>
                 </div>
               );
             })}

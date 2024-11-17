@@ -1,9 +1,9 @@
-import React, {useState} from "react";
+import React, {useState, useContext, useEffect} from "react";
 import styled from "styled-components";
-import Retry from "../commons/Retry";
-import BackSpace from "../commons/BackSpace";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import ResDetail from "./ResDetail";
+import { HelloContext } from '../../context/HelloContext';
+import axios from 'axios';
 
 const StyledContentBox = styled.p`
   width: 92vw;
@@ -19,22 +19,40 @@ const StyledMainTitle = styled.p`
   font-family: "LOTTERIA CHAB-Regular";
   font-size: 64px;
   text-align: left;
-`;
-const StyledSubTitle = styled.p`
-  font-size: 24px;
-  text-align: left;
+  margin-left: 4vw;
 `;
 
 const StyledResultBox = styled.p`
-  width: 70vw;
-  height: 63vh;
-  margin: -4vh auto 0 auto;
+  width: 90vw;
+  height: 80vh;
+  margin: -4vh -2vw 0 auto;
   position: relative;
   z-index: 0;
+
+  display: flex;
 `;
-const StyledP = styled.p`
-  font-size: medium;
-  margin-bottom: 8px;
+
+const ResultLeftBox = styled.div`
+  width: 50vw;
+`
+
+const SubTitle = styled.div`
+  padding-top: 2vh;
+  border: 1px solid black;
+  text-align: center;
+`
+
+const LocationMap = styled.div`
+    width: 80%;
+    height: 70%;
+    border: 1px solid black;
+    margin: 3vh auto;
+`
+const StyledSpan = styled.span`
+  font-size: small;
+  margin-bottom: 0.5vw;
+  margin-left: 2vw;
+  color: ${({ isSelected }) => (isSelected ? "white" : "black")};
 `;
 const StyledMenuImg = styled.img`
   width: 340px;
@@ -45,22 +63,74 @@ const StyledMenuImg = styled.img`
 `;
 const StyledResBox = styled.div`
   display: flex;
-  width: 900px;
+  flex-direction: column;
+
+  width: 60vw;
+  height: 95%;
   justify-content: space-between;
-  margin: 50px auto;
+  margin: 7vh auto;
 `;
 const StyledRes = styled.div`
-  width: 200px;
-  height: 200px;
-  border-radius: 100%;
-  margin-bottom: 25px;
-  padding: 48px 0 0 0;
-  background: white;
+  width: 40vw;
+  background: ${({ isSelected }) => (isSelected ? "#FDD83E" : "white")};
+  border: 2px solid ${({ isSelected }) => (isSelected ? "black" : "transparent")};
+
+  margin-left: 5vw;
+  padding: 20px;
+  border-radius: 10px;
   filter: drop-shadow(0px 2px 5px lightgray);
+
+  display: flex;
+  cursor: pointer;
 `;
+
+const StyledResLeft = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+`
+
+const StyledResRight = styled.div`
+  margin-left: 0.5vw;
+
+  display: flex;
+  align-items: center;
+`
+
+const ResRightBtn = styled.button`
+  padding: 1vw 1.5vw;
+  border: 1px solid black;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: bold;
+  color: white;
+  background-color: #022ED2;
+`
+
 const StyledResName = styled.h2`
-  margin-bottom: 20px;
+  font-size: 20px;
+  margin-left: 1vw;;
+  color: ${({ isSelected }) => (isSelected ? "white" : "black")};
+
 `;
+
+const StyledResSpan = styled.span`
+  font-size: 15px;
+  color: ${({ isSelected }) => (isSelected ? "white" : "gray")};
+  margin-left: 0.5vw;
+`
+
+const Buttons = styled.div`
+    display: flex;
+    justify-content: space-evenly;
+    margin-left: 2vw;
+`
+
+const Button = styled.button`
+  width: 8vw;
+  padding: 13px;
+  border-radius: 15px;
+`
 
 // 모달 스타일
 const StyledModal = styled.div`
@@ -100,30 +170,57 @@ const CloseButton = styled.button`
 `;
 
 // ResItem 컴포넌트
-const ResItem = ({ name, reviewCount, rating, distance, onClick }) => {
+const ResItem = ({ name, restaurantType, reviewCount, rating, distance, isSelected, onClickDetail, onClickSelect }) => {
   return (
-    <div className="resItem" onClick={onClick}>
-      <StyledRes>
-        <StyledResName>{name}</StyledResName>
-        <StyledP>리뷰 갯수 {reviewCount}개</StyledP>
-        <StyledP>{rating > 0 ? `${rating}⭐` : "리뷰 없음"}</StyledP>
+    <div className="resItem">
+      <StyledRes onClick={onClickSelect} isSelected={isSelected}>
+        <StyledResLeft>
+          <div style={{marginBottom:"2vh"}}>
+            <StyledResName style={{display:"inline"}} isSelected={isSelected}>{name}</StyledResName>
+            <StyledResSpan isSelected={isSelected}>{restaurantType}</StyledResSpan>
+          </div>
+          <StyledSpan isSelected={isSelected}>- 리뷰 갯수 {reviewCount}개  / {rating > 0 ? `${rating}⭐` : "별점 없음"}</StyledSpan>
+          <StyledSpan isSelected={isSelected}>- {distance}</StyledSpan>
+        </StyledResLeft>
+        <StyledResRight>
+            <ResRightBtn onClick={onClickDetail}>상세 정보</ResRightBtn>
+        </StyledResRight>
       </StyledRes>
-      <StyledP>{distance}</StyledP>
     </div>
   );
 };
 
 const ResRecommResult = () => {
 
+  const navigate = useNavigate();  // useNavigate 훅을 사용하여 페이지 이동
+
   const location = useLocation();
-  const menuData = location.state?.menuData; // location.state.menuData로 수정
+  const { menuData } = location.state || {}; // state에서 menuData를 안전하게 가져오기
+  const [displayedData, setDisplayedData] = useState([]); // 현재 보여지는 3개의 데이터
+
+  const { contextData } = useContext(HelloContext);
 
   // 모달 상태 관리
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedRestaurant, setSelectedRestaurant] = useState(null);
 
+  const [selectedIndex, setSelectedIndex] = useState(null); // 선택된 요소를 관리하는 상태 추가
+
+  useEffect(() => {
+    if (menuData && menuData.length > 0) {
+      setDisplayedData(menuData.slice(0, 3)); // 처음 3개만 표시
+    }
+  }, [menuData]);
+
+  const handleRecom = () => {
+    if (menuData && menuData.length > 3) {
+      const nextData = menuData.slice(3, 6); // 4번째부터 6번째까지
+      setDisplayedData(nextData); // 기존 데이터 삭제 후, 새로 추천된 3개 데이터만 설정
+    }
+  };
+
   const openModal = (index) => {
-    setSelectedRestaurant(menuData[index]);
+    setSelectedRestaurant(displayedData[index]);
     setIsModalOpen(true);
   };
 
@@ -132,33 +229,57 @@ const ResRecommResult = () => {
     setSelectedRestaurant(null);
   };
 
+  const resComplete = () => {
+    navigate("/hello/complete");
+  }
+
   return (
     <>
       <StyledContentBox>
         <StyledTitle>
-          <BackSpace />
-          <div>
             <StyledMainTitle className="mainTitle">
               식당 추천 결과
             </StyledMainTitle>
-            <StyledSubTitle className="subTitle">식당 추천 결과</StyledSubTitle>
-          </div>
         </StyledTitle>
         <StyledResultBox>
-          <StyledMenuImg src="/img-sample_nongdam.jpg" alt="" />
+          <ResultLeftBox>
+            <SubTitle>
+              <p>오늘 우리가 만날 곳은 인천광역시 서구 원당대로 628입니다.</p>
+              <p>그 주변 "파스타" 관련 음식점 세 곳을 추천드립니다.</p>
+            </SubTitle>
+            <LocationMap>
+              <h1>결과</h1>
+              <p>{contextData.menu}</p>
+              <p>{contextData.avgX}</p>
+              <p>{contextData.avgY}</p>
+            </LocationMap>
+          </ResultLeftBox>
           <StyledResBox>
-            {menuData.map((data, index) => (
+            {displayedData.map((data, index) => (
               <ResItem
                 key={index}
                 name={data.restaurantName}
+                restaurantType = {data.restaurantType}
                 reviewCount={parseInt(data.visitorReviewCnt,10) + parseInt(data.blogReviewCnt, 10)} // 예제 데이터
                 rating={data.horoscope || 0} // 평점이 없으면 0으로 처리
                 distance={data.subwayAddress === "0" 
                 ? "정보를 제공하지 않습니다."
                 : data.subwayAddress}
-                onClick={() => openModal(index)} // 클릭 시 모달 열기
+                onClickDetail={() => openModal(index)} // 클릭 시 모달 열기
+                onClickSelect={() => setSelectedIndex(index)} // 클릭 시 선택 상태 업데이트
+                isSelected={selectedIndex === index} // 선택된 인덱스인지 확인
               />
             ))}
+            <Buttons>
+              <div style={{
+                    display:"flex", 
+                    flexDirection:"column", 
+                    alignItems:"center"}}>
+                <Button style={{backgroundColor: "#FDD83E", fontWeight:"bold"}} onClick={handleRecom}>식당 재추천</Button>
+                <span style={{color:"red", fontSize:"0.8vw", fontWeight:"bold"}}>1회한하여 재추천이 가능합니다!</span>
+              </div>
+              <Button style={{height:"70%", backgroundColor:"#F68A91", color:"white", fontWeight:"bold"}} onClick={resComplete}>방문하기</Button>
+            </Buttons>
           </StyledResBox>
         </StyledResultBox>
 
@@ -171,7 +292,6 @@ const ResRecommResult = () => {
             }
           </ModalContent>
         </StyledModal>
-        <Retry />
       </StyledContentBox>
     </>
   );
