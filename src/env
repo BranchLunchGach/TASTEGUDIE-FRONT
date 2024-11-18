@@ -1,4 +1,0 @@
-REACT_APP_WEATHER_API_KEY="613b88d5cf7d264afebab7bbdf8bc12e"
-REACT_APP_GOOGLE_LOGIN_API_KEY="285616182027-34jj11vnh02i9kfs7q6h4fu63tnbg5m8.apps.googleusercontent.com"
-REACT_APP_FRONT_IP="http://localhost:3000"
-REACT_APP_SPRING_IP="http://localhost:9000" 

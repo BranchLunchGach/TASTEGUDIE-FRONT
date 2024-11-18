@@ -10,13 +10,14 @@ import JoinPage from "./pages/user/JoinPage";
 import FindIDPWDPage from "./pages/user/FindIDPWDPage";
 
 import Hello from "./pages/Hello";
-import ListArea from "./components/api/ListArea"
+import ListArea from "./components/api/ListArea";
 import HelloResultPage from "./pages/HelloResultPage";
 import ResRecommResultPage from "./pages/restaurent/ResRecommResultPage";
 import ChoiceListPage from "./pages/ChoiceListPage";
 import MyPage from "./pages/user/MyPage";
 import AiPage from "./components/AI/AiPage";
 import ResDetail from "./components/restaurant/ResDetail";
+import ChartPage from "./pages/user/ChartPage";
 import ResCompletePage from "./pages/restaurent/ResCompletePage";
 import LodingPage2 from "./pages/LodingPage2";
 
@@ -38,8 +39,9 @@ const Navirouter = () => {
         <Route path="/hello/result" element={<ResRecommResultPage />} />
         <Route path="/find" element={<FindIDPWDPage />} />
         <Route path="/ai" element={<AiPage />} />
-        <Route path="/hello/complete" element={<ResCompletePage/>} />
-        <Route path="/test" element={<LodingPage2/>} />
+        <Route path="/chart" element={<ChartPage />} />
+        <Route path="/hello/complete" element={<ResCompletePage />} />
+        <Route path="/test" element={<LodingPage2 />} />
       </Routes>
     </div>
   );
