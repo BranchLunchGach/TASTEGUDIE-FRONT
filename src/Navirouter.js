@@ -17,6 +17,7 @@ import ChoiceListPage from "./pages/ChoiceListPage";
 import MyPage from "./pages/user/MyPage";
 import AiPage from "./components/AI/AiPage";
 import ResDetail from "./components/restaurant/ResDetail";
+import ChartPage from "./pages/user/ChartPage";
 
 const Navirouter = () => {
   return (
@@ -37,6 +38,7 @@ const Navirouter = () => {
         <Route path="/hello/result/complete" element={<ResRecommResultPage />} />
         <Route path="/find" element={<FindIDPWDPage />} />
         <Route path="/ai" element={<AiPage />} />
+        <Route path="/chart" element={<ChartPage />} />
       </Routes>
     </div>
   );
