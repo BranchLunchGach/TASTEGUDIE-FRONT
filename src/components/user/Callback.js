@@ -25,7 +25,6 @@ const Callback = () => {
 
              if( user.userNo === 0 ){//db에 정보가 없다면 회원가입 진행
                  //이 사이에 추가 정보 입력받으러 간다.
-                   // window.location.href = "http://localhost:3000/extra";
                 //일단은 그냥 회원가입 진행
                 axios({
                     url:SPRING_IP+"/users",

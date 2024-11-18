@@ -59,7 +59,7 @@ const HelloResultForm = () => {
 
     const recommand = () => {
         axios({
-          url: "http://localhost:9000/hello-restaurant",
+          url: process.env.REACT_APP_SPRING_IP+"/hello-restaurant",
           method: "post",
           data: {
             menu: contextData.menu,
