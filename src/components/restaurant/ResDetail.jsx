@@ -8,13 +8,11 @@ const StyledContentBox = styled.p`
   //width: 92vw
   width: 95%;
   margin: 5vh auto;
-  border: 1px solid blue;
 `;
 const StyledTitle = styled.p`
   display: flex;
   flex-direction: row;
   align-items: center;
-  border: 1px solid red;
 `;
 const StyledMainTitle = styled.p`
   font-family: "LOTTERIA CHAB-Regular";
@@ -29,6 +27,7 @@ const StyledResName = styled.p`
   font-size: 2vw;
   font-weight: bold;
   margin-bottom: 20px;
+  text-align: center;
 `;
 
 const ReviewInfo = styled.div`
@@ -51,6 +50,9 @@ const StyledButton = styled.button`
   border-radius: 20px;
   color: white;
   background: black;
+
+  display: flex;
+
 `;
 const StyledMapBox = styled.div`
   display: flex;
@@ -99,6 +101,16 @@ const StyledMenuBox = styled(Slider)`
   flex-direction: row;
   padding: 40px;
   width: 100%;
+
+  .slick-slide {
+    margin: 0 30px; /* 슬라이드 간격을 더 넓게 */
+  }
+
+  .slick-track {
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
 `;
 const StyledMenuImg = styled.img`
   width: 250px;
@@ -109,6 +121,98 @@ const StyledMenuImg = styled.img`
 `;
 const StyledMenuName = styled.h3`
   margin-bottom: 5px;
+`;
+
+// StyledReviewBox 추가
+const StyledReviewBox = styled(Slider)`
+  .slick-list {
+    overflow: hidden; /* 슬라이드가 화면 밖으로 넘어가지 않도록 설정 */
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .slick-track {
+    display: flex; /* 슬라이드를 가로로 배치 */
+    align-items: center; /* 슬라이드가 수직으로 정렬 */
+    width: 100%; /* 트랙의 너비를 화면 너비에 맞게 설정 */
+  }
+
+  .slick-slide {
+    display: flex;
+    justify-content: center; /* 슬라이드 개별 콘텐츠를 가로 중앙 정렬 */
+    align-items: center; /* 슬라이드 개별 콘텐츠를 세로 중앙 정렬 */
+    width: 90%; /* 슬라이드의 가로 크기를 줄여 화면에 맞춤 */
+    height: auto;
+    padding: 0 10px; /* 슬라이드 사이 여백 조정 */
+  }
+
+  width: 95%;
+  padding: 40px;
+`;
+
+const StyledReview = styled.div`
+  border: 1px solid lightgray;
+  width: 80%;
+  margin: 0 auto;
+  padding: 30px 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0px 2px 5px lightgray;
+  text-align: left;
+  font-size: 1.2rem;
+  line-height: 1.5;
+
+  position: relative;
+  overflow: visible; /* 인용 기호가 잘리지 않도록 설정 */
+  transition: transform 0.3s ease;
+  
+  /* 인용 기호 */
+  &::before {
+    content: "“";
+    font-size: 3rem;
+    color: #90caf9;
+    position: absolute;
+    top: -5px;
+    left: 4px;
+  }
+  
+  &::after {
+    content: "”";
+    font-size: 3rem;
+    color: #90caf9;
+    position: absolute;
+    bottom: -15px;
+    right: 5px;
+  }
+`;
+
+const settingsReview = {
+  dots: true,
+  infinite: true, // 무한 루프
+  speed: 500,
+  slidesToShow: 1,
+  slidesToScroll: 1,
+  autoplay: true,
+  autoplaySpeed: 3000,
+};
+
+const StyledReviewerInfo = styled.div`
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+
+  img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+`;
+
+const StyledReviewerName = styled.p`
+  font-weight: bold;
+  font-size: 0.9rem;
+  color: #333;
 `;
 
 const lineHeightStyle = {
@@ -122,7 +226,7 @@ const settings = {
   slidesToShow: 3,
   slidesToScroll: 1,
   autoplay: true,
-  autoplaySpeed: 2000,
+  autoplaySpeed: 3000,
   centerMode: true,
   centerPadding: "30px",
   border: "1px solid gray",
@@ -140,13 +244,18 @@ const ResDetail = ( {selectedRestaurant} ) => {
         </StyledTitle>
 
         <StyledResultBox>
-          <StyledResName>{selectedRestaurant.restaurantName}</StyledResName>
+          <div style={{textAlign:"center"}}>
+            <StyledResName style={{display:"inline", marginLeft:"2vw"}}>
+                {selectedRestaurant.restaurantName}
+            </StyledResName>
+            <span style={{marginLeft:"1vw", color:"grey", fontSize:"1.2vw"}}>{selectedRestaurant.restaurantType}</span>
+          </div>
           <ReviewInfo>
             <p style={{margin:"3px 20px"}}>별점 : {selectedRestaurant.horoscope || 0}⭐</p>
             <p style={{margin:"3px 20px"}}>블로그 리뷰 : {selectedRestaurant.blogReviewCnt}개</p>
             <p style={{margin:"3px 20px"}}>방문자 리뷰 : {selectedRestaurant.visitorReviewCnt}개</p>
           </ReviewInfo>
-          <p style={lineHeightStyle}> 🏠 편의시설 ::
+          <p style={{textAlign: "center", lineHeight: "220%"}}> 🏠 편의시설 ::
                 {selectedRestaurant.restauranService === "0" 
                 ? "편의시설 정보를 제공하지 않습니다."
                 : selectedRestaurant.restauranService}</p>
@@ -155,7 +264,7 @@ const ResDetail = ( {selectedRestaurant} ) => {
           <StyledMapBox>
             <StyledInfoImg imgUrl={selectedRestaurant.mainImg}/>
             <StyledInfo>
-              <p>{selectedRestaurant.restauranInfo}</p>
+              <p>{selectedRestaurant.restauranInfo === "0" ? "정보를 제공하지 않습니다." : selectedRestaurant.restauranInfo}</p>
             </StyledInfo>
           </StyledMapBox>
           <br />
@@ -175,7 +284,6 @@ const ResDetail = ( {selectedRestaurant} ) => {
               <h3 style={lineHeightStyle}>⏰ 이동 시간 10분</h3>
             </StyledMapDesc>
           </StyledMapBox>
-          <StyledButton>방문하기!</StyledButton>
           <br />
           <br />
           <br />
@@ -191,12 +299,25 @@ const ResDetail = ( {selectedRestaurant} ) => {
                     src={imgUrl === "0" ? "/img-sample_nongdam.jpg" : imgUrl} 
                     alt={name} 
                   />
-                  <StyledMenuName>{name}</StyledMenuName>
-                  <p className="menuPrice">{price}</p>
+                  <StyledMenuName style={{textAlign:"center"}}>{name}</StyledMenuName>
+                  <p className="menuPrice" style={{textAlign:"center"}}>{price}</p>
                 </div>
               );
             })}
           </StyledMenuBox>
+          <br />
+          <br />
+          <br />
+
+          {/* 리뷰 섹션 추가 */}
+          <StyledSubTitle>고객 리뷰</StyledSubTitle>
+          <StyledReviewBox {...settingsReview}>
+            {selectedRestaurant.textReviews.map((review, index) => (
+              <StyledReview key={index}>
+                {review}
+              </StyledReview>
+            ))}
+          </StyledReviewBox>
           <br />
           <br />
           <br />

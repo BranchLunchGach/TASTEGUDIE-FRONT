@@ -7,12 +7,20 @@ import Modal from 'react-bootstrap/Modal';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate } from 'react-router-dom';
 import { HelloContext } from '../../context/HelloContext';
+import LodingPage2 from '../../pages/LodingPage2';
 
+// 준비된 이미지 배열
+const images = [
+    '/smiling.png',
+    '/Grinning_face.png',
+    '/sunglasses.png',
+    '/stonished_face.png',
+    '/happy_face.png',
+];
 
 const FirstContainer = styled.div`
     display: flex;
     align-items: center;
-    border: 1px solid black;
 `
 
 const HelloTitle = styled.div`
@@ -25,16 +33,15 @@ const HelloTitle = styled.div`
 const SearchContainer = styled.div`
     padding: 20px;
     margin-left: 30px;
-    border: 1px solid red;
 
     display: flex;
     flex-direction: column;
+    align-items: center;
 `
 
 const MenuSearchContainer = styled.div`
     height: 140px;
-    border: 1px solid blue;
-    
+
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -73,32 +80,41 @@ const LocationSearchDiv = styled.div`
 const LocationSearchInput = styled.input`
     width: 300px;
     height: 40px;
-    padding: 20px;
+    padding: 2vw;
     border: 1px solid #ccc;
-    border-radius: 20px;
+    border-radius: 25px;
+`
+
+const LocationAddBtn = styled.button`
+    margin-left: -1vw;
+    padding: 2vh 6vw;
+    border-radius: 10px;
+    background-color: black;
+    color: white;
+    font-weight: bold;
 `
 
 const LocationSearchBtn = styled.button`
-    margin-left: 15px;
-    padding: 12px;
-    border-radius: 12px;
+    margin-left: 1vw;
+    padding: 0.8vw;
+    border-radius: 10px;
     background-color: black;
     color: white;
     font-weight: bold;
 `
 
 const SecondContainer = styled.div`
-    width: 1920px;
+    width: 100vw;
     height: 400px;
-    border: 1px solid black;
     margin-top: 100px;
+    border: 1px solid red;
 
     display: flex;
     align-items: center;
 `
 
 const UserLocation = styled.div`
-    width: 1300px;
+    width: 68vw;
     height: 90%;
     border: 2px solid #ccc;
     border-radius: 20px;
@@ -114,13 +130,13 @@ const UserLocation = styled.div`
 
 const UserDiv = styled.div`
     /* width: 25%; */
-    min-width: 25%;
+    min-width: 28%;
     height: 95%;
     border: 1px solid black;
     border-radius: 20px;
     background-color: white;
-    margin-left: 40px; /* 각 UserDiv 간의 간격 */
-    margin-right: 40px; /* 각 UserDiv 간의 간격 */
+    margin-left: 2vw; /* 각 UserDiv 간의 간격 */
+    margin-right: 2vw; /* 각 UserDiv 간의 간격 */
 
     display: flex;
     flex-direction: column;
@@ -130,13 +146,13 @@ const UserDiv = styled.div`
 const ImgDiv = styled.div`
     width: 50%;
     height: 50%;
-    border: 1px solid blue;
-    margin-top: 50px;
+    margin-top: 3vh;
 
-    background-image: url('/smiling.png');
+    background-image: ${({ imgUrl }) => `url(${imgUrl})`};
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    background-size: 100%;
 `
 
 const Span = styled.span`
@@ -146,10 +162,10 @@ const Span = styled.span`
 `
 
 const GoBtn = styled.button`
-    width: 240px;
-    height: 60%;
+    width: 14vw;
+    height: 50%;
     border-radius: 200px;
-    margin-left: 100px;
+    margin-left: 5vw;
     color: white;
     background-color: black;
 `
@@ -159,6 +175,8 @@ const LocationSearchResult = styled.div`
 `
 
 const HelloForm = () => {
+
+    const [isLoading, setIsLoading] = useState(false); // 로딩 상태 추가
 
     const [locations, setLocations] = useState([]); // 위치 리스트 관리
     const [inputValue, setInputValue] = useState(''); // 입력값 관리
@@ -176,8 +194,8 @@ const HelloForm = () => {
     const [geocode, setGeocode] = useState([]);
 
     //api keys
-    const clientId = "0cvfevabmz";
-    const clientSecret = "QXESjLVsAx9V6AVxtC6J6KyMXOk3jy4rrnJbvrSC";
+    const clientId = process.env.REACT_APP_clientId;
+    const clientSecret = process.env.REACT_APP_clientSecret;
 
     const { contextData, setContextData } = useContext(HelloContext);
 
@@ -221,43 +239,7 @@ const HelloForm = () => {
     const handleMenuSelect = () => {
         setSelectedMenu(menuInput); // 선택된 메뉴를 업데이트
     };
-
-    // useEffect(() => {
-    //     console.log("Updated geocode:", geocode);
-    // }, [geocode]);
-
-    // const fetchGeocode = (address) => {
-    //     return axios
-    //       .get(
-    //         "https://naveropenapi.apigw.ntruss.com/map-geocode/v2/geocode?query=" +
-    //           encodeURIComponent(address),
-    //         {
-    //           params: {
-    //             "X-NCP-APIGW-API-KEY-ID": clientId,
-    //             "X-NCP-APIGW-API-KEY": clientSecret,
-    //           },
-    //         }
-    //       )
-    //       .then((res) => {
-    //         console.log("API 응답:", res.data); // 응답 확인용
-    //         const result = res.data.addresses[0]; // 첫 번째 결과만 가져옵니다.
-    //         if (result) {
-    //           setGeocode([...geocode, {
-    //             roadAddress: result.roadAddress,
-    //             latitude: parseFloat(result.y),
-    //             jibunAddress: parseFloat(result.jibunAddress),
-    //             longitude: result.x ,
-    //         }]);
-    //         } else {
-    //           alert("해당 주소의 결과를 찾을 수 없습니다.");
-    //           return null;
-    //         }
-    //       })
-    //       .catch((err) => {
-    //         alert("주소 정보를 가져오는 데 실패했습니다.");
-    //         return null;
-    //       });
-    //   }; // fetchGeocode()
+    
     const fetchGeocode = async (address) => {
         try {
             const res = await axios.get(
@@ -289,9 +271,12 @@ const HelloForm = () => {
         }
     };
 
-    const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+    // const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
     const handleStart = async () => {
+
+        setIsLoading(true); // 로딩 상태 활성화
+
         // 모든 주소에 대해 fetchGeocode를 호출하고 결과를 기다립니다.
         const geocodeResults = await Promise.all(
             locations.map((location) => fetchGeocode(location?.address))
@@ -316,36 +301,72 @@ const HelloForm = () => {
         setGeocode(validResults);
 
         setContextData({ menu: selectedMenu, avgX: avgX, avgY: avgY}); // 예시 데이터 설정
-        navigate('/hello/result'); // 페이지 이동
+
+        console.log("페이지 이동 전 메뉴 데이터", selectedMenu);
+        console.log("페이지 이동 전 X 값 데이터", avgX);
+        console.log("페이지 이동 전 Y 값 데이터", avgY);
+
+        recommand();
+        // navigate('/hello/result'); // 페이지 이동
     };
+
+    const recommand = () => {
+        axios({
+          url: "http://localhost:9000/hello-restaurant",
+          method: "post",
+          data: {
+            menu: contextData.menu,
+            avgX: contextData.avgX,
+            avgY: contextData.avgY,
+          },
+        })
+        .then((res) => {
+            console.log(res.data);
+            navigate("/hello/result", { state: { menuData: res.data } });
+        })
+        .catch((err)=>{
+          console.error("Error sending data:", err);
+        })
+        .finally(() => {
+            setIsLoading(false); // 로딩 상태 비활성화 (필요한 경우)
+          });
+      }    
+
+    if (isLoading) {
+        return <LodingPage2 />; // 로딩 페이지 표시
+    }      
 
     return (
         <div>
             <FirstContainer>
                 <HelloTitle>만남의 장소</HelloTitle>
-                <SearchContainer>
-                    <LocationSubTitle>아래 버튼을 클릭하여 인원을 추가해 주세요.</LocationSubTitle>
-                    <LocationSearchDiv>                    
-                        <LocationSearchBtn variant="primary" onClick={handleShow}>인원 추가하기</LocationSearchBtn> 
-                    </LocationSearchDiv>
-                </SearchContainer>
-                <MenuSearchContainer>
-                    {/* 선택된 메뉴 표시 */}
-                    <span style={{
-                        fontSize: "19px",
-                        color: selectedMenu ? "red" : "black", // 선택된 메뉴가 있을 때 빨간색으로 변경
-                        fontWeight: selectedMenu ? "bold" : "nomal"
-                    }}>
-                        {selectedMenu ? `선택한 메뉴 : ${selectedMenu}` : "메뉴를 선택해주세요!"}
-                    </span>
-                    <div>
-                        <MenuSearchInput type="text" 
-                            placeholder="메뉴를 입력하세요." 
-                            value={menuInput} 
-                            onChange={(e) => setMenuInput(e.target.value)}  />
-                        <MenuSearchBtn onClick={handleMenuSelect}>선택하기</MenuSearchBtn>
-                    </div>
-                </MenuSearchContainer>
+                <div style={{display:"flex", border: "3px solid #ccc", borderRadius:"20px",marginLeft:"2vw"}}>
+                    <SearchContainer>
+                        <LocationSubTitle>인원을 추가하여 위치를 입력하세요.</LocationSubTitle>
+                        <LocationSearchDiv>                    
+                            <LocationAddBtn variant="primary" onClick={handleShow}>인원 추가하기</LocationAddBtn> 
+                        </LocationSearchDiv>
+                    </SearchContainer>
+                    <MenuSearchContainer>
+                        {/* 선택된 메뉴 표시 */}
+                        <span style={{
+                            fontSize: "19px",
+                            color: selectedMenu ? "red" : "black", // 선택된 메뉴가 있을 때 빨간색으로 변경
+                            fontWeight: selectedMenu ? "bold" : "nomal",
+                            marginLeft: "65px",
+
+                        }}>
+                            {selectedMenu ? `선택한 메뉴 : ${selectedMenu}` : "메뉴를 선택해주세요!"}
+                        </span>
+                        <div style={{marginRight:"2vw"}}>
+                            <MenuSearchInput type="text" 
+                                placeholder="메뉴를 입력하세요." 
+                                value={menuInput} 
+                                onChange={(e) => setMenuInput(e.target.value)}  />
+                            <MenuSearchBtn onClick={handleMenuSelect}>선택하기</MenuSearchBtn>
+                        </div>
+                    </MenuSearchContainer>
+                </div>        
             </FirstContainer>
 
             <Modal show={show} onHide={handleClose} centered >
@@ -378,7 +399,7 @@ const HelloForm = () => {
                                 ))}
                             </ul>
                         ) : (
-                            <p style={{fontSize:"20px", marginTop:"60px",  marginBottom:"40px", color:"gray"}}>데이터가 없습니다</p>
+                            <p style={{fontSize:"20px", marginTop:"50px",  marginBottom:"40px", textAlign: "center", color:"gray"}}>데이터가 없습니다</p>
                         )}
                     </LocationSearchResult>
                 </Modal.Body>
@@ -397,7 +418,7 @@ const HelloForm = () => {
                      {locations.length === 0 ? ( <p style={{ fontSize: "30px", color: "gray", textAlign: "center" }}>인원을 추가해주세요!</p> ) : (
                         locations.map((location, index) => (
                             <UserDiv key={index}>
-                                <ImgDiv></ImgDiv>
+                                <ImgDiv  imgUrl={images[index]} /> {/* 이미지 배열의 인덱스에 따라 동적 배치 */}
                                 <Span>{location.title}</Span>
                                 <span style={{ color: "gray", marginBottom: "5px" }}>{location.address}</span>
                                 <button 
@@ -409,7 +430,8 @@ const HelloForm = () => {
                                         fontWeight: "bold",
                                         fontSize: "16px",
                                         cursor: "pointer",
-                                        marginLeft: "10px"
+                                        marginLeft: "0.6vw",
+                                        marginTop: "1vh",
                                     }}> 삭제 </button>
                             </UserDiv>
                         ))

@@ -1,5 +1,4 @@
 import { useReducer, useEffect } from 'react';
-import { Naver_ID, Naver_Secret } from './config';
 import axios from 'axios';
 
 function reducer(state, action) {
@@ -45,8 +44,8 @@ function useNaver(search) {
                     display: 3
                 },
                 headers: {
-                    'X-Naver-Client-Id': Naver_ID,
-                    'X-Naver-Client-Secret': Naver_Secret
+                    'X-Naver-Client-Id': process.env.REACT_APP_Naver_ID,
+                    'X-Naver-Client-Secret': process.env.REACT_APP_Naver_Secret
                 },
             });
 
