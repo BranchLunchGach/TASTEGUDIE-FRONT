@@ -20,6 +20,7 @@ const StyledButton = styled.button`
   background: black;
 `;
 const StyledInput = styled.input`
+  width: 100%;
   padding: 10px;
   margin-bottom: 16px;
   border-radius: 6px;
@@ -41,6 +42,10 @@ const StyledInput = styled.input`
     background-color: black;
   }
 `;
+const StyledFlexContainer = styled.div`
+  display: flex;
+  justify-content: center;
+`
 
 const RegisterForm = () => {
   const SPRING_IP = process.env.REACT_APP_SPRING_IP;
@@ -97,6 +102,7 @@ const RegisterForm = () => {
         birthDate: birthDay.year + "-" + birthDay.month + "-" + birthDay.day,
       });
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [birthDay]);
   //각 text 박스에 값이 변경되었을 때-생년월일 제외
   const changeValue = (e) => {
@@ -296,6 +302,7 @@ const RegisterForm = () => {
   const checkCode = (e) => {
     e.preventDefault();
     let code = $("#code").val();
+    // eslint-disable-next-line eqeqeq
     if (emailCode == code) {
       alert("일치합니다.");
       setIsEmailCheck(true);
@@ -308,6 +315,7 @@ const RegisterForm = () => {
   };
 
   return (
+    <StyledFlexContainer>
     <StyledContainer>
       <h2 className="register-title">Sign-UP</h2>
 
@@ -465,7 +473,7 @@ const RegisterForm = () => {
                 <label for="female">여</label>
               </div>
             </label>
-
+            <br/>       
             <StyledButton
               type="submit"
               id="register-button"
@@ -477,6 +485,7 @@ const RegisterForm = () => {
         </div>
       </div>
     </StyledContainer>
+    </StyledFlexContainer>
   );
 };
 

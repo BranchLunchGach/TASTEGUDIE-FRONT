@@ -7,15 +7,19 @@ import MenuRecommendPage from "./pages/MenuRecommendPage";
 import Callback from "./components/user/Callback";
 import LoginPage from "./pages/user/LoginPage";
 import JoinPage from "./pages/user/JoinPage";
-import MyPage from "./pages/user/MyPage";
 import FindIDPWDPage from "./pages/user/FindIDPWDPage";
 
 import Hello from "./pages/Hello";
 import ListArea from "./components/api/ListArea";
 import HelloResultPage from "./pages/HelloResultPage";
-import HelloResultCompletePage from "./pages/HelloResultCompletePage";
+import ResRecommResultPage from "./pages/restaurent/ResRecommResultPage";
 import ChoiceListPage from "./pages/ChoiceListPage";
+import MyPage from "./pages/user/MyPage";
 import AiPage from "./components/AI/AiPage";
+import ResDetail from "./components/restaurant/ResDetail";
+import ChartPage from "./pages/user/ChartPage";
+import ResCompletePage from "./pages/restaurent/ResCompletePage";
+import LodingPage2 from "./pages/LodingPage2";
 
 const Navirouter = () => {
   return (
@@ -32,13 +36,20 @@ const Navirouter = () => {
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/hello" element={<Hello />} />
         <Route path="/naverapitest" element={<ListArea />} />
+<<<<<<< HEAD
         <Route path="/hello/result" element={<HelloResultPage />} />
         <Route
           path="/hello/result/complete"
           element={<HelloResultCompletePage />}
         />
+=======
+        <Route path="/hello/result" element={<ResRecommResultPage />} />
+>>>>>>> aed377b74851b7dfc45a7e3957163b07ded00979
         <Route path="/find" element={<FindIDPWDPage />} />
         <Route path="/ai" element={<AiPage />} />
+        <Route path="/chart" element={<ChartPage />} />
+        <Route path="/hello/complete" element={<ResCompletePage/>} />
+        <Route path="/test" element={<LodingPage2/>} />
       </Routes>
     </div>
   );

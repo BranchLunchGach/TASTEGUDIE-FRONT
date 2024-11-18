@@ -19,7 +19,7 @@ const Header1 = ({ scrollToPage }) => {
       <div onClick={() => scrollToPage(1)}>
         <Home />
       </div>
-      <Category />
+      { token === null ? <Category /> : <Category2/>}
     </StyledHeader>
   );
 };
