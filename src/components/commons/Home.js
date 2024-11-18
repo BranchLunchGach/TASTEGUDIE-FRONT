@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const StyledHome = styled.img`
@@ -7,14 +6,8 @@ const StyledHome = styled.img`
   float: left;
 `;
 
-const Home = ({ scrollToPage }) => {
-  return (
-    <>
-      <div onClick={() => scrollToPage(1)}>
-        <StyledHome src="/logo.png" />
-      </div>
-    </>
-  );
+const Home = () => {
+  return <StyledHome src="/logo.png" />;
 };
 
 export default Home;

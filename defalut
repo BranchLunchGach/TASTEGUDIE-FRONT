@@ -1,0 +1,37 @@
+# HTTP -> HTTPS 리디렉션
+server {
+    listen 80;
+    server_name tasteguide.duckdns.org;
+
+    # HTTP 트래픽을 HTTPS로 리디렉션
+    return 301 https://$host$request_uri;
+}
+
+# HTTPS 서버 설정
+server {
+    listen 443 ssl;
+    server_name tasteguide.duckdns.org;
+
+    # SSL 인증서 경로
+    ssl_certificate /etc/letsencrypt/live/tasteguide.duckdns.org/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/tasteguide.duckdns.org/privkey.pem;
+
+    # SSL 보안 설정 (선택 사항)
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_ciphers 'TLS_AES_128_GCM_SHA256:TLS_AES_256_GCM_SHA384:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384';
+    ssl_prefer_server_ciphers off;
+
+    # React 앱의 정적 파일을 제공하는 경로 설정
+    root /home/ubuntu/TASTEGUDIE-FRONT/build;
+    index index.html;
+
+    # 모든 요청은 React의 index.html로 리디렉션
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+
+        # ACME challenge를 위한 설정 (인증서 발급 시)
+        location /.well-known/acme-challenge/ {
+        root /var/www/html;
+    }
+}
