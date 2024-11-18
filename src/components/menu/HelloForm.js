@@ -194,8 +194,8 @@ const HelloForm = () => {
     const [geocode, setGeocode] = useState([]);
 
     //api keys
-    const clientId = "0cvfevabmz";
-    const clientSecret = "QXESjLVsAx9V6AVxtC6J6KyMXOk3jy4rrnJbvrSC";
+    const clientId = process.env.REACT_APP_clientId;
+    const clientSecret = process.env.REACT_APP_clientSecret;
 
     const { contextData, setContextData } = useContext(HelloContext);
 

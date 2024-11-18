@@ -102,7 +102,7 @@ const MenuResultPage = () => {
     console.log(menu[0].selectKeyword);
     console.log(menu[0].selectSoup);
     axios({
-      url: "http://localhost:9000/menu",
+      url: process.env.REACT_APP_SPRING_IP+"/menu",
       method: "post",
       data: {
         nation: menu[0].selectNation,
