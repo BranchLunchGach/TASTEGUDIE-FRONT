@@ -18,6 +18,8 @@ import MyPage from "./pages/user/MyPage";
 import AiPage from "./components/AI/AiPage";
 import ResDetail from "./components/restaurant/ResDetail";
 import ChartPage from "./pages/user/ChartPage";
+import ResCompletePage from "./pages/restaurent/ResCompletePage";
+import LodingPage2 from "./pages/LodingPage2";
 
 const Navirouter = () => {
   return (
@@ -34,11 +36,12 @@ const Navirouter = () => {
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/hello" element={<Hello />} />
         <Route path="/naverapitest" element={<ListArea />} />
-        <Route path="/hello/result" element={<HelloResultPage />} />
-        <Route path="/hello/result/complete" element={<ResRecommResultPage />} />
+        <Route path="/hello/result" element={<ResRecommResultPage />} />
         <Route path="/find" element={<FindIDPWDPage />} />
         <Route path="/ai" element={<AiPage />} />
         <Route path="/chart" element={<ChartPage />} />
+        <Route path="/hello/complete" element={<ResCompletePage/>} />
+        <Route path="/test" element={<LodingPage2/>} />
       </Routes>
     </div>
   );
