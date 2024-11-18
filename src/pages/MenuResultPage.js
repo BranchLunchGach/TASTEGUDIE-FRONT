@@ -97,6 +97,7 @@ const MenuResultPage = () => {
   }, [menName]);
 
   const reRecommand = () => {
+    alert("1");
     console.log(menu[0].selectNation);
     console.log(menu[0].selectCategory);
     console.log(menu[0].selectKeyword);
@@ -152,7 +153,9 @@ const MenuResultPage = () => {
             <p>메뉴가 없습니다.</p>
           )}
         </StyledResultBox>
-        <Retry onClick={reRecommand}>재추천</Retry>
+        <span  onClick={reRecommand}>
+        <Retry>재추천</Retry>
+        </span>
       </StyledContentBox>
     </StyledPage>
   );
