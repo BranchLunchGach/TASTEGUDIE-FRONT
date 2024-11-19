@@ -6,8 +6,7 @@ import $ from "jquery";
 import styled from "styled-components";
 
 const StyledContainer = styled.div`
-  width: 45%;
-  padding: 100px;
+  width: 25vw;
 `;
 const StyledButton = styled.button`
   width: 100%;
@@ -45,7 +44,38 @@ const StyledInput = styled.input`
 const StyledFlexContainer = styled.div`
   display: flex;
   justify-content: center;
-`
+`;
+const StyledMainTitle = styled.p`
+  font-family: "LOTTERIA CHAB-Regular";
+  font-size: 4vw;
+  text-align: left;
+`;
+const StyledSubTitle = styled.p`
+  font-size: 1.2vw;
+  text-align: left;
+`;
+const StyledRegiContainer = styled.div`
+  background-color: white;
+  margin: 0 auto;
+  box-shadow: 0px 2px 5px 2px lightgray;
+  border-radius: 8px;
+  padding: 7.5% 5.6%;
+`;
+const StyledRegiSubContainer = styled.div`
+  & > p {
+    color: red;
+    font-size: 17px;
+    margin: 0px;
+    text-align: left;
+  }
+`;
+const StyledRegiForm = styled.div`
+  & > label {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+  }
+`;
 
 const RegisterForm = () => {
   const SPRING_IP = process.env.REACT_APP_SPRING_IP;
@@ -102,7 +132,7 @@ const RegisterForm = () => {
         birthDate: birthDay.year + "-" + birthDay.month + "-" + birthDay.day,
       });
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [birthDay]);
   //각 text 박스에 값이 변경되었을 때-생년월일 제외
   const changeValue = (e) => {
@@ -316,175 +346,181 @@ const RegisterForm = () => {
 
   return (
     <StyledFlexContainer>
-    <StyledContainer>
-      <h2 className="register-title">Sign-UP</h2>
+      <StyledContainer>
+        <StyledMainTitle>Sign Up</StyledMainTitle>
 
-      <p className="register-info">회원가입을 위해 정보를 입력해주세요.</p>
+        <StyledSubTitle>회원가입을 위해 정보를 입력해주세요.</StyledSubTitle>
 
-      <div className="register-container">
-        <div className="register-sub-container">
-          <p>*는 필수입력 사항입니다.</p>
+        <StyledRegiContainer>
+          <StyledRegiSubContainer>
+            <p>*는 필수입력 사항입니다.</p>
+            <br />
+            <br />
 
-          <form className="register-form">
-            <label>
-              <span>*이름</span>
-              <StyledInput
-                type="text"
-                id="name"
-                name="name"
-                placeholder="홍길동"
-                onChange={changeValue}
-              />
-            </label>
-
-            <label>
-              <span>*아이디</span>
-              <StyledInput
-                type="text"
-                id="userId"
-                name="userId"
-                placeholder="abc@google.com"
-                onChange={changeValue}
-              />
-              <StyledButton id="emailbtn" onClick={sendEmail}>
-                인증번호 보내기
-              </StyledButton>
-            </label>
-
-            <label>
-              <span>*인증 코드</span>
-              <StyledInput type="text" id="code" name="code" />
-              <StyledButton id="codetbn" onClick={checkCode}>
-                인증하기
-              </StyledButton>
-            </label>
-
-            <label>
-              <div style={isCheckResult ? { color: "red" } : { color: "blue" }}>
-                {" "}
-                {idCheckResult}
-              </div>
-            </label>
-
-            <label>
-              <span>*비밀번호</span>
-              <StyledInput
-                type="password"
-                id="password"
-                name="password"
-                placeholder="비밀번호"
-                onChange={changeValue}
-              />
-            </label>
-
-            <label>
-              <span>*비밀번호 확인</span>
-              <StyledInput
-                type="password"
-                id="password2"
-                name="password2"
-                placeholder="비밀번호 확인"
-                onChange={checkEqual}
-              />
-            </label>
-
-            <label>
-              <div
-                style={isPassCheckResult ? { color: "blue" } : { color: "red" }}
-                id="checkResult"
-              >
-                {checkResult}
-              </div>
-            </label>
-
-            <label>
-              <span>*전화번호</span>
-              <StyledInput
-                type="text"
-                id="phone"
-                name="phone"
-                placeholder="010-1111-1111"
-                onChange={changeValue}
-              />
-            </label>
-
-            <label>
-              <span>생년월일</span>
-              <div className="date-select-container">
-                <select
-                  className="date-select"
-                  id="year"
-                  name="year"
-                  onChange={changeBirth}
-                >
-                  <option>년(4자)</option>
-                  {generateYearOptions()}
-                </select>
-
-                <select
-                  className="date-select"
-                  id="month"
-                  name="month"
-                  onChange={changeBirth}
-                >
-                  <option>월</option>
-                  {[...Array(12).keys()].map((month) => (
-                    <option key={month + 1} value={month + 1}>
-                      {month + 1}
-                    </option>
-                  ))}
-                </select>
-
-                <select
-                  className="date-select"
-                  id="day"
-                  name="day"
-                  onChange={changeBirth}
-                >
-                  <option>일</option>
-                  {[...Array(31).keys()].map((day) => (
-                    <option key={day + 1} value={day + 1}>
-                      {day + 1}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </label>
-
-            <label>
-              <span>성별</span>
-              <div className="gender-toggle">
+            <StyledRegiForm>
+              <label>
+                <h5>*이름</h5>
                 <StyledInput
-                  type="radio"
-                  id="male"
-                  name="gender"
-                  value="MAN"
-                  checked={true}
+                  type="text"
+                  id="name"
+                  name="name"
+                  placeholder="홍길동"
                   onChange={changeValue}
                 />
-                <label for="male">남</label>
+              </label>
 
+              <label>
+                <h5>*아이디</h5>
                 <StyledInput
-                  type="radio"
-                  id="female"
-                  name="gender"
-                  value="WOMAN"
+                  type="text"
+                  id="userId"
+                  name="userId"
+                  placeholder="abc@google.com"
+                  onChange={changeValue}
                 />
-                <label for="female">여</label>
-              </div>
-            </label>
-            <br/>       
-            <StyledButton
-              type="submit"
-              id="register-button"
-              onClick={submitJoin}
-            >
-              회원가입
-            </StyledButton>
-          </form>
-        </div>
-      </div>
-    </StyledContainer>
+                <StyledButton id="emailbtn" onClick={sendEmail}>
+                  인증번호 보내기
+                </StyledButton>
+              </label>
+
+              <label>
+                <h5>*인증 코드</h5>
+                <StyledInput type="text" id="code" name="code" />
+                <StyledButton id="codetbn" onClick={checkCode}>
+                  인증하기
+                </StyledButton>
+              </label>
+
+              <label>
+                <div
+                  style={isCheckResult ? { color: "red" } : { color: "blue" }}
+                >
+                  {" "}
+                  {idCheckResult}
+                </div>
+              </label>
+
+              <label>
+                <h5>*비밀번호</h5>
+                <StyledInput
+                  type="password"
+                  id="password"
+                  name="password"
+                  placeholder="비밀번호"
+                  onChange={changeValue}
+                />
+              </label>
+
+              <label>
+                <h5>*비밀번호 확인</h5>
+                <StyledInput
+                  type="password"
+                  id="password2"
+                  name="password2"
+                  placeholder="비밀번호 확인"
+                  onChange={checkEqual}
+                />
+              </label>
+
+              <label>
+                <div
+                  style={
+                    isPassCheckResult ? { color: "blue" } : { color: "red" }
+                  }
+                  id="checkResult"
+                >
+                  {checkResult}
+                </div>
+              </label>
+
+              <label>
+                <h5>*전화번호</h5>
+                <StyledInput
+                  type="text"
+                  id="phone"
+                  name="phone"
+                  placeholder="010-1111-1111"
+                  onChange={changeValue}
+                />
+              </label>
+
+              <label>
+                <h5>생년월일</h5>
+                <div className="date-select-container">
+                  <select
+                    className="date-select"
+                    id="year"
+                    name="year"
+                    onChange={changeBirth}
+                  >
+                    <option>년(4자)</option>
+                    {generateYearOptions()}
+                  </select>
+
+                  <select
+                    className="date-select"
+                    id="month"
+                    name="month"
+                    onChange={changeBirth}
+                  >
+                    <option>월</option>
+                    {[...Array(12).keys()].map((month) => (
+                      <option key={month + 1} value={month + 1}>
+                        {month + 1}
+                      </option>
+                    ))}
+                  </select>
+
+                  <select
+                    className="date-select"
+                    id="day"
+                    name="day"
+                    onChange={changeBirth}
+                  >
+                    <option>일</option>
+                    {[...Array(31).keys()].map((day) => (
+                      <option key={day + 1} value={day + 1}>
+                        {day + 1}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </label>
+
+              <label>
+                <h5>성별</h5>
+                <div className="gender-toggle">
+                  <StyledInput
+                    type="radio"
+                    id="male"
+                    name="gender"
+                    value="MAN"
+                    checked={true}
+                    onChange={changeValue}
+                  />
+                  <label for="male">남</label>
+
+                  <StyledInput
+                    type="radio"
+                    id="female"
+                    name="gender"
+                    value="WOMAN"
+                  />
+                  <label for="female">여</label>
+                </div>
+              </label>
+              <br />
+              <StyledButton
+                type="submit"
+                id="register-button"
+                onClick={submitJoin}
+              >
+                회원가입
+              </StyledButton>
+            </StyledRegiForm>
+          </StyledRegiSubContainer>
+        </StyledRegiContainer>
+      </StyledContainer>
     </StyledFlexContainer>
   );
 };
