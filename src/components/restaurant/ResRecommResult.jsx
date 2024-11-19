@@ -35,19 +35,27 @@ const StyledResultBox = styled.p`
 
 const ResultLeftBox = styled.div`
   width: 50vw;
+  margin-top: 4vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `
 
 const SubTitle = styled.div`
-  padding-top: 2vh;
-  border: 1px solid black;
+  width: 80%;
+  padding: 1.5vw 1.5vw 1.0vw 1.5vw;
   text-align: center;
+  border: 3px solid #ccc;
+  border-radius: 30px;
 `
 
 const LocationMap = styled.div`
     width: 80%;
     height: 70%;
     border: 1px solid black;
-    margin: 3vh auto;
+    margin: 5vh auto;
 `
 const StyledSpan = styled.span`
   font-size: small;
@@ -196,10 +204,13 @@ const ResRecommResult = () => {
   const navigate = useNavigate();  // useNavigate 훅을 사용하여 페이지 이동
 
   const location = useLocation();
+
+  const menu = location.state?.menu || []; // 전달받은 데이터
+  const x = location.state?.avgX || []; // 전달받은 데이터
+  const y = location.state?.avgY || []; // 전달받은 데이터
+
   const { menuData } = location.state || {}; // state에서 menuData를 안전하게 가져오기
   const [displayedData, setDisplayedData] = useState([]); // 현재 보여지는 3개의 데이터
-
-  const { contextData } = useContext(HelloContext);
 
   // 모달 상태 관리
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -207,9 +218,12 @@ const ResRecommResult = () => {
 
   const [selectedIndex, setSelectedIndex] = useState(null); // 선택된 요소를 관리하는 상태 추가
 
+  const [address, setAddress] = useState("");
+
   useEffect(() => {
-    console.log(contextData.avgX);
-    console.log(contextData.avgY);
+    console.log("menu >> " + menu);
+    console.log("x >> " + x);
+    console.log("y >> " + y);
     if (menuData && menuData.length > 0) {
       setDisplayedData(menuData.slice(0, 3)); // 처음 3개만 표시
     }
@@ -247,11 +261,11 @@ const ResRecommResult = () => {
         <StyledResultBox>
           <ResultLeftBox>
             <SubTitle>
-              <p>오늘 우리가 만날 곳은 인천광역시 서구 원당대로 628입니다.</p>
-              <p>그 주변 "파스타" 관련 음식점 세 곳을 추천드립니다.</p>
+              <p>오늘 우리가 만날 곳은 "{address}" 입니다.</p>
+              <p>그 주변 "{menu}" 관련 음식점 세 곳을 추천드립니다.</p>
             </SubTitle>
             <LocationMap>
-              <TmapMarker avgX={contextData.avgX} avgY={contextData.avgY} />
+              <TmapMarker avgX={x} avgY={y} onAddressChange={setAddress} />
             </LocationMap>
           </ResultLeftBox>
           <StyledResBox>

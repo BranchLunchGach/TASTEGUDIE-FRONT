@@ -280,7 +280,9 @@ const ResDetail = ( {selectedRestaurant} ) => {
           <br />
           <StyledSubTitle>가는 길</StyledSubTitle>
           <StyledMapBox>
-            <StyledMap />
+            <StyledMap>
+
+            </StyledMap>
             <StyledMapDesc>
               <p style={lineHeightStyle}>🚩 {selectedRestaurant.address}</p>
               <p style={lineHeightStyle}>🚉 {selectedRestaurant.subwayAddress === "0" 
