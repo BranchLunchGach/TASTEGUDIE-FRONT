@@ -105,7 +105,7 @@ const LocationSearchBtn = styled.button`
 
 const SecondContainer = styled.div`
     width: 100vw;
-    height: 400px;
+    height: 60vh;
     margin-top: 100px;
     border: 1px solid red;
 
@@ -201,12 +201,29 @@ const HelloForm = () => {
 
     const navigate = useNavigate();  // useNavigate 훅을 사용하여 페이지 이동
 
+    useEffect(() => {
+        console.log("현재 위치 저장 값 >>", locations);
+    }, [locations]);
+
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
+    // const handleAddLocation = () => {
+    //     if (selectedAddress && locations.length < 5) {
+    //         setLocations([...locations, selectedAddress]); // 선택한 위치 추가
+    //         setInputValue(selectedAddress); // inputValue를 선택한 주소로 설정
+    //         setSelectedAddress(null); // 선택 초기화
+    //         console.log("현재 위치 저장 값 > " + locations);
+    //         handleClose(); // 모달 닫기
+    //     }
+    // };
     const handleAddLocation = () => {
         if (selectedAddress && locations.length < 5) {
-            setLocations([...locations, selectedAddress]); // 선택한 위치 추가
+            setLocations((prevLocations) => {
+                const updatedLocations = [...prevLocations, selectedAddress];
+                console.log("현재 위치 저장 값 >", updatedLocations);
+                return updatedLocations;
+            });
             setInputValue(selectedAddress); // inputValue를 선택한 주소로 설정
             setSelectedAddress(null); // 선택 초기화
             handleClose(); // 모달 닫기
@@ -238,6 +255,7 @@ const HelloForm = () => {
     // 메뉴 선택하기 버튼 클릭 시 호출되는 함수
     const handleMenuSelect = () => {
         setSelectedMenu(menuInput); // 선택된 메뉴를 업데이트
+        console.log("현재 선택된 음식 >> " + menuInput);
     };
     
     const fetchGeocode = async (address) => {
@@ -270,8 +288,6 @@ const HelloForm = () => {
             return null;
         }
     };
-
-    // const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
     const handleStart = async () => {
 
@@ -306,18 +322,18 @@ const HelloForm = () => {
         console.log("페이지 이동 전 X 값 데이터", avgX);
         console.log("페이지 이동 전 Y 값 데이터", avgY);
 
-        recommand();
+        recommand(avgX, avgY);
         // navigate('/hello/result'); // 페이지 이동
     };
 
-    const recommand = () => {
+    const recommand = (x, y) => {
         axios({
           url: "http://localhost:9000/hello-restaurant",
           method: "post",
           data: {
-            menu: contextData.menu,
-            avgX: contextData.avgX,
-            avgY: contextData.avgY,
+            menu: selectedMenu,
+            avgX: x,
+            avgY: y,
           },
         })
         .then((res) => {
@@ -330,7 +346,7 @@ const HelloForm = () => {
         .finally(() => {
             setIsLoading(false); // 로딩 상태 비활성화 (필요한 경우)
           });
-      }    
+     }    
 
     if (isLoading) {
         return <LodingPage2 />; // 로딩 페이지 표시
@@ -411,10 +427,6 @@ const HelloForm = () => {
 
             <SecondContainer>
                 <UserLocation>
-                    {/* <UserDiv>
-                        <ImgDiv></ImgDiv>
-                        <Span>서울 종로구 우정국로 2길 21</Span>
-                    </UserDiv> */}
                      {locations.length === 0 ? ( <p style={{ fontSize: "30px", color: "gray", textAlign: "center" }}>인원을 추가해주세요!</p> ) : (
                         locations.map((location, index) => (
                             <UserDiv key={index}>
