@@ -140,12 +140,13 @@ const MenuResultPage = () => {
   }, [menName]);
 
   const reRecommand = () => {
+    alert("1");
     console.log(menu[0].selectNation);
     console.log(menu[0].selectCategory);
     console.log(menu[0].selectKeyword);
     console.log(menu[0].selectSoup);
     axios({
-      url: "http://localhost:9000/menu",
+      url: process.env.REACT_APP_SPRING_IP + "/menu",
       method: "post",
       data: {
         nation: menu[0].selectNation,
@@ -196,10 +197,9 @@ const MenuResultPage = () => {
           )}
         </StyledResultBox>
 
-        {/* 재추천 버튼 */}
-        <div onClick={reRecommand}>
-          <Retry />
-        </div>
+        <span onClick={reRecommand}>
+          <Retry>재추천</Retry>
+        </span>
       </StyledContentBox>
     </StyledPage>
   );

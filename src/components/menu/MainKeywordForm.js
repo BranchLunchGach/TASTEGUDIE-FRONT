@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 // 스타일 정의
 const Form = styled.form`
@@ -29,13 +29,76 @@ const Label = styled.label`
 
 `;
 
+const highlightAnimation = keyframes`
+  0% {
+    background-position: right bottom;
+  }
+  100% {
+    background-position: left bottom;
+  }
+`;
+
+const HighlightText = styled.span`
+  display: inline-block;
+  position: relative;
+  padding: 2px 5px;
+
+  &.highlight {
+    background: linear-gradient(90deg, yellow 50%, transparent 50%);
+    background-size: 200% 100%;
+    background-position: right bottom;
+    animation: ${highlightAnimation} 0.5s forwards; /* 애니메이션 적용 */
+  }
+`;
+
 const MainKeywordForm = (props) => {
   const [selectedMainKeywords, setSelectedMainKeywords] = useState(props.selectedMainKeywords, props.setSelectedMainKeywords);
   const [isAllChecked, setIsAllChecked] = useState(false);
 
   const handleMainChange = (value, event) => {
     event.preventDefault(); // 페이지 이동 방지
+    
+    const highlightElement = event.target.closest('label').querySelector('span');
+    if (highlightElement) {
+      // highlightElement의 초기 위치 계산
+      const initialRect = highlightElement.getBoundingClientRect();
+      const initialPosition = {
+        x: initialRect.left - 10, // 오른쪽 끝 좌표
+        y: initialRect.top - 60,  // y 좌표 (약간의 오프셋 추가)
+      };
 
+      // highlighter.png를 초기 위치로 이동
+      props.setHighlightPosition(initialPosition);
+
+      // 애니메이션 시작
+      setTimeout(() => {
+        props.setIsAnimating(true); // 애니메이션 시작
+      }, 0);
+
+      // 좌표를 추적하는 함수
+      const trackPosition = () => {
+        if (highlightElement) {
+          const rect = highlightElement.getBoundingClientRect();
+          props.setHighlightPosition({
+            x: rect.right - 10, // 오른쪽 끝 좌표
+            y: rect.top - 60, // y 좌표 (약간의 오프셋 추가)
+          });
+
+          // requestAnimationFrame을 통해 애니메이션 프레임마다 호출
+          if (props.isAnimating) {
+            requestAnimationFrame(trackPosition);
+          }
+        }
+      };
+
+      // 애니메이션 중에 좌표 추적
+      trackPosition();
+
+      setTimeout(() => {
+        props.setIsAnimating(false); // 애니메이션 끝
+      }, 500); // 애니메이션 시간과 맞춰줌
+    }
+    
     if (value === "상관없음") {
       // '상관없음' 클릭 시, 모든 선택을 토글
       if (isAllChecked) {
@@ -81,57 +144,71 @@ const MainKeywordForm = (props) => {
         <div style={{display:"flex", alignItems:"center", width:"80%"}}>
           <img alt='aa' src='/family.png' style={{width:"2vw", height:"2vw"}}/>
           <Label
-            onClick={(event) => handleMainChange("가족모임", event)}
+            onClick={!props.isAnimating ? (event) => handleMainChange("가족모임", event):undefined}
           >
-            가족모임 &nbsp; {selectedMainKeywords.includes("가족모임")?"✅":""}
+            <HighlightText className={selectedMainKeywords.includes("가족모임") ? "highlight" : ""}>
+              가족모임
+            </HighlightText>
           </Label>
         </div>
         <div style={{display:"flex", alignItems:"center", width:"80%"}}>
           <img alt='aa' src='/manyPeople.png' style={{width:"2vw", height:"2vw"}}/>
           <Label
-            onClick={(event) => handleMainChange("단체", event)}
+            onClick={!props.isAnimating ? (event) => handleMainChange("단체", event):undefined}
           >
-            단체 &nbsp; {selectedMainKeywords.includes("단체")?"✅":""}
+            <HighlightText className={selectedMainKeywords.includes("단체") ? "highlight" : ""}>
+              단체
+            </HighlightText>
           </Label>
         </div>
         <div style={{display:"flex", alignItems:"center", width:"80%"}}>
           <img alt='aa' src='/anny.png' style={{width:"2vw", height:"2vw"}}/>
           <Label
-            onClick={(event) => handleMainChange("기념일", event)}
+            onClick={!props.isAnimating ? (event) => handleMainChange("기념일", event):undefined}
           >
-            기념일 &nbsp; {selectedMainKeywords.includes("기념일")?"✅":""}
+            <HighlightText className={selectedMainKeywords.includes("기념일") ? "highlight" : ""}>
+              기념일
+            </HighlightText>
           </Label>
         </div>
         <div style={{display:"flex", alignItems:"center", width:"80%"}}>
           <img alt='aa' src='/money.png' style={{width:"2vw", height:"2vw"}}/>
           <Label
-            onClick={(event) => handleMainChange("가성비", event)}
+            onClick={!props.isAnimating ? (event) => handleMainChange("가성비", event):undefined}
           >
-            가성비 &nbsp; {selectedMainKeywords.includes("가성비")?"✅":""}
+            <HighlightText className={selectedMainKeywords.includes("가성비") ? "highlight" : ""}>
+              가성비
+            </HighlightText>
           </Label>
         </div>
         <div style={{display:"flex", alignItems:"center", width:"80%"}}>
           <img alt='aa' src='/person.png' style={{width:"2vw", height:"2vw"}}/>
           <Label
-            onClick={(event) => handleMainChange("혼밥", event)}
+            onClick={!props.isAnimating ? (event) => handleMainChange("혼밥", event):undefined}
           >
-            혼밥 &nbsp; {selectedMainKeywords.includes("혼밥")?"✅":""}
+            <HighlightText className={selectedMainKeywords.includes("혼밥") ? "highlight" : ""}>
+              혼밥
+            </HighlightText>
           </Label>
         </div>
         <div style={{display:"flex", alignItems:"center", width:"80%"}}>
           <img alt='aa' src='/fat.png' style={{width:"2vw", height:"2vw"}}/>
           <Label
-            onClick={(event) => handleMainChange("양많음", event)}
+            onClick={!props.isAnimating ? (event) => handleMainChange("양많음", event):undefined}
           >
-            양많음 &nbsp; {selectedMainKeywords.includes("양많음")?"✅":""}
+            <HighlightText className={selectedMainKeywords.includes("양많음") ? "highlight" : ""}>
+              양많음
+            </HighlightText>
           </Label>
         </div>
         <div style={{display:"flex", alignItems:"center", width:"80%"}}>
           <img alt='aa' src='/hyengi.png' style={{width:"2vw", height:"2vw"}}/>
           <Label
-            onClick={(event) => handleMainChange("현지맛", event)}
+            onClick={!props.isAnimating ? (event) => handleMainChange("현지맛", event):undefined}
           >
-            현지맛 &nbsp; {selectedMainKeywords.includes("현지맛")?"✅":""}
+            <HighlightText className={selectedMainKeywords.includes("현지맛") ? "highlight" : ""}>
+              현지맛
+            </HighlightText>
           </Label>
         </div>
       </Form>

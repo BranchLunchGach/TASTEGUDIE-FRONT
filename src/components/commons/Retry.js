@@ -9,7 +9,7 @@ const StyledRetry = styled.img`
   margin-top: -1vh;
 `;
 
-const Retry = () => {
+const Retry = (onClick) => {
   return (
     <div>
       <StyledRetry src="/icon-retry.png" />

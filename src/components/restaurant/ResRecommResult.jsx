@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import ResDetail from "./ResDetail";
 import { HelloContext } from '../../context/HelloContext';
 import axios from 'axios';
+import TmapMarker from "./TmapMarker";
 
 const StyledContentBox = styled.p`
   width: 92vw;
@@ -207,6 +208,8 @@ const ResRecommResult = () => {
   const [selectedIndex, setSelectedIndex] = useState(null); // 선택된 요소를 관리하는 상태 추가
 
   useEffect(() => {
+    console.log(contextData.avgX);
+    console.log(contextData.avgY);
     if (menuData && menuData.length > 0) {
       setDisplayedData(menuData.slice(0, 3)); // 처음 3개만 표시
     }
@@ -248,10 +251,7 @@ const ResRecommResult = () => {
               <p>그 주변 "파스타" 관련 음식점 세 곳을 추천드립니다.</p>
             </SubTitle>
             <LocationMap>
-              <h1>결과</h1>
-              <p>{contextData.menu}</p>
-              <p>{contextData.avgX}</p>
-              <p>{contextData.avgY}</p>
+              <TmapMarker avgX={contextData.avgX} avgY={contextData.avgY} />
             </LocationMap>
           </ResultLeftBox>
           <StyledResBox>

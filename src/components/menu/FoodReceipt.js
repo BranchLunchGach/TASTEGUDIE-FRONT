@@ -17,7 +17,7 @@ const FoodReceipt = ({ food }) => {
     }, 0);
 
     return (
-        <div style={{ width: '300px', height:"650px", marginTop:"3vh", border: '1px solid', backgroundColor: "white" }}>
+        <div style={{ width: '15vw', height:"37vw", border: '1px solid', backgroundColor: "white" }}>
             <h2 style={{ textAlign: 'center', margin: '10px 0' }}>TASTE GUIDE<br/>menu</h2>
             <div style={{ width:"90%", margin:"auto", display: 'flex', justifyContent: 'space-between', padding: '10px 0' }}>
                 <span>{formattedDate}</span>

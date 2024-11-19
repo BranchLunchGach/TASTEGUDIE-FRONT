@@ -1,8 +1,16 @@
-import React, { lazy } from "react";
+import React, { lazy, useState } from "react";
 import styled from "styled-components";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+
+const messages = [
+  "맛있어요!!",
+  "괜찮은 맛이에요",
+  "괜찮은 곳 같아요. 재방문 의사가 있어요.",
+  "친절한 서비스였어요",
+  "분위기도 괜찮아요."
+];
 
 const StyledContentBox = styled.p`
   //width: 92vw
@@ -89,12 +97,13 @@ const StyledInfo = styled.div`
 
 const StyledMap = styled.div`
   border: 1px solid gray;
-  width: 64%;
+  width: 55%;
   height: 400px;
 `;
 const StyledMapDesc = styled.div`
-  width: 32%;
+  width: 40%;
   text-align: left;
+  margin-top: 5vh;
 `;
 const StyledMenuBox = styled(Slider)`
   display: flex;
@@ -292,7 +301,7 @@ const ResDetail = ( {selectedRestaurant} ) => {
           {/* 메뉴 리스트를 반복문으로 생성 */}
           <StyledMenuBox {...settings}>
             {selectedRestaurant.menus.map((menu, index) => {
-              const [imgUrl, name, price] = menu.split("]");
+              const [imgUrl, name, price] = menu.split("\\\\");
               return (
                 <div key={index}>
                   <StyledMenuImg 
@@ -314,7 +323,7 @@ const ResDetail = ( {selectedRestaurant} ) => {
           <StyledReviewBox {...settingsReview}>
             {selectedRestaurant.textReviews.map((review, index) => (
               <StyledReview key={index}>
-                {review}
+                  {review === "0" || review.trim() === "" ? messages[index] : review}
               </StyledReview>
             ))}
           </StyledReviewBox>
