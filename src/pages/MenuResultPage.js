@@ -3,8 +3,10 @@ import Home from "../components/commons/Home";
 import BackSpace from "../components/commons/BackSpace";
 import Retry from "../components/commons/Retry";
 import styled from "styled-components";
-import { Link, useLocation } from "react-router-dom"; // useLocation import 추가
+import { Link, useLocation, useNavigate } from "react-router-dom"; // useLocation import 추가
 import axios from "axios";
+import useGeolocation from "react-hook-geolocation";
+import LodingPage2 from "./LodingPage2";
 
 const StyledPage = styled.div`
   display: flex;
@@ -105,10 +107,20 @@ const StyledMenuDesc = styled.p`
 const MenuResultPage = () => {
   const location = useLocation(); // location hook 사용
   const menuData = location.state?.menuData || []; // 전달받은 데이터
+  const coreK = location.state?.coreKeyword || []; // 전달받은 데이터
+  const mainK = location.state?.mainKeyword || []; // 전달받은 데이터
+  
+  //api keys
+  const clientId = process.env.REACT_APP_clientId;
+  const clientSecret = process.env.REACT_APP_clientSecret;
 
   //재추천 알고리즘 로컬스토리지 저장
   const [menName, setMenName] = useState("");
   const [menu, SetMenu] = useState(menuData);
+
+  const [isLoading, setIsLoading] = useState(false); // 로딩 상태 추가
+
+  const navigate = useNavigate();  // useNavigate 훅을 사용하여 페이지 이동
 
   function local(men) {
     let get = localStorage.getItem("selectMenuName");
@@ -124,17 +136,10 @@ const MenuResultPage = () => {
 
   useEffect(() => {
     local(menu);
-    console.log(location.state.coreKeyword);
-    console.log(location.state.mainKeyword);
-
-    /*
-    if(localStorage.getItem("selectMenuName")===null){
-      localStorage.setItem("selectMenuName",menuData[0].menuName + "," + menuData[1].menuName);
-    }else{
-      localStorage.setItem("selectMenuName",localStorage.getItem("selectMenuName") + "," + menuData[0].menuName + "," + menuData[1].menuName);
-    }
-      */
+    console.log(coreK);
+    console.log(mainK);
   }, []);
+  
   useEffect(() => {
     localStorage.setItem("selectMenuName", menName);
   }, [menName]);
@@ -162,6 +167,56 @@ const MenuResultPage = () => {
     });
   };
 
+  const geolocation = useGeolocation({
+    enableHighAccuracy: true, // 정확도를 높임
+    maximumAge: 0, // 캐시된 위치를 사용하지 않음
+  });
+
+  const handleStart = async (props) => {
+
+      setIsLoading(true); // 로딩 상태 활성화
+      
+      const coreKeyword = coreK.join(',');
+      const mainKeyword = mainK.join(',')
+
+      recommand(props, geolocation.longitude, geolocation.latitude, coreKeyword, mainKeyword);
+  };
+
+  const recommand = (menu, x, y, core, main) => {
+    axios({
+      url: "http://localhost:9000/restaurant",
+      method: "post",
+      data: {
+        menu: menu,
+        avgX: x,
+        avgY: y,
+        coreKeyword: core,
+        mainKeyword: main,
+      },
+    })
+    .then((res) => {
+        console.log(res.data);
+        navigate("/hello/result", { 
+          state: { 
+            menuData: res.data,
+            menu: menu,
+            avgX: x,
+            avgY: y,
+          },
+        });
+    })
+    .catch((err)=>{
+      console.error("Error sending data:", err);
+    })
+    .finally(() => {
+        setIsLoading(false); // 로딩 상태 비활성화 (필요한 경우)
+      });
+  }    
+
+  if (isLoading) {
+      return <LodingPage2 />; // 로딩 페이지 표시
+  }      
+
   return (
     <StyledPage>
       {/* 헤더 (홈 버튼만 있는) */}
@@ -180,7 +235,7 @@ const MenuResultPage = () => {
           {menu.length > 0 ? (
             menu.map((m, index) => (
               <StyledResultItem key={index}>
-                <StyledImgContainer>
+                <StyledImgContainer onClick={() =>handleStart(m.menuName)}>
                   <StyledImg src={m.imgUrl} alt={m.menuName} />
                   <StyledTextOverlay>식당 추천받기</StyledTextOverlay>
                 </StyledImgContainer>

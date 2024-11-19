@@ -323,7 +323,6 @@ const HelloForm = () => {
         console.log("페이지 이동 전 Y 값 데이터", avgY);
 
         recommand(avgX, avgY);
-        // navigate('/hello/result'); // 페이지 이동
     };
 
     const recommand = (x, y) => {
@@ -338,7 +337,13 @@ const HelloForm = () => {
         })
         .then((res) => {
             console.log(res.data);
-            navigate("/hello/result", { state: { menuData: res.data } });
+            navigate("/hello/result", { state: { 
+                menuData: res.data,
+                menu: selectedMenu,
+                avgX: x,
+                avgY: y,
+            },
+         });
         })
         .catch((err)=>{
           console.error("Error sending data:", err);
