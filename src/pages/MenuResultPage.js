@@ -10,6 +10,7 @@ const StyledPage = styled.div`
   display: flex;
   flex-direction: column;
   align-items: baseline;
+  height: 100vh;
 `;
 const StyledContentBox = styled.p`
   width: 92vw;
@@ -22,7 +23,7 @@ const StyledTitle = styled.p`
 `;
 const StyledMainTitle = styled.p`
   font-family: "LOTTERIA CHAB-Regular";
-  font-size: 64px;
+  font-size: 3.3vw;
   text-align: left;
 `;
 const StyledSubTitle = styled.p`
@@ -32,7 +33,7 @@ const StyledSubTitle = styled.p`
 const StyledResultBox = styled.div`
   display: flex;
   justify-content: space-between;
-  width: 53vw;
+  width: 52vw;
   margin: -1vh auto;
 `;
 const StyledResultItem = styled.div`
@@ -43,19 +44,61 @@ const StyledResultItem = styled.div`
 const StyledMenuTitle = styled.p`
   font-weight: bold;
   font-size: 2.4vw;
-  margin-top: 1.3vh;
+  margin-top: 2vh;
+  border-bottom: 1px solid gray;
+  padding: 0 1vw;
+`;
+const StyledImgContainer = styled.div`
+  position: relative;
+  width: 19vw;
+  height: 19vw;
+  overflow: hidden;
+  border-radius: 100%;
+  cursor: pointer;
 `;
 const StyledImg = styled.img`
-  width: 20vw;
-  height: 20vw;
+  width: 95%;
+  height: 95%;
+  top: 2.5%;
+  left: 2.5%;
+  position: absolute;
   border-radius: 100%;
   background-color: lightgray;
+  filter: drop-shadow(0px 2px 5px lightgray);
+  transition: transform 0.2s;
+
+  ${StyledImgContainer}:hover & {
+    transform: scale(1.02);
+    filter: blur(3px);
+    -webkit-filter: blur(2px);
+  }
+`;
+const StyledTextOverlay = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 2vw;
+  font-weight: bold;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+  border-radius: 100%;
+
+  /* 마우스를 이미지 위에 올리면 텍스트가 나타남 */
+  ${StyledImgContainer}:hover & {
+    opacity: 1;
+  }
 `;
 const StyledMenuDescBox = styled.p`
-  margin-top: 1.5vh;
+  margin-top: 1.6vh;
 `;
 const StyledMenuDesc = styled.p`
-  font-size: 1.4vw;
+  font-size: 1.3vw;
   margin-bottom: 0.2vw;
 `;
 
@@ -103,7 +146,7 @@ const MenuResultPage = () => {
     console.log(menu[0].selectKeyword);
     console.log(menu[0].selectSoup);
     axios({
-      url: process.env.REACT_APP_SPRING_IP+"/menu",
+      url: process.env.REACT_APP_SPRING_IP + "/menu",
       method: "post",
       data: {
         nation: menu[0].selectNation,
@@ -130,17 +173,17 @@ const MenuResultPage = () => {
       <StyledContentBox>
         <StyledTitle>
           <BackSpace />
-          <div>
-            <StyledMainTitle>식당 추천 결과</StyledMainTitle>
-            <StyledSubTitle>식당 추천 결과</StyledSubTitle>
-          </div>
+          <StyledMainTitle>메뉴 추천 결과</StyledMainTitle>
         </StyledTitle>
 
         <StyledResultBox>
           {menu.length > 0 ? (
             menu.map((m, index) => (
               <StyledResultItem key={index}>
-                <StyledImg src={m.imgUrl} alt={m.menuName} />
+                <StyledImgContainer>
+                  <StyledImg src={m.imgUrl} alt={m.menuName} />
+                  <StyledTextOverlay>식당 추천받기</StyledTextOverlay>
+                </StyledImgContainer>
                 <StyledMenuTitle>{m.menuName}</StyledMenuTitle>
                 <StyledMenuDescBox>
                   <StyledMenuDesc>{m.recoReason[0]}</StyledMenuDesc>
@@ -153,8 +196,9 @@ const MenuResultPage = () => {
             <p>메뉴가 없습니다.</p>
           )}
         </StyledResultBox>
-        <span  onClick={reRecommand}>
-        <Retry>재추천</Retry>
+
+        <span onClick={reRecommand}>
+          <Retry>재추천</Retry>
         </span>
       </StyledContentBox>
     </StyledPage>

@@ -1,28 +1,28 @@
 .chat {
-    background-color: aqua;
-    border-radius: 10px;
-    padding: 10px;
-    margin: 5px 0;
-    max-width: 80%;
-    float: left;
-    clear: both;
+  background-color: #fdd83e;
+  border-radius: 10px;
+  padding: 1vw;
+  margin: 0.5vw 0;
+  max-width: 80%;
+  float: left;
+  clear: right;
 }
 
 .chatImg {
-    border-radius: 10px;
-    margin: 5px 0;
-    max-width: 80%;
-    float: left;
-    clear: both;
+  border-radius: 10px;
+  margin: 0.5vw 0;
+  max-width: 80%;
+  float: left;
+  clear: both;
 }
 
 .user {
-    background-color: paleturquoise;
-    border-radius: 10px;
-    padding: 10px;
-    margin: 5px 0;
-    max-width: 80%;
-    float: right;
-    clear: both;
-  }
-  
+  background-color: black;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 5px 0;
+  max-width: 80%;
+  float: right;
+  clear: both;
+  color: white;
+}

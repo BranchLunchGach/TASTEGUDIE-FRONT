@@ -17,12 +17,13 @@ const StyledOptionBox = styled.div`
   border-radius: 20px;
   z-index: 6;
   position: relative;
+  cursor: pointer;
 
   &:hover {
     background-color: #fdd83e;
-    	-webkit-transition: .6s cubic-bezier(.47,2.02,.31,-0.36);
-  transition: .6s cubic-bezier(.47,2.02,.31,-0.36);
-  	transform: scale(1.1);
+    -webkit-transition: 0.6s cubic-bezier(0.47, 2.02, 0.31, -0.36);
+    transition: 0.6s cubic-bezier(0.47, 2.02, 0.31, -0.36);
+    transform: scale(1.1);
   }
 
   &:hover ~ div {
@@ -31,7 +32,6 @@ const StyledOptionBox = styled.div`
     -webkit-transition: 0.3s transform ease-out;
     transition: 0.3s transform ease-out;
   }
-
 `;
 const StyledNameBox = styled.div`
   position: relative;
@@ -70,8 +70,11 @@ const ChoiceList = () => {
   return (
     <StyledContentBox>
       <div>
-        
-        <StyledOptionBox onClick={()=>{ navigator("/menu") }}>
+        <StyledOptionBox
+          onClick={() => {
+            navigator("/menu");
+          }}
+        >
           <StyledNameBox>
             <StyledName>메뉴 추천</StyledName>
           </StyledNameBox>
@@ -79,7 +82,12 @@ const ChoiceList = () => {
         <StyledBookMark />
       </div>
       <div>
-        <StyledOptionBox style={secondOptionStyle}  onClick={()=>{ navigator("/ai") }}>
+        <StyledOptionBox
+          style={secondOptionStyle}
+          onClick={() => {
+            navigator("/ai");
+          }}
+        >
           <StyledNameBox>
             <StyledName style={marginTopStyle}>AI</StyledName>
             <StyledName>메뉴 추천</StyledName>
@@ -88,7 +96,12 @@ const ChoiceList = () => {
         <StyledBookMark />
       </div>
       <div>
-        <StyledOptionBox style={thirdOptionStyle} onClick={()=>{ navigator("/hello") }}>
+        <StyledOptionBox
+          style={thirdOptionStyle}
+          onClick={() => {
+            navigator("/hello");
+          }}
+        >
           <StyledNameBox>
             <StyledName style={marginTopStyle}>만남의</StyledName>
             <StyledName>장소</StyledName>
