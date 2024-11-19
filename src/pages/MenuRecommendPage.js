@@ -1,11 +1,11 @@
 import React from "react";
-import Header2 from "../components/layouts/Header2";
+import Header3 from "../components/layouts/Header3";
 import MenuOption from "../components/menu/MenuOption";
 
 const MenuRecommendPage = () => {
   return (
     <div>
-      <Header2 />
+      <Header3 />
       {/* <MenuRecommendTitle /> */}
       <MenuOption />
     </div>

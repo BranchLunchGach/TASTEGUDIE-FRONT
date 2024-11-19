@@ -7,6 +7,7 @@
   height: 80vh; /* 화면 전체 높이 사용 */
 }
 .page {
+  cursor: none;
   width: 30vw;
   height: 30vw;
   background-color: #111111;
@@ -20,7 +21,12 @@
 }
 .page:nth-child(1),
 .page:nth-last-child(1) {
-  background-color: burlywood !important;
+  cursor: default;
+  background-image: url('/public/receiptImg.jpg') !important;
+  background-color: #1a1a1a; /* 기본 배경색 설정 */
+  background-size: cover;
+  background-position: center;
+  background-repeat: repeat;
 }
 .book {
   perspective: 250vw;
@@ -151,14 +157,12 @@
   clear: both;
 }
 
-.receiptPage:nth-child(1),
-.receiptPage:nth-last-child(1) {
+.receiptPage {
   background-image: url('/public/receiptImg.jpg') !important;
   background-color: #1a1a1a; /* 기본 배경색 설정 */
   background-size: cover;
   background-position: center;
   background-repeat: repeat;
-  color: white;
 }
 .receipt {
   perspective: 200vw;

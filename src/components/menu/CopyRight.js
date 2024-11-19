@@ -5,9 +5,6 @@ const Title = styled.h3`
   text-align: center;
   font-size: 1.4vw;
   color: red;
-  margin-bottom: 1vw;
-  margin-top: 2vw;
-  margin-bottom: 4vw;
 `;
 
 const ALink = styled.a`
@@ -17,7 +14,7 @@ const ALink = styled.a`
 `
 
 const Copy = styled.div`
-    margin-top: 10vw;
+    margin-top: 7vw;
     margin-left: 5vw;
     max-height: 15vw;
     overflow-y: scroll;

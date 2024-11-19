@@ -25,8 +25,7 @@ const Label = styled.label`
   align-items: flex-start;
   width: 100%;
   padding: 1vw;
-  cursor: pointer;
-
+  cursor: none;
 `;
 
 const Span = styled.span`
@@ -152,14 +151,15 @@ const FoodForm = (props) => {
   
   useEffect(()=>{
     props.onFoodChange(selectedFoods);
-  }, [selectedFoods])
+  }, [selectedFoods]);
+
 
   return (
     <div>
       <Title> === 음식의 종류를 선택하세요 ===</Title>
       <label
         onClick={(event) => handleFoodChange("상관없음", event)}
-        style={{cursor:"pointer", display: "block", textAlign: "right", marginRight:"30px" }}
+        style={{cursor:"none", display: "block", textAlign: "right", marginRight:"30px" }}
       >
         상관없음
       </label>
@@ -205,9 +205,9 @@ const FoodForm = (props) => {
         <div style={{display:"flex", alignItems:"center"}}>
           <img alt='aa' src='/asian.png' style={{width:"2vw", height:"2vw"}}/>
           <Label
-            onClick={!props.isAnimating ? (event) => handleFoodChange("아시안 음식", event):undefined}
+            onClick={!props.isAnimating ? (event) => handleFoodChange("아시안", event):undefined}
           >
-            <HighlightText className={selectedFoods.includes("아시안 음식") ? "highlight" : ""}>아시안 음식</HighlightText>
+            <HighlightText className={selectedFoods.includes("아시안") ? "highlight" : ""}>아시안</HighlightText>
             <Span>ex. 월남쌈, 팟타이, 쌀국수, 분짜</Span>
           </Label>
         </div>

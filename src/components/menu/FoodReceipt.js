@@ -1,4 +1,17 @@
 import React from 'react';
+import styled from 'styled-components';
+
+const StyledTable = styled.table`
+    border: 1px solid black;
+    width: 90%;
+    margin: auto;
+    border-collapse: collapse;
+    text-align: center;
+
+    tr, td, th{
+        border: 1px solid black;
+    }
+`
 
 const FoodReceipt = ({ food }) => {
     const today = new Date();
@@ -17,13 +30,13 @@ const FoodReceipt = ({ food }) => {
     }, 0);
 
     return (
-        <div style={{ width: '15vw', height:"37vw", border: '1px solid', backgroundColor: "white" }}>
-            <h2 style={{ textAlign: 'center', margin: '10px 0' }}>TASTE GUIDE<br/>menu</h2>
+        <div style={{ width: '15vw', height:"37vw", border: '1px solid', backgroundColor: "white", margin:"auto" }}>
+            <h2 style={{ textAlign: 'center', margin: '10px 0 0 0', fontSize:"1vw" }}>TASTE GUIDE<br/>menu</h2>
             <div style={{ width:"90%", margin:"auto", display: 'flex', justifyContent: 'space-between', padding: '10px 0' }}>
                 <span>{formattedDate}</span>
                 <span>No.1</span>
             </div>
-            <table border="1" style={{ width: '90%', margin:"auto", borderCollapse: 'collapse', textAlign: 'center' }}>
+            <StyledTable>
                 <thead>
                     <tr>
                         <th>카테고리</th>
@@ -52,7 +65,7 @@ const FoodReceipt = ({ food }) => {
                         <td>{count===0 ? "" : count}</td>
                     </tr>
                 </tbody>
-            </table>
+            </StyledTable>
         </div>
     );
 };

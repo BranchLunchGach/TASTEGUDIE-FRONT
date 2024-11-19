@@ -7,7 +7,7 @@ const Label = styled.label`
   align-items: flex-start;
   width: 80%;
   padding: 1vw;
-  cursor: pointer;
+  cursor: none;
   `;
 
 const Form = styled.form`
@@ -148,7 +148,7 @@ const FoodCategoryForm = (props) => {
       <Title>=== 카테고리를 선택하세요 ===</Title>
       <label
         onClick={(event) => handleFoodChange("상관없음", event)}
-        style={{cursor:"pointer", display: "block", textAlign: "right", marginRight:"30px" }}
+        style={{cursor:"none", display: "block", textAlign: "right", marginRight:"30px" }}
       >
         상관없음
       </label>

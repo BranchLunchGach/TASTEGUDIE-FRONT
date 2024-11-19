@@ -1,14 +1,14 @@
 // Utility function for making API requests to OpenAI and parsing JSON
 export const ChatGPT = async (message) => {
   try {
-    const response = await fetch("https://api.openai.com/v1/chat/completions", {
+    const response = await fetch("https://api.x.ai/v1/chat/completions", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${process.env.REACT_APP_GPT_API_KEY}`,
       },
       body: JSON.stringify({
-        model: "gpt-4o-mini",
+        model: "grok-beta",
         messages: [
           {
             role: "system",
@@ -80,14 +80,14 @@ export const ChatGPT = async (message) => {
 
 export const isMenu = async (firstMenu, secMenu, message) => {
   try {
-    const response = await fetch("https://api.openai.com/v1/chat/completions", {
+    const response = await fetch("https://api.x.ai/v1/chat/completions", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${process.env.REACT_APP_GPT_API_KEY}`,
       },
       body: JSON.stringify({
-        model: "gpt-4o-mini",
+        model: "grok-beta",
         messages: [
           {
             role: "system",
@@ -120,6 +120,52 @@ export const isMenu = async (firstMenu, secMenu, message) => {
       console.error("Failed to parse JSON:", parseError);
       return { select: "없음" }; // 파싱 실패 시 기본값 반환
     }
+  } catch (error) {
+    console.error("Failed to fetch or parse menu recommendations:", error);
+    throw new Error("Failed to get menu recommendations");
+  }
+};
+
+export const restaurant = async (message) => {
+  try {
+    const response = await fetch("https://api.x.ai/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${process.env.REACT_APP_GPT_API_KEY}`,
+      },
+      body: JSON.stringify({
+        model: "grok-beta",
+        messages: [
+          {
+            role: "system",
+            content:
+              "Respond only in JSON format without any additional explanation or text.",
+          },
+          {
+            role: "user",
+            content: `${message} key는 select야`,
+          },
+        ],
+        temperature: 0.7,
+      }),
+    });
+
+    const responseData = await response.json();
+    let content = responseData.choices[0].message.content.trim();
+
+    // Extract JSON if additional text is present
+    if (!content.startsWith("[")) {
+      const jsonStartIndex = content.indexOf("[");
+      const jsonEndIndex = content.lastIndexOf("]");
+      content = content.substring(jsonStartIndex, jsonEndIndex + 1);
+    }
+
+    const restaurant = JSON.parse(content);
+
+    console.log(restaurant);
+
+    return restaurant;
   } catch (error) {
     console.error("Failed to fetch or parse menu recommendations:", error);
     throw new Error("Failed to get menu recommendations");

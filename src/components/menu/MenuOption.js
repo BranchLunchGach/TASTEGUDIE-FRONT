@@ -28,24 +28,11 @@ const Title = styled.span`
     display: block;
   }
 `;
-const GoBtn = styled.button`
-  width: 14vw;
-  height: 7vw;
-  margin-top: 1.5vw;
-  border-radius: 20px;
-  font-size: 1.5vw;
-  color: white;
-  background: black;
-`;
 const StyledP = styled.p`
   margin-top: 8vw;
   text-align: center;
   font-size: 5vw;
   color: #000000;
-`;
-const StyledArrow = styled.img`
-  width: 7.3vw;
-  margin: 0.2vw 0;
 `;
 const StyledImage = styled.img`
   position: absolute;
@@ -100,6 +87,10 @@ function MenuOption() {
 
   const handleMainChange = (main) => {
     setSelectedMainKeywords(main);
+  };
+
+  const goButtonClick = () => {
+    handleRecommand();
   };
 
   useEffect(() => {
@@ -200,9 +191,7 @@ function MenuOption() {
       });
   };
 
-  const handleRecommand = (e) => {
-    e.preventDefault();
-
+  const handleRecommand = () => {
     receiptsRef.current[1].classList.remove("flipped");
     receiptsRef.current[0].classList.remove("flipped");
 
@@ -240,11 +229,10 @@ function MenuOption() {
   const pageContents = [
     <StyledP>
       <Title>
-        <span>Taste</span>
-        <span>Guide</span>
+        <span>Taste Guide</span>
       </Title>
       <br />
-      <span style={{ fontSize: 20 }}>-- 책을 넘겨 메뉴를 추천 받으세요 --</span>
+      <span style={{ fontSize: 20, color:"white" }}>-- 책을 넘겨 메뉴를 추천 받으세요 --</span>
     </StyledP>,
     <StyledP>
       Menu <br />
@@ -363,7 +351,7 @@ function MenuOption() {
     receipts.forEach((page, i) => {
       page.pageNum = i + 1;
       page.onclick = function (event) {
-        if (!["BUTTON"].includes(event.target.tagName)) {
+        if (!["SPAN"].includes(event.target.tagName)) {
           // 페이지 전환 처리
           event.preventDefault(); // 페이지 전환 기본 동작 막기
 
@@ -447,7 +435,7 @@ function MenuOption() {
           top: isAnimating
             ? `${highlightPosition?.y}px`
             : `${xy.y}px`, // 애니메이션 중에는 highlightPosition을 따른다
-          transition:!mouseIn || isAnimating ? "left 0.5s ease, top 0.5s ease" : "none",
+          transition:isAnimating ? "left 0.5s ease, top 0.5s ease" : "none",
         }}/>
       <div className="book">
         <div id="pages" className="pages">
@@ -469,15 +457,13 @@ function MenuOption() {
       </div>
       <div className="receipt">
         <div id="receiptPages" className="receiptPages">
-          <div className="receiptPage receiptLeft flipped" ref={(el) => el && (receiptsRef.current[0] = el)}>Menu Receipt</div>
-          <div className="receiptPage receiptRight flipped" ref={(el) => el && (receiptsRef.current[1] = el)}><p style={{marginTop:"0.5vw"}}><FoodReceipt food={foods} /></p></div>
+          <div className="receiptPage receiptLeft flipped" ref={(el) => el && (receiptsRef.current[0] = el)}></div>
+          <div className="receiptPage receiptRight flipped" ref={(el) => el && (receiptsRef.current[1] = el)}><p style={{marginTop:"0.5vw"}}><div style={{position:"absolute", width:"8vw", height:"2.5vw", border:"4px solid silver", top:"0vw", left:"4.6vw"}}/><FoodReceipt food={foods} /></p></div>
           <div className="receiptPage receiptLeft" ref={(el) => el && (receiptsRef.current[2] = el)}>
+            <div style={{position:"absolute", width:"8vw", height:"2.5vw", border:"4px solid silver", top:"0vw", left:"4.6vw"}}/>
             <p style={{marginTop:"0.5vw"}}>
-              <RestaurantReceipt restaurant={restaurant} />
-              <GoBtn onClick={handleRecommand}>
-                주문하러가기
-                <StyledArrow className="arrow" src="/img_arrow.png" alt="" />
-              </GoBtn>
+              <RestaurantReceipt restaurant={restaurant} goButtonClick={goButtonClick} />
+              
             </p>
           </div>
           <div className="receiptPage receiptRight" ref={(el) => el && (receiptsRef.current[3] = el)}></div>

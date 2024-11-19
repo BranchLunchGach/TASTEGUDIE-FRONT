@@ -25,7 +25,7 @@ const Label = styled.label`
   align-items: flex-start;
   width: 80%;
   padding: 1vw;
-  cursor: pointer;
+  cursor: none;
 
 `;
 
@@ -136,7 +136,7 @@ const MainKeywordForm = (props) => {
       <Title> === Main Keyword ===</Title>
       <label
         onClick={(event) => handleMainChange("상관없음", event)}
-        style={{cursor:"pointer", display: "block", textAlign: "right", marginRight:"30px" }}
+        style={{cursor:"none", display: "block", textAlign: "right", marginRight:"30px" }}
       >
         상관없음
       </label>

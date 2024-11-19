@@ -16,7 +16,6 @@ const Title = styled.h3`
   font-size: 1.4vw;
   color: #333;
   margin-bottom: 1vw;
-  margin-top: 0.3vw;
 `;
 
 const Label = styled.label`
@@ -24,8 +23,8 @@ const Label = styled.label`
   flex-direction: column;
   align-items: flex-start;
   width: 100%;
-  padding: 1vw;
-  cursor: pointer;
+  padding: 0.5vw;
+  cursor: none;
 `;
 
 
@@ -218,83 +217,79 @@ const MenuKeywordForm = (props) => {
 
   return (
     <div>
-      <div>
-        <Title> === 음식의 키워드를 선택하세요 ===</Title>
-        <label
-          onClick={(event) => handleFoodChange("상관없음", event)}
-          style={{cursor:"pointer", display: "block", textAlign: "right", marginRight:"30px" }}
-        >
-          상관없음
-        </label>
-        <Form>
+      <Title style={{marginTop:"0.3vw"}}> === 음식의 키워드를 선택하세요 ===</Title>
+      <label
+        onClick={(event) => handleFoodChange("상관없음", event)}
+        style={{cursor:"none", display: "block", textAlign: "right", marginRight:"30px" }}
+      >
+        상관없음
+      </label>
+      <Form>
+      <div style={{display:"flex", alignItems:"center"}}>
+          <img alt='aa' src='/light.png' style={{width:"2vw", height:"2vw"}}/>
+          <Label
+            onClick={!props.isAnimating ? (event) => handleFoodChange("가벼운", event):undefined}
+          >
+            <HighlightText className={selectedFoodKeywords.includes("가벼운") ? "highlight" : ""}>
+              가벼운
+            </HighlightText>
+            <Span>ex. 샐러드, 샌드위치, 브런치</Span>
+          </Label>
+        </div>
         <div style={{display:"flex", alignItems:"center"}}>
-            <img alt='aa' src='/light.png' style={{width:"2vw", height:"2vw"}}/>
-            <Label
-              onClick={!props.isAnimating ? (event) => handleFoodChange("가벼운", event):undefined}
-            >
-              <HighlightText className={selectedFoodKeywords.includes("가벼운") ? "highlight" : ""}>
-                가벼운
-              </HighlightText>
-              <Span>ex. 샐러드, 샌드위치, 브런치</Span>
-            </Label>
-          </div>
-          <div style={{display:"flex", alignItems:"center"}}>
-            <img alt='aa' src='/heavy.png' style={{width:"2vw", height:"2vw"}}/>
-            <Label
-              onClick={!props.isAnimating ? (event) => handleFoodChange("든든한", event):undefined}
-            >
-              <HighlightText className={selectedFoodKeywords.includes("든든한") ? "highlight" : ""}>
-                든든한
-              </HighlightText>
-              <Span>ex. 치킨, 피자</Span>
-            </Label>
-          </div>
-          <div style={{display:"flex", alignItems:"center"}}>
-            <img alt='aa' src='/alcohol.png' style={{width:"2vw", height:"2vw"}}/>
-            <Label
-              onClick={!props.isAnimating ? (event) => handleFoodChange("술과 어울리는", event):undefined}
-            >
-              <HighlightText className={selectedFoodKeywords.includes("술과 어울리는") ? "highlight" : ""}>
-                술과 어울리는
-              </HighlightText>
-              <Span>ex. 국밥, 치킨, 곱창, 삼겹살</Span>
-            </Label>
-          </div>
-        </Form>
-      </div>
-      <div>
-        <Title> === 국물 유무를 선택하세요 ===</Title>
-        <label
-          onClick={(event) => handleSoupChange("상관없음", event)}
-          style={{cursor:"pointer", display: "block", textAlign: "right", marginRight:"30px" }}
-        >
-          상관없음
-        </label>
-        <Form>
-          <div style={{display:"flex", alignItems:"center"}}>
-            <img alt='aa' src='/soupYes.png' style={{width:"2vw", height:"2vw"}}/>
-            <Label
-              onClick={!props.isAnimating ? (event) => handleSoupChange("있음", event):undefined}
-            >
-              <HighlightText className={selectedSoup.includes("있음") ? "highlight" : ""}>
-                있음
-              </HighlightText>
-              <Span>ex. 짬뽕, 잔치국수, 쌀국수</Span>
-            </Label>
-          </div>
-          <div style={{display:"flex", alignItems:"center"}}>
-            <img alt='aa' src='/soupNo.png' style={{width:"2vw", height:"2vw"}}/>
-            <Label
-              onClick={!props.isAnimating ? (event) => handleSoupChange("없음", event):undefined}
-            >
-              <HighlightText className={selectedSoup.includes("없음") ? "highlight" : ""}>
-                없음
-              </HighlightText>
-              <Span>ex. 치킨, 피자</Span>
-            </Label>
-          </div>
-        </Form>
-      </div>
+          <img alt='aa' src='/heavy.png' style={{width:"2vw", height:"2vw"}}/>
+          <Label
+            onClick={!props.isAnimating ? (event) => handleFoodChange("든든한", event):undefined}
+          >
+            <HighlightText className={selectedFoodKeywords.includes("든든한") ? "highlight" : ""}>
+              든든한
+            </HighlightText>
+            <Span>ex. 치킨, 피자</Span>
+          </Label>
+        </div>
+        <div style={{display:"flex", alignItems:"center"}}>
+          <img alt='aa' src='/alcohol.png' style={{width:"2vw", height:"2vw"}}/>
+          <Label
+            onClick={!props.isAnimating ? (event) => handleFoodChange("술과 어울리는", event):undefined}
+          >
+            <HighlightText className={selectedFoodKeywords.includes("술과 어울리는") ? "highlight" : ""}>
+              술과 어울리는
+            </HighlightText>
+            <Span>ex. 국밥, 치킨, 곱창, 삼겹살</Span>
+          </Label>
+        </div>
+      </Form>
+      <Title> === 국물 유무를 선택하세요 ===</Title>
+      <label
+        onClick={(event) => handleSoupChange("상관없음", event)}
+        style={{cursor:"none", display: "block", textAlign: "right", marginRight:"30px" }}
+      >
+        상관없음
+      </label>
+      <Form>
+        <div style={{display:"flex", alignItems:"center"}}>
+          <img alt='aa' src='/soupYes.png' style={{width:"2vw", height:"2vw"}}/>
+          <Label
+            onClick={!props.isAnimating ? (event) => handleSoupChange("있음", event):undefined}
+          >
+            <HighlightText className={selectedSoup.includes("있음") ? "highlight" : ""}>
+              있음
+            </HighlightText>
+            <Span>ex. 짬뽕, 잔치국수, 쌀국수</Span>
+          </Label>
+        </div>
+        <div style={{display:"flex", alignItems:"center"}}>
+          <img alt='aa' src='/soupNo.png' style={{width:"2vw", height:"2vw"}}/>
+          <Label
+            onClick={!props.isAnimating ? (event) => handleSoupChange("없음", event):undefined}
+          >
+            <HighlightText className={selectedSoup.includes("없음") ? "highlight" : ""}>
+              없음
+            </HighlightText>
+            <Span>ex. 치킨, 피자</Span>
+          </Label>
+        </div>
+      </Form>
     </div>
   );
 };

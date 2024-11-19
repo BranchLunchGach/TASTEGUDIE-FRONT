@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import "./chat.css";
 import { AiOutlineSend } from "react-icons/ai";
-import { ChatGPT, isMenu } from "./ChatGPT";
+import { ChatGPT, isMenu, restaurant } from "./ChatGPT";
 
 const StyledContentBox = styled.div`
   height: 60vh;
@@ -98,6 +98,7 @@ function Chat() {
   const [allText, setAlltext] = useState([{ user: "", text: "" }]);
   const [jsonResponse, setJsonResponse] = useState(null);
   const [menuResponse, setMenuResponse] = useState(null);
+  const [restaurantResponse, setRestaurantResponse] = useState(null);
   const [firstResponseShown, setFirstResponseShown] = useState(false);
 
   const inputRef = useRef(null);
@@ -121,7 +122,7 @@ function Chat() {
     if (isTyping) {
       const intervalId = setInterval(() => {
         typingEffect(); // 타이핑 효과 실행
-      }, 50); // 150ms마다 타이핑
+      }, 50); // 50ms마다 타이핑
       return () => clearInterval(intervalId); // 클린업
     }
   }, [isTyping]); // isTyping이 변경될 때마다 실행
@@ -200,6 +201,16 @@ function Chat() {
     }
   };
 
+  const findRestaurant = async () => {
+    try {
+      questionRef.current = 1.5;
+      const response = await restaurant(menuResponse.select); // OpenAI API 호출
+      setRestaurantResponse(response); // JSON 응답을 상태에 저장
+    } catch (error) {
+      console.error("API 호출 중 오류 발생:", error);
+    }
+  };
+
   const startTyping = () => {
     if (questionRef.current === 2) findRestaurant();
     if (inputRef.current.value === "") return;
@@ -226,10 +237,6 @@ function Chat() {
 
   const handleInput = (e) => {
     e.target.style.height = `${e.target.scrollHeight}px`; // 스크롤 높이에 맞춰 자동 조절
-  };
-
-  const findRestaurant = (event) => {
-    console.log("갑니다~~~");
   };
 
   return (
