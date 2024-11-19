@@ -264,7 +264,7 @@ const HelloForm = () => {
                 "https://naveropenapi.apigw.ntruss.com/map-geocode/v2/geocode?query=" +
                   encodeURIComponent(address),
                 {
-                  params : { // headers로 API 키 설정
+                  params : { // params API 키 설정
                     "X-NCP-APIGW-API-KEY-ID": clientId,
                     "X-NCP-APIGW-API-KEY": clientSecret,
                   },

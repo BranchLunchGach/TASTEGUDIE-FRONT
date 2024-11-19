@@ -206,8 +206,8 @@ const ResRecommResult = () => {
   const location = useLocation();
 
   const menu = location.state?.menu || []; // 전달받은 데이터
-  const avgX = location.state?.avgX || []; // 전달받은 데이터
-  const avgY = location.state?.avgY || []; // 전달받은 데이터
+  const x = location.state?.avgX || []; // 전달받은 데이터
+  const y = location.state?.avgY || []; // 전달받은 데이터
 
   const { menuData } = location.state || {}; // state에서 menuData를 안전하게 가져오기
   const [displayedData, setDisplayedData] = useState([]); // 현재 보여지는 3개의 데이터
@@ -222,8 +222,8 @@ const ResRecommResult = () => {
 
   useEffect(() => {
     console.log("menu >> " + menu);
-    console.log("x >> " + avgX);
-    console.log("y >> " + avgY);
+    console.log("x >> " + x);
+    console.log("y >> " + y);
     if (menuData && menuData.length > 0) {
       setDisplayedData(menuData.slice(0, 3)); // 처음 3개만 표시
     }
@@ -265,7 +265,7 @@ const ResRecommResult = () => {
               <p>그 주변 "{menu}" 관련 음식점 세 곳을 추천드립니다.</p>
             </SubTitle>
             <LocationMap>
-              <TmapMarker avgX={avgX} avgY={avgY} onAddressChange={setAddress} />
+              <TmapMarker avgX={x} avgY={y} onAddressChange={setAddress} />
             </LocationMap>
           </ResultLeftBox>
           <StyledResBox>
