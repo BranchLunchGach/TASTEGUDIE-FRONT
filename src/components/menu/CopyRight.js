@@ -17,7 +17,9 @@ const ALink = styled.a`
 `
 
 const Copy = styled.div`
-    max-height: 25vw;
+    margin-top: 10vw;
+    margin-left: 5vw;
+    max-height: 15vw;
     overflow-y: scroll;
     -ms-overflow-style: none;
 
@@ -34,6 +36,7 @@ const CopyRight = () => {
             <Title>주의사항!!!</Title>
             <Copy>
                 아이콘 출처<br/>
+                <ALink href="https://www.flaticon.com/kr/free-icons/" title="채점자 아이콘">채점자 아이콘 제작자: mavadee - Flaticon</ALink>
                 <ALink href="https://www.flaticon.com/kr/free-icons/" title="먹다 아이콘">먹다 아이콘 제작자: Freepik - Flaticon</ALink><br/>
                 <ALink href="https://www.flaticon.com/kr/free-icons/" title="반합 아이콘">반합 아이콘 제작자: Three musketeers - Flaticon</ALink><br/>
                 <ALink href="https://www.flaticon.com/kr/free-icons/-" title="밥 그릇 아이콘">밥 그릇 아이콘 제작자: kosonicon - Flaticon</ALink><br/>
