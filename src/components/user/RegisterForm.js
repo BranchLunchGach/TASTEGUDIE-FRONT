@@ -56,7 +56,7 @@ const StyledSubTitle = styled.p`
 `;
 const StyledRegiContainer = styled.div`
   background-color: white;
-  margin: 0 auto;
+  margin: 0 auto 10vh;
   box-shadow: 0px 2px 5px 2px lightgray;
   border-radius: 8px;
   padding: 7.5% 5.6%;
@@ -74,6 +74,7 @@ const StyledRegiForm = styled.div`
     display: flex;
     flex-direction: column;
     align-items: start;
+    gap: 8px;
   }
 `;
 
@@ -382,6 +383,8 @@ const RegisterForm = () => {
                   인증번호 보내기
                 </StyledButton>
               </label>
+              <br />
+              <br />
 
               <label>
                 <h5>*인증 코드</h5>
@@ -390,6 +393,8 @@ const RegisterForm = () => {
                   인증하기
                 </StyledButton>
               </label>
+              <br />
+              <br />
 
               <label>
                 <div
@@ -510,6 +515,8 @@ const RegisterForm = () => {
                 </div>
               </label>
               <br />
+              <br />
+
               <StyledButton
                 type="submit"
                 id="register-button"
