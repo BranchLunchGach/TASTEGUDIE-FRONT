@@ -7,7 +7,7 @@ const StyledRetry = styled.img`
   float: right;
 `;
 
-const Retry = () => {
+const Retry = (onClick) => {
   return (
     <div>
       <StyledRetry src="/icon-retry.png" />
