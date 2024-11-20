@@ -1,12 +1,60 @@
-import Header from "../components/layouts/Header";
+import Header1 from "../components/layouts/Header1";
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import "./MainPage.css";
 
-const StyledPage = styled.div`
-  position: relative; /* Allow absolute positioning of children */
+const StyledOuter = styled.div`
+  height: 100vh;
+  overflow-y: auto;
+  position: relative;
+  //스크롤 바 숨기기
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`;
+const StyledInner = styled.div`
+  height: 100vh;
+  position: relative;
+  z-index: 1.5; /* Lower z-index */
+`;
+const StyledHeaderBox = styled.div`
+  position: absolute; /* Absolute positioning for the header */
+  top: 0; /* Position it at the top */
+  left: 0; /* Align it to the left */
+  width: 100%; /* Full width */
+  z-index: 4; /* Highest z-index to ensure it's on top */
+`;
+const StyledBGBehind = styled.img`
+  position: sticky; /* Positioned behind */
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100vh;
+  z-index: 1; /* Lower z-index */
+`;
+const StyledBGFront = styled.img`
+  position: absolute; /* Positioned in front */
+  /* top: -6%; */
+  left: 0;
+  width: 100%;
+  height: 100vh; /* Maintain aspect ratio */
+  z-index: 2; /* Higher than bg-behind */
+`;
+const StyledComment = styled.div`
+  position: absolute; /* Positioned in front */
+  bottom: -90vh;
+  left: 5vw;
+  z-index: 2; /* Higher than bg-behind */
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+
+  & p {
+    font-family: "LOTTERIA CHAB-Regular";
+    font-weight: 400;
+    color: #fdd83e;
+    font-size: 4.5vw;
+    mar
+  }
 `;
 
 const MainPage = () => {
@@ -38,7 +86,7 @@ const MainPage = () => {
         // 스크롤 내릴 때
         if (scrollTop >= 0 && scrollTop < pageHeight) {
           //현재 1페이지
-          console.log("현재 1페이지, down");
+          //console.log("현재 1페이지, down");
           outerDivRef.current.scrollTo({
             top: pageHeight + DIVIDER_HEIGHT,
             left: 0,
@@ -47,7 +95,7 @@ const MainPage = () => {
           setCurrentPage(2);
         } else if (scrollTop >= pageHeight && scrollTop < pageHeight * 2) {
           //현재 2페이지
-          console.log("현재 2페이지, down");
+          //console.log("현재 2페이지, down");
           outerDivRef.current.scrollTo({
             top: pageHeight * 2 + DIVIDER_HEIGHT * 2,
             left: 0,
@@ -56,7 +104,7 @@ const MainPage = () => {
           setCurrentPage(3);
         } else {
           // 현재 3페이지
-          console.log("현재 3페이지, down");
+          //console.log("현재 3페이지, down");
           outerDivRef.current.scrollTo({
             top: pageHeight * 2 + DIVIDER_HEIGHT * 2,
             left: 0,
@@ -67,7 +115,7 @@ const MainPage = () => {
         // 스크롤 올릴 때
         if (scrollTop >= 0 && scrollTop < pageHeight) {
           //현재 1페이지
-          console.log("현재 1페이지, up");
+          //console.log("현재 1페이지, up");
           outerDivRef.current.scrollTo({
             top: 0,
             left: 0,
@@ -75,7 +123,7 @@ const MainPage = () => {
           });
         } else if (scrollTop >= pageHeight && scrollTop < pageHeight * 2) {
           //현재 2페이지
-          console.log("현재 2페이지, up");
+          //console.log("현재 2페이지, up");
           outerDivRef.current.scrollTo({
             top: 0,
             left: 0,
@@ -84,7 +132,7 @@ const MainPage = () => {
           setCurrentPage(1);
         } else {
           // 현재 3페이지
-          console.log("현재 3페이지, up");
+          //console.log("현재 3페이지, up");
           outerDivRef.current.scrollTo({
             top: pageHeight + DIVIDER_HEIGHT,
             left: 0,
@@ -103,27 +151,26 @@ const MainPage = () => {
 
   return (
     <>
-      <div className="header">
-        <Header scrollToPage={scrollToPage} />
-      </div>
+      <StyledHeaderBox>
+        <Header1 scrollToPage={scrollToPage} />
+      </StyledHeaderBox>
 
-      <div className="outer" ref={outerDivRef}>
-        <div currentPage={currentPage} />
-        <img className="bg-behind" src="/bg-img.jpg" alt="Background" />
-        <img className="bg-front" src="/Exclude.png" alt="Foreground" />
-        <div className="comment">
+      <StyledOuter ref={outerDivRef}>
+        {/* warning 발생해서 div 특성값 currentPage => currentpage 로 변경 */}
+        <div currentpage={currentPage} />
+        <StyledBGBehind src="/bg-img.jpg" alt="Background" />
+        <StyledBGFront src="/Exclude.png" alt="Foreground" />
+        <StyledComment>
           <p>Find Your Taste</p>
-          <p />
           <p>With Taste Guide</p>
-        </div>
+        </StyledComment>
 
         <div className="divider"></div>
 
-        <div className="inner"></div>
+        <StyledInner />
         <div className="divider" />
-      </div>
+      </StyledOuter>
     </>
   );
 };
-
 export default MainPage;

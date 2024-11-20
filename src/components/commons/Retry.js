@@ -2,14 +2,14 @@ import React from "react";
 import styled from "styled-components";
 
 const StyledRetry = styled.img`
-  width: 80px;
-  height: 80px;
-  position: absolute;
-  right: 0;
-  margin: 0 70px;
+  width: 3.6vw;
+  height: 3.6vw;
+  float: right;
+  cursor: pointer;
+  margin-top: -1vh;
 `;
 
-const Retry = () => {
+const Retry = (onClick) => {
   return (
     <div>
       <StyledRetry src="/icon-retry.png" />

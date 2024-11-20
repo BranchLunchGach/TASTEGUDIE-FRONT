@@ -1,0 +1,15 @@
+.kr {
+  position: absolute;
+  z-index: 12;
+  top: -50%;
+  opacity: 0;
+}
+.staticDiv {
+  border: 1px solid black;
+  background: white;
+  width: 60vw;
+  height: 100vh;
+  margin: 0 auto;
+  border-radius: 30px;
+  box-shadow: black 15px 20px 0;
+}

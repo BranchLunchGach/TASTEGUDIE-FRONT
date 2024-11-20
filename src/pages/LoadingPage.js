@@ -1,13 +1,19 @@
 import React from "react";
 import LoadingBar from "../components/commons/LoadingBar";
-import Header from "../components/layouts/Header";
+import Header2 from "../components/layouts/Header2";
+import styled from "styled-components";
+
+const StyledPage = styled.div`
+  background: white;
+  height: 100vh;
+`;
 
 const LoadingPage = () => {
   return (
-    <>
-      <Header />
+    <StyledPage>
+      <Header2 />
       <LoadingBar />
-    </>
+    </StyledPage>
   );
 };
 

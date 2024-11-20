@@ -1,0 +1,30 @@
+.chat {
+  background-color: #fdd83e;
+  border-radius: 10px;
+  padding: 1vw;
+  margin: 0.5vw 0;
+  max-width: 80%;
+  float: left;
+  clear: right;
+}
+
+.chatImg {
+  width: 10vw;
+  height: 10vw;
+  border-radius: 10px;
+  margin: 0.5vw 3.5vw;
+  float: left;
+  clear: both;
+  border: 1px solid;
+}
+
+.user {
+  background-color: black;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 5px 0;
+  max-width: 80%;
+  float: right;
+  clear: both;
+  color: white;
+}
