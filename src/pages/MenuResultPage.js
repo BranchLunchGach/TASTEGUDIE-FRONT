@@ -184,7 +184,7 @@ const MenuResultPage = () => {
 
   const recommand = (menu, x, y, core, main) => {
     axios({
-      url: "http://localhost:9000/restaurant",
+      url: process.env.REACT_APP_SPRING_IP+"/restaurant",
       method: "post",
       data: {
         menu: menu,
