@@ -111,8 +111,8 @@ const MenuResultPage = () => {
   const mainK = location.state?.mainKeyword || []; // 전달받은 데이터
   
   //api keys
-  const clientId = process.env.REACT_APP_clientId;
-  const clientSecret = process.env.REACT_APP_clientSecret;
+  const clientId = process.env.REACT_APP_CLIENTID;
+  const clientSecret = process.env.REACT_APP_CLIENTSECRET;
 
   //재추천 알고리즘 로컬스토리지 저장
   const [menName, setMenName] = useState("");
