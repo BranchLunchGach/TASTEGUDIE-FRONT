@@ -97,7 +97,6 @@ const MenuResultPage = () => {
   }, [menName]);
 
   const reRecommand = () => {
-    alert("1");
     console.log(menu[0].selectNation);
     console.log(menu[0].selectCategory);
     console.log(menu[0].selectKeyword);

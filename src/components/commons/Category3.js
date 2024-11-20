@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const StyledCategory = styled.div`
   display: flex;
@@ -34,27 +34,19 @@ const signInStyle = {
   rotate: "6deg",
 };
 
-const Category2 = () => {
-  const navigator = useNavigate();
-  const FRONT_IP= process.env.REACT_APP_FRONT_IP;
-  const logout=()=>{
-    localStorage.removeItem("Authorization");
-    localStorage.removeItem("id");
-    window.location.href=FRONT_IP
-  }
+const Category = () => {
+  
   return (
     <StyledCategory className="category">
-      <Link to="/choice">
-        <StyledButton style={menuStyle}>MENU</StyledButton>
-      </Link>
       <Link to="/chart">
-        <StyledButton style={courseStyle}>MyPage</StyledButton>
+        <StyledButton style={menuStyle}>나의 추천 기록</StyledButton>
       </Link>
-      
-        <StyledButton style={signInStyle} onClick={logout}>Log Out</StyledButton>
-        
+      <Link to={"/update"}>
+        <StyledButton style={courseStyle}>회원정보수정</StyledButton>
+      </Link>
+        <StyledButton style={signInStyle} onClick={()=>{alert("안 돼 못 해") }}>회원탈퇴</StyledButton>
     </StyledCategory>
   );
 };
 
-export default Category2;
+export default Category;
