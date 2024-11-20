@@ -44,8 +44,8 @@ function useNaver(search) {
                     display: 3
                 },
                 headers: {
-                    'X-Naver-Client-Id': process.env.REACT_APP_Naver_ID,
-                    'X-Naver-Client-Secret': process.env.REACT_APP_Naver_Secret
+                    'X-Naver-Client-Id': process.env.REACT_APP_NAVER_ID,
+                    'X-Naver-Client-Secret': process.env.REACT_APP_NAVER_SECRET
                 },
             });
 
