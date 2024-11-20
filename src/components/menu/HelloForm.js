@@ -193,8 +193,8 @@ const HelloForm = () => {
     const [geocode, setGeocode] = useState([]);
 
     //api keys
-    const clientId = process.env.REACT_APP_clientId;
-    const clientSecret = process.env.REACT_APP_clientSecret;
+    const clientId = process.env.REACT_APP_CLIENTID;
+    const clientSecret = process.env.REACT_APP_CLIENTSECRET;
 
     const { contextData, setContextData } = useContext(HelloContext);
 
@@ -268,8 +268,8 @@ const HelloForm = () => {
                   encodeURIComponent(address),
                 {
                   params : { // params API 키 설정
-                    "X-NCP-APIGW-API-KEY-ID": clientId,
-                    "X-NCP-APIGW-API-KEY": clientSecret,
+                    "X-NCP-APIGW-API-KEY-ID": process.env.REACT_APP_CLIENTID,
+                    "X-NCP-APIGW-API-KEY": process.env.REACT_APP_CLIENTSECRET,
                   },
                 }
             );
@@ -331,7 +331,7 @@ const HelloForm = () => {
 
     const recommand = (x, y) => {
         axios({
-          url: "http://localhost:9000/hello-restaurant",
+          url: process.env.REACT_APP_SPRING_IP+"/hello-restaurant",
           method: "post",
           data: {
             menu: selectedMenu,
