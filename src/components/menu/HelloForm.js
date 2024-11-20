@@ -258,7 +258,11 @@ const HelloForm = () => {
         console.log("현재 선택된 음식 >> " + menuInput);
     };
     
+    // 도로명 주소를 위도 경도로 변경해주는 함수
     const fetchGeocode = async (address) => {
+
+        console.log("address >> " + address);
+
         try {
             const res = await axios.get(
                 "https://naveropenapi.apigw.ntruss.com/map-geocode/v2/geocode?query=" +
@@ -272,6 +276,7 @@ const HelloForm = () => {
             );
     
             const result = res.data.addresses[0];
+
             if (result) {
                 return {
                     roadAddress: result.roadAddress,

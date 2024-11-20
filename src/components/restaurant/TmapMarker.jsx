@@ -54,7 +54,7 @@ const TmapMarker = (props) => {
           })
           .then((res) => {
             console.log(res.data.addressInfo.fullAddress);
-            //setAddress(res.data.addressInfo.fullAddress);
+            setAddress(res.data.addressInfo.fullAddress);
 
             const fullAddress = res.data.addressInfo.fullAddress;
             setAddress(fullAddress); // 현재 컴포넌트의 상태 업데이트
@@ -89,6 +89,7 @@ const TmapMarker = (props) => {
     <>
       {/* 4. 받은 마커 데이터를 지도에 표시 */}
       <div id="map_div2" style={{ width: "100%", height: "400px" }}></div>
+      <div style={{ marginTop: "20px", fontSize: "18px", color: "#333" }}/>
     </>
   );
 };

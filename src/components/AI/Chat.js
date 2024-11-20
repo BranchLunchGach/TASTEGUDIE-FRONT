@@ -1,8 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
+import useGeolocation from "react-hook-geolocation";
 import "./chat.css";
 import { AiOutlineSend } from "react-icons/ai";
 import { ChatGPT, isMenu } from "./ChatGPT";
+import axios from 'axios';
+
 
 const StyledContentBox = styled.div`
   height: 60vh;
@@ -228,8 +231,20 @@ function Chat() {
     e.target.style.height = `${e.target.scrollHeight}px`; // 스크롤 높이에 맞춰 자동 조절
   };
 
-  const findRestaurant = (event) => {
-    console.log("갑니다~~~");
+  const findRestaurant = () => {
+    axios({
+      url: "http://localhost:9000/ai-restaurant",
+      method: "post",
+      data: {
+        menu: menuResponse.select,
+      },
+    })
+    .then((res) => {
+        console.log(res.data);
+    })
+    .catch((err)=>{
+      console.error("Error sending data:", err);
+    })
   };
 
   return (
