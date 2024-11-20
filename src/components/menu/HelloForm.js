@@ -268,8 +268,8 @@ const HelloForm = () => {
                   encodeURIComponent(address),
                 {
                   params : { // params API 키 설정
-                    "X-NCP-APIGW-API-KEY-ID": clientId,
-                    "X-NCP-APIGW-API-KEY": clientSecret,
+                    "X-NCP-APIGW-API-KEY-ID": process.env.REACT_APP_CLIENTID,
+                    "X-NCP-APIGW-API-KEY": process.env.REACT_APP_CLIENTSECRET,
                   },
                 }
             );
