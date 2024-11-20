@@ -206,8 +206,8 @@ const ResRecommResult = () => {
   const location = useLocation();
 
   const menu = location.state?.menu || []; // 전달받은 데이터
-  const x = location.state?.avgX || []; // 전달받은 데이터
-  const y = location.state?.avgY || []; // 전달받은 데이터
+  const x = location.state?.avgX || []; // 전달받은 데이터(시작 위도)
+  const y = location.state?.avgY || []; // 전달받은 데이터(시작 경도)
 
   const { menuData } = location.state || {}; // state에서 menuData를 안전하게 가져오기
   const [displayedData, setDisplayedData] = useState([]); // 현재 보여지는 3개의 데이터
@@ -219,6 +219,10 @@ const ResRecommResult = () => {
   const [selectedIndex, setSelectedIndex] = useState(null); // 선택된 요소를 관리하는 상태 추가
 
   const [address, setAddress] = useState("");
+
+  //api keys
+  const clientId = process.env.REACT_APP_clientId;
+  const clientSecret = process.env.REACT_APP_clientSecret;
 
   useEffect(() => {
     console.log("menu >> " + menu);
@@ -302,7 +306,7 @@ const ResRecommResult = () => {
           <ModalContent>
             <CloseButton onClick={closeModal} style={{marginRight:"65px", marginTop: "80px", width: "80px"}}>닫기</CloseButton>
             {
-              selectedRestaurant && <ResDetail selectedRestaurant={selectedRestaurant} />
+              selectedRestaurant && <ResDetail selectedRestaurant={selectedRestaurant} startX={x} startY={y}/>
             }
           </ModalContent>
         </StyledModal>
