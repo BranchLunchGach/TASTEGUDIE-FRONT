@@ -6,14 +6,15 @@ import styled from "styled-components";
 const StyledContentBox = styled.div`
   display: flex;
   justify-content: space-between;
-  width: 1000px;
-  margin: 6vh auto;
-  padding: 50px;
+  width: 53vw;
+  margin: 3vh auto;
+  padding: 5vh;
+  // border: 1px solid gray;
 `;
 const StyledLoginBox = styled.div`
-  width: 410px;
+  width: 46%;
   background: white;
-  padding: 70px 50px;
+  padding: 7.5% 5.6%;
   box-shadow: 0px 2px 5px 2px lightgray;
   border-radius: 8px;
 `;
@@ -35,9 +36,9 @@ const StyledButton = styled.button`
   background: black;
 `;
 const StyledImg = styled.img`
-  width: 54px;
-  height: 54px;
-  margin-bottom: 50px;
+  width: 2.8vw;
+  height: 2.8vw;
+  margin-bottom: 5.3vh;
   filter: drop-shadow(0px 2px 5px lightgray);
 `;
 const StyledInput = styled.input`
@@ -56,11 +57,11 @@ const StyledP = styled.p`
 `;
 const StyledMainTitle = styled.p`
   font-family: "LOTTERIA CHAB-Regular";
-  font-size: 64px;
+  font-size: 4vw;
   text-align: left;
 `;
 const StyledSubTitle = styled.p`
-  font-size: 24px;
+  font-size: 1.2vw;
   text-align: left;
 `;
 
@@ -81,71 +82,64 @@ const linkStyle = {
 const LoginForm = () => {
   const navigator = useNavigate();
   const SPRING_IP = process.env.REACT_APP_SPRING_IP;
-  const FRONT_IP = process.env.REACT_APP_FRONT_IP; 
+  const FRONT_IP = process.env.REACT_APP_FRONT_IP;
   const [user, setUser] = useState({
-      username: "",
-      password: "",
-    });
- 
+    username: "",
+    password: "",
+  });
 
   const handleForm = (e) => {
     setUser({
       ...user,
       [e.target.name]: e.target.value,
-    
     });
-  }
+  };
   const Login = (e) => {
     e.preventDefault();
-    
+
     //let id = $('#idinput').val();
     //let password = $('#passinput').val();
 
+    let formData = new FormData();
+    formData.append("username", user.username);
+    formData.append("password", user.password);
+    //console.log("token="+token);
+    //console.log("url="+process.env.REACT_APP_BACK_IP+"/login");
+    axios({
+      url: SPRING_IP + "/login",
+      method: "post",
+      data: formData,
+    })
+      .then((res) => {
+        let token = res.headers.authorization;
+        localStorage.setItem("Authorization", token);
+        localStorage.setItem("id", res.data.userId);
+        navigator("/");
+      })
+      .catch((error) => {
+        alert("id와 password가 올바르지 않습니다.");
+        console.log(error);
+        navigator("/error");
+      });
+  };
 
-        let formData = new FormData();
-        formData.append("username",user.username);
-        formData.append("password",user.password);
-        //console.log("token="+token);
-        //console.log("url="+process.env.REACT_APP_BACK_IP+"/login");
-        axios({
-            url:SPRING_IP+"/login",
-            method:"post",
-            data:formData,
-           
-          
-        })
-        .then((res)=>{
-            let token = res.headers.authorization;
-            localStorage.setItem("Authorization",token);
-            localStorage.setItem("id",res.data.userId);
-            navigator("/");
-        })
-        .catch((error)=>{
-            alert("id와 password가 올바르지 않습니다.")
-            console.log(error);
-            navigator("/error");
-        })
-    }
-
-    const googleApi = ()=>{
-        
-        const googleUrl = "https://accounts.google.com/o/oauth2/v2/auth?"
-            +"client_id="
-            + process.env.REACT_APP_GOOGLE_LOGIN_API_KEY
-            +  "&redirect_uri=" 
-            + FRONT_IP+"/callback" 
-            + "&response_type=code"
-            + "&scope=email%20profile"
-            + "%20https://www.googleapis.com/auth/user.birthday.read"
-            + "%20https://www.googleapis.com/auth/user.addresses.read"
-            + "%20https://www.googleapis.com/auth/user.phonenumbers.read"
-            + "%20https://www.googleapis.com/auth/profile.agerange.read"
-            + "%20https://www.googleapis.com/auth/user.gender.read";
-            window.location.href=googleUrl;
-          
-      };
-      
-  
+  const googleApi = () => {
+    const googleUrl =
+      "https://accounts.google.com/o/oauth2/v2/auth?" +
+      "client_id=" +
+      process.env.REACT_APP_GOOGLE_LOGIN_API_KEY +
+      "&redirect_uri=" +
+      FRONT_IP +
+      "/callback" +
+      "&response_type=code" +
+      "&scope=email%20profile" +
+      "%20https://www.googleapis.com/auth/user.birthday.read" +
+      "%20https://www.googleapis.com/auth/user.addresses.read" +
+      "%20https://www.googleapis.com/auth/user.phonenumbers.read" +
+      "%20https://www.googleapis.com/auth/profile.agerange.read" +
+      "%20https://www.googleapis.com/auth/user.gender.read";
+    window.location.href = googleUrl;
+  };
 
   return (
     <StyledContentBox>
@@ -160,7 +154,7 @@ const LoginForm = () => {
           <StyledImg src="/icon_google-login.png" alt="" onClick={googleApi} />
         </div>
         <StyledForm>
-          <h3>아이디</h3>
+          <h5>아이디</h5>
           <StyledInput
             type="text"
             name="username"
@@ -168,7 +162,7 @@ const LoginForm = () => {
             placeholder="이메일 형식으로 입력"
             onChange={handleForm}
           />
-          <h3>비밀번호</h3>
+          <h5>비밀번호</h5>
           <StyledInput
             type="text"
             name="password"
