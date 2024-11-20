@@ -1,30 +1,22 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import "./ChoiceList.css";
 
 const StyledContentBox = styled.div`
   width: 69vw;
-  margin: 6vh auto;
+  margin: 10vh auto;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
 `;
 const StyledOptionBox = styled.div`
-  width: 18vw;
-  height: 23vw;
-  background: white;
-  box-shadow: 0px 2px 5px 2px lightgray;
-  border-radius: 20px;
+  width: 16.5vw;
+  height: 20vw;
   z-index: 6;
-  position: relative;
+  position: static;
   cursor: pointer;
-
-  &:hover {
-    background-color: #fdd83e;
-    -webkit-transition: 0.6s cubic-bezier(0.47, 2.02, 0.31, -0.36);
-    transition: 0.6s cubic-bezier(0.47, 2.02, 0.31, -0.36);
-    transform: scale(1.1);
-  }
 
   &:hover ~ div {
     -webkit-transform: translateY(3vh);
@@ -32,6 +24,15 @@ const StyledOptionBox = styled.div`
     -webkit-transition: 0.3s transform ease-out;
     transition: 0.3s transform ease-out;
   }
+
+  &:hover .kr {
+    opacity: 1;
+    transition: 0.3s;
+  }
+
+   &:hover .en {
+    opacity: 0;
+    transition: 0.3s;
 `;
 const StyledNameBox = styled.div`
   position: relative;
@@ -39,77 +40,84 @@ const StyledNameBox = styled.div`
   transform: translate(0, -50%);
   display: flex;
   flex-direction: column;
+  z-index: 10;
+  justify-content: space-between;
+  align-items: center;
 `;
 const StyledName = styled.div`
   font-family: "LOTTERIA CHAB-Regular";
-  font-size: 3vw;
+  font-style: italic;
+  font-size: 5vw;
   text-align: center;
-`;
-const StyledBookMark = styled.div`
-  height: 10.5vw;
-  width: 1.3vw;
-  z-index: 5;
   position: relative;
-  top: -7vw;
-  margin-left: 28px;
-  background: #ff6b6b;
+  z-index: 11;
 `;
-
-const secondOptionStyle = {
-  marginTop: "12vh",
-};
-const thirdOptionStyle = {
-  marginTop: "2vh",
-};
-const marginTopStyle = {
-  marginTop: "-22px",
-};
 
 const ChoiceList = () => {
   const navigator = useNavigate();
   return (
-    <StyledContentBox>
-      <div>
-        <StyledOptionBox
-          onClick={() => {
-            navigator("/menu");
-          }}
-        >
-          <StyledNameBox>
-            <StyledName>메뉴 추천</StyledName>
-          </StyledNameBox>
-        </StyledOptionBox>
-        <StyledBookMark />
-      </div>
-      <div>
-        <StyledOptionBox
-          style={secondOptionStyle}
-          onClick={() => {
-            navigator("/ai");
-          }}
-        >
-          <StyledNameBox>
-            <StyledName style={marginTopStyle}>AI</StyledName>
-            <StyledName>메뉴 추천</StyledName>
-          </StyledNameBox>
-        </StyledOptionBox>
-        <StyledBookMark />
-      </div>
-      <div>
-        <StyledOptionBox
-          style={thirdOptionStyle}
-          onClick={() => {
-            navigator("/hello");
-          }}
-        >
-          <StyledNameBox>
-            <StyledName style={marginTopStyle}>만남의</StyledName>
-            <StyledName>장소</StyledName>
-          </StyledNameBox>
-        </StyledOptionBox>
-        <StyledBookMark />
-      </div>
-    </StyledContentBox>
+    <>
+      {/* <div className="staticDiv"></div> */}
+      <StyledContentBox>
+        <div>
+          <StyledOptionBox
+            onClick={() => {
+              navigator("/menu");
+            }}
+          >
+            <StyledNameBox>
+              <div className="en">
+                <StyledName>MENU</StyledName>
+              </div>
+              <div className="kr">
+                <StyledName>메뉴</StyledName>
+                <br />
+                <StyledName>추천</StyledName>
+              </div>
+            </StyledNameBox>
+          </StyledOptionBox>
+          {/* <StyledBookMark /> */}
+        </div>
+        <div>
+          <StyledOptionBox
+            onClick={() => {
+              navigator("/ai");
+            }}
+          >
+            <StyledNameBox>
+              <div className="en">
+                <StyledName>AI</StyledName>
+              </div>
+              <div className="kr" style={{ top: "-100%" }}>
+                <StyledName>AI</StyledName>
+                <StyledName>메뉴</StyledName>
+                <StyledName>추천</StyledName>
+              </div>
+            </StyledNameBox>
+          </StyledOptionBox>
+          {/* <StyledBookMark /> */}
+        </div>
+        <div>
+          <StyledOptionBox
+            onClick={() => {
+              navigator("/hello");
+            }}
+          >
+            <StyledNameBox>
+              <div className="en">
+                <StyledName>PLACE</StyledName>
+              </div>
+              <div className="kr">
+                <StyledName>만남의</StyledName>
+                <br />
+                <StyledName>장소</StyledName>
+              </div>
+            </StyledNameBox>
+          </StyledOptionBox>
+          {/* <StyledBookMark /> */}
+        </div>
+      </StyledContentBox>
+    </>
   );
 };
 

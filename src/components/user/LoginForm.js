@@ -154,7 +154,7 @@ const LoginForm = () => {
           <StyledImg src="/icon_google-login.png" alt="" onClick={googleApi} />
         </div>
         <StyledForm>
-          <h4>아이디</h4>
+          <h5>아이디</h5>
           <StyledInput
             type="text"
             name="username"
@@ -162,7 +162,7 @@ const LoginForm = () => {
             placeholder="이메일 형식으로 입력"
             onChange={handleForm}
           />
-          <h4>비밀번호</h4>
+          <h5>비밀번호</h5>
           <StyledInput
             type="text"
             name="password"
