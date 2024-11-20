@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
+import useGeolocation from "react-hook-geolocation";
 import "./chat.css";
 import { AiOutlineSend } from "react-icons/ai";
 import { ChatGPT, isMenu, restaurant } from "./ChatGPT";
+import axios from 'axios';
 
 const StyledContentBox = styled.div`
   height: 60vh;
@@ -201,15 +203,15 @@ function Chat() {
     }
   };
 
-  const findRestaurant = async () => {
-    try {
-      questionRef.current = 1.5;
-      const response = await restaurant(menuResponse.select); // OpenAI API 호출
-      setRestaurantResponse(response); // JSON 응답을 상태에 저장
-    } catch (error) {
-      console.error("API 호출 중 오류 발생:", error);
-    }
-  };
+  // const findRestaurant = async () => {
+  //   try {
+  //     questionRef.current = 1.5;
+  //     const response = await restaurant(menuResponse.select); // OpenAI API 호출
+  //     setRestaurantResponse(response); // JSON 응답을 상태에 저장
+  //   } catch (error) {
+  //     console.error("API 호출 중 오류 발생:", error);
+  //   }
+  // };
 
   const startTyping = () => {
     if (questionRef.current === 2) findRestaurant();
@@ -237,6 +239,22 @@ function Chat() {
 
   const handleInput = (e) => {
     e.target.style.height = `${e.target.scrollHeight}px`; // 스크롤 높이에 맞춰 자동 조절
+  };
+
+  const findRestaurant = () => {
+    axios({
+      url: "http://localhost:9000/ai-restaurant",
+      method: "post",
+      data: {
+        menu: menuResponse.select,
+      },
+    })
+    .then((res) => {
+        console.log(res.data);
+    })
+    .catch((err)=>{
+      console.error("Error sending data:", err);
+    })
   };
 
   return (
