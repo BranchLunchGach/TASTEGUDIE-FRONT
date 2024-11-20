@@ -1,11 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
-import useGeolocation from "react-hook-geolocation";
 import "./chat.css";
 import { AiOutlineSend } from "react-icons/ai";
-import { ChatGPT, isMenu, restaurant } from "./ChatGPT";
+import { ChatGPT, isMenu } from "./ChatGPT";
 import axios from "axios";
-import useGeolocation from "react-hook-geolocation";
+import { useNavigate } from "react-router-dom";
 
 const StyledContentBox = styled.div`
   height: 60vh;
@@ -93,6 +92,7 @@ const SearchButton = styled.button`
 `;
 
 function Chat() {
+  const navigate = useNavigate();
   const [displayedText, setDisplayedText] = useState(""); // 화면에 보여줄 텍스트
   const [isTyping, setIsTyping] = useState(false); // 타이핑 상태
   const [fullText, setFullText] = useState(
@@ -103,13 +103,13 @@ function Chat() {
   const [menuResponse, setMenuResponse] = useState(null);
   const [restaurantResponse, setRestaurantResponse] = useState(null);
   const [firstResponseShown, setFirstResponseShown] = useState(false);
-  const [address, setAddress] = useState("");
 
   const inputRef = useRef(null);
   const indexRef = useRef(0); // 타이핑할 글자의 인덱스를 추적
   const questionRef = useRef(0);
   const displayedTextRef = useRef(""); // 실제 텍스트 값 추적
   const textBoxRef = useRef(null); // TextBox를 참조하기 위한 ref
+  const displayedRef = useRef(null);
   
   const typingEffect = () => {
     displayedTextRef.current += fullText[indexRef.current]; // 현재 타이핑 중인 텍스트 추가
@@ -125,8 +125,18 @@ function Chat() {
   useEffect(() => {
     if (isTyping) {
       const intervalId = setInterval(() => {
+        setTimeout(() => {
+          if (displayedRef.current) {
+            displayedRef.current.style.borderRight = "2px solid"; // solid 커서
+          }
+        }, 0);
         typingEffect(); // 타이핑 효과 실행
-      }, 50); // 50ms마다 타이핑
+        setTimeout(() => {
+          if (displayedRef.current) {
+            displayedRef.current.style.borderRight = "none"; // 커서 숨기기
+          }  
+        }, 60);
+      }, 80); // 50ms마다 타이핑
       return () => clearInterval(intervalId); // 클린업
     }
   }, [isTyping]); // isTyping이 변경될 때마다 실행
@@ -152,6 +162,7 @@ function Chat() {
       // API 응답이 있고, 응답이 비어 있지 않으면
       setFirstResponseShown(true);
       questionRef.current = 1;
+      setDisplayedText("");
       setFullText(
         `메뉴 이름 : ${jsonResponse[0].menuName}\n추천이유\n1. ${jsonResponse[0].reason[0]}\n2. ${jsonResponse[0].reason[1]}\n3. ${jsonResponse[0].reason[2]}\n\n\n\n메뉴 이름 : ${jsonResponse[1].menuName}\n추천이유\n1. ${jsonResponse[1].reason[0]}\n2. ${jsonResponse[1].reason[1]}\n3. ${jsonResponse[1].reason[2]}\n\n\n\n메뉴를 골라주세요!!!!`
       );
@@ -173,9 +184,27 @@ function Chat() {
         }
       } else {
         questionRef.current = 2;
+        // 한글 음절의 유니코드 범위 (가 ~ 힣)
+        const lastChar = menuResponse.select[menuResponse.select.length - 1];
+        
+        if (!lastChar) return false; // 빈 문자열 처리
+
+        const code = lastChar.charCodeAt(0);
+
+        // 한글 음절의 유니코드 시작점 (가 = 0xAC00)
+        const baseCode = 0xAC00;
+
+        // 한글 음절이 아닌 경우 false 반환
+        if (code < baseCode || code > baseCode + 11171) return false;
+
+        // 한글 음절의 유니코드 범위에서 종성(자음)을 확인
+        // 28개 중에서 마지막 자음(종성)이 있는지 확인 (종성은 0 ~ 18 범위 내에 있음)
+        const finalConsonantIndex = (code - baseCode) % 28;
+
         setFullText(
-          `${menuResponse.select}을 판매하는 식당을 추천해드리겠습니다\n\n\n\n맛집 추천 받으러 가기`
+          `${menuResponse.select}${finalConsonantIndex!==0?"를":"을"} 판매하는 식당 검색중.....`
         );
+        findRestaurant();
       }
     } else {
       console.error("API 응답이 비어 있습니다.");
@@ -186,9 +215,20 @@ function Chat() {
     if (restaurantResponse && restaurantResponse.length > 0) {
       // API 응답이 있고, 응답이 비어 있지 않으면
       questionRef.current = 3;
-      setFullText(
-        `식당 이름 : ${restaurantResponse[0].name}\n영업시간\n${restaurantResponse[0].time}\n메뉴\n${restaurantResponse[0].menu}\n\n\n\n식당 이름 : ${restaurantResponse[1].name}\n영업시간\n${restaurantResponse[1].time}\n메뉴\n${restaurantResponse[1].menu}\n\n\n\n식당 이름 : ${restaurantResponse[2].name}\n영업시간\n${restaurantResponse[2].time}\n메뉴\n${restaurantResponse[2].menu}\n\n\n\n메뉴를 골라주세요!!!!`
-      );
+      let message = "";
+      restaurantResponse.forEach((restaurant, index)=>{
+        let menuNum = 1;
+        message += `식당 이름 : ${restaurant.restaurantName}\n영업시간 :\n${restaurant.restaurantType}\n메뉴 :\n`;
+        restaurant?.menus?.forEach((menu)=>{
+          if(menu!=="0"){
+            message += `  ${menuNum++}. ${menu}\n`;
+          }
+        });
+        message += `\n\n\n`
+      });
+
+      message += `맛있는 식사 되시길 바랍니다.\n\n\n\n홈으로`;
+      setFullText(message);
     } else {
       console.error("API 응답이 비어 있습니다.");
     }
@@ -226,37 +266,12 @@ function Chat() {
   //     console.error("API 호출 중 오류 발생:", error);
   //   }
   // };
-  const getAddress = (latitude, longitude) => {
-    axios
-      .get(`https://apis.openapi.sk.com/tmap/geo/reversegeocoding`, {
-        params: {
-          version: 1,
-          lat: latitude,
-          lon: longitude,
-          addressType: "A01",
-        },
-        headers: {
-          appKey: process.env.REACT_APP_NAVER_API_KEY,
-        },
-      })
-      .then((res) => {
-        console.log(res.data.addressInfo.fullAddress);
-
-        const fullAddress = res.data.addressInfo.fullAddress;
-        setAddress(fullAddress); // 현재 컴포넌트의 상태 업데이트
-      })
-      .catch((err) => {
-        console.error("주소를 가져오는 데 실패했습니다.", err);
-      });
-  };
-
-  const geolocation = useGeolocation({
-    enableHighAccuracy: true, // 정확도를 높임
-    maximumAge: 0, // 캐시된 위치를 사용하지 않음
-  });
 
   const startTyping = () => {
-    if (questionRef.current === 2) findRestaurant();
+    if (questionRef.current === 3){
+      inputRef.current.value = "";
+      return; 
+    }
     if (inputRef.current.value === "") return;
     if (isTyping) return; // 타이핑 중일 때는 더 이상 시작 못함
     setDisplayedText(""); // 텍스트 초기화
@@ -266,6 +281,7 @@ function Chat() {
       { user: "user", text: inputRef.current.value },
     ]);
     if (questionRef.current === 0) {
+      setFullText(`메뉴를 준비중입니다.....`);
       handleApiCall();
     } else if (questionRef.current === 1 || questionRef.current === 1.5) {
       whatMenu();
@@ -293,6 +309,7 @@ function Chat() {
     })
     .then((res) => {
         console.log(res.data);
+        setRestaurantResponse(res.data);
     })
     .catch((err)=>{
       console.error("Error sending data:", err);
@@ -312,7 +329,6 @@ function Chat() {
                 jsonResponse[reindex]?.imgUrl && (
                   <img
                     src={jsonResponse[reindex].imgUrl}
-                    // src="/img-sample_nongdam.jpg"
                     className="chatImg"
                     alt={`추천 메뉴 이미지`}
                   />
@@ -348,12 +364,12 @@ function Chat() {
               jsonResponse[index]?.imgUrl && (
                 <img
                   src={jsonResponse[index].imgUrl}
-                  // src="/img-sample_nongdam.jpg"
                   className="chatImg"
                   alt={`추천 메뉴 이미지`}
                 />
-              )}
-            <img
+              )
+            }
+            {t!=="홈으로"&&<img
               alt="robot"
               src="robot.png"
               style={{
@@ -363,20 +379,22 @@ function Chat() {
                 clear: "both",
                 marginRight: "0.5vw",
               }}
-            />
+            />}
             <div
               className="chat"
               style={{
                 whiteSpace: "pre-wrap",
-                cursor: t === "맛집 추천 받으러 가기" ? "pointer" : "default",
+                cursor:t==="홈으로"?"pointer":"default",
+                backgroundColor:t==="홈으로"?"#f68a91":"#fdd83e",
+                color:t==="홈으로"?"white":"black",
+                clear:t==="홈으로"?"both":"right",
+                marginLeft:t==="홈으로"?"3.5vw":"0",
               }}
-              onClick={() => {
-                if (t === "맛집 추천 받으러 가기") {
-                  findRestaurant(); // 클릭 시만 호출
-                }
-              }}
+              onClick={t==="홈으로"?()=>{
+                navigate("/");
+              }:undefined}
             >
-              {t}
+              <span ref={displayedRef}>{t}</span>
             </div>
           </React.Fragment>
         ))}

@@ -9,11 +9,13 @@
 }
 
 .chatImg {
+  width: 10vw;
+  height: 10vw;
   border-radius: 10px;
-  margin: 0.5vw 0;
-  max-width: 80%;
+  margin: 0.5vw 3.5vw;
   float: left;
   clear: both;
+  border: 1px solid;
 }
 
 .user {
