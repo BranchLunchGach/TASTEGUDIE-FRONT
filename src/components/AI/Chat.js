@@ -5,7 +5,6 @@ import "./chat.css";
 import { AiOutlineSend } from "react-icons/ai";
 import { ChatGPT, isMenu, restaurant } from "./ChatGPT";
 import axios from "axios";
-import useGeolocation from "react-hook-geolocation";
 
 const StyledContentBox = styled.div`
   height: 60vh;
