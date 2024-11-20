@@ -126,16 +126,16 @@ export const isMenu = async (firstMenu, secMenu, message) => {
   }
 };
 
-export const restaurant = async (message) => {
+export const restaurant = async (address, message) => {
   try {
-    const response = await fetch("https://api.x.ai/v1/chat/completions", {
+    const response = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${process.env.REACT_APP_GPT_API_KEY}`,
+        Authorization: `Bearer ${process.env.REACT_APP_OPENAI_API_KEY}`,
       },
       body: JSON.stringify({
-        model: "grok-beta",
+        model: "gpt-4o-mini",
         messages: [
           {
             role: "system",
@@ -144,7 +144,7 @@ export const restaurant = async (message) => {
           },
           {
             role: "user",
-            content: `${message} key는 select야`,
+            content: `${address}근처의 ${message}집을 3곳 찾아줘. key는 name, time, menu야`,
           },
         ],
         temperature: 0.7,

@@ -1,6 +1,20 @@
 import React from 'react';
 import styled from 'styled-components';
 
+const StyledFoodReceipt = styled.div`
+    width: 15vw;
+    height:37vw; 
+    border: 1px solid; 
+    background-color: white;
+    margin: auto;
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+
+    &::-webkit-scrollbar{
+        display:none;
+    }
+`
+
 const StyledTable = styled.table`
     border: 1px solid black;
     width: 90%;
@@ -19,10 +33,10 @@ const FoodReceipt = ({ food }) => {
 
     // 메뉴 항목을 정의합니다.
     const menuItems = [
-        { category: "Menu List", items: ["한식", "양식", "일식", "중식", "아시안"] },
-        { category: "Category List", items: ["튀김류", "조림 및 찜류", "찌개 및 전골류", "부침류", "무침 및 절임류", "빵류", "볶음류", "밥류", "면류", "국 및 탕류", "구이류"] },
-        { category: "Keyword List", items: ["가벼운", "든든한", "술과 어울리는"] },
-        { category: "Soup List", items: ["있음", "없음"] },
+        { category: "Menu List", name:"국가", items: ["한식", "양식", "일식", "중식", "아시안"] },
+        { category: "Category List", name:"음식종류", items: ["튀김류", "조림 및 찜류", "찌개 및 전골류", "부침류", "무침 및 절임류", "빵류", "볶음류", "밥류", "면류", "국 및 탕류", "구이류"] },
+        { category: "Keyword List", name:"키워드", items: ["가벼운", "든든한", "술과 어울리는"] },
+        { category: "Soup List", name:"국물여부", items: ["있음", "없음"] },
     ];
 
     const count = menuItems.reduce((count, section) => {
@@ -30,7 +44,7 @@ const FoodReceipt = ({ food }) => {
     }, 0);
 
     return (
-        <div style={{ width: '15vw', height:"37vw", border: '1px solid', backgroundColor: "white", margin:"auto" }}>
+        <StyledFoodReceipt>
             <h2 style={{ textAlign: 'center', margin: '10px 0 0 0', fontSize:"1vw" }}>TASTE GUIDE<br/>menu</h2>
             <div style={{ width:"90%", margin:"auto", display: 'flex', justifyContent: 'space-between', padding: '10px 0' }}>
                 <span>{formattedDate}</span>
@@ -49,7 +63,7 @@ const FoodReceipt = ({ food }) => {
                         <React.Fragment key={index}>
                             <tr>
                                 <td rowSpan={section.items.length + 1} style={{ width:"40%" ,fontWeight: 'bold', textAlign: 'center', backgroundColor: 'lightgray' }}>
-                                    {section.category}
+                                    {section.name}
                                 </td>
                             </tr>
                             {section.items.map((item, i) => (
@@ -66,7 +80,7 @@ const FoodReceipt = ({ food }) => {
                     </tr>
                 </tbody>
             </StyledTable>
-        </div>
+        </StyledFoodReceipt>
     );
 };
 

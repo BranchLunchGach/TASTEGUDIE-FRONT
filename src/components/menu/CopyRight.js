@@ -5,6 +5,7 @@ const Title = styled.h3`
   text-align: center;
   font-size: 1.4vw;
   color: red;
+  margin-top: 2vw;
 `;
 
 const ALink = styled.a`
@@ -14,9 +15,10 @@ const ALink = styled.a`
 `
 
 const Copy = styled.div`
-    margin-top: 7vw;
-    margin-left: 5vw;
+    margin-top: 9vw;
+    margin-left: 3vw;
     max-height: 15vw;
+    max-width: 15vw;
     overflow-y: scroll;
     -ms-overflow-style: none;
 
@@ -33,7 +35,9 @@ const CopyRight = () => {
             <Title>주의사항!!!</Title>
             <Copy>
                 아이콘 출처<br/>
-                <ALink href="https://www.flaticon.com/kr/free-icons/" title="채점자 아이콘">채점자 아이콘 제작자: mavadee - Flaticon</ALink>
+                <ALink href="https://www.flaticon.com/kr/free-icons/" title="다음 아이콘">다음 아이콘 제작자: Freepik - Flaticon</ALink><br/>
+                <ALink href="https://www.flaticon.com/free-icons/back" title="back icons">Back icons created by Freepik - Flaticon</ALink><br/>
+                <ALink href="https://www.flaticon.com/kr/free-icons/" title="채점자 아이콘">채점자 아이콘 제작자: mavadee - Flaticon</ALink><br/>
                 <ALink href="https://www.flaticon.com/kr/free-icons/" title="먹다 아이콘">먹다 아이콘 제작자: Freepik - Flaticon</ALink><br/>
                 <ALink href="https://www.flaticon.com/kr/free-icons/" title="반합 아이콘">반합 아이콘 제작자: Three musketeers - Flaticon</ALink><br/>
                 <ALink href="https://www.flaticon.com/kr/free-icons/-" title="밥 그릇 아이콘">밥 그릇 아이콘 제작자: kosonicon - Flaticon</ALink><br/>

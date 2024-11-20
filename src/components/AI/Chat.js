@@ -4,7 +4,8 @@ import useGeolocation from "react-hook-geolocation";
 import "./chat.css";
 import { AiOutlineSend } from "react-icons/ai";
 import { ChatGPT, isMenu, restaurant } from "./ChatGPT";
-import axios from 'axios';
+import axios from "axios";
+import useGeolocation from "react-hook-geolocation";
 
 const StyledContentBox = styled.div`
   height: 60vh;
@@ -102,19 +103,20 @@ function Chat() {
   const [menuResponse, setMenuResponse] = useState(null);
   const [restaurantResponse, setRestaurantResponse] = useState(null);
   const [firstResponseShown, setFirstResponseShown] = useState(false);
+  const [address, setAddress] = useState("");
 
   const inputRef = useRef(null);
   const indexRef = useRef(0); // 타이핑할 글자의 인덱스를 추적
   const questionRef = useRef(0);
   const displayedTextRef = useRef(""); // 실제 텍스트 값 추적
   const textBoxRef = useRef(null); // TextBox를 참조하기 위한 ref
-
+  
   const typingEffect = () => {
     displayedTextRef.current += fullText[indexRef.current]; // 현재 타이핑 중인 텍스트 추가
     setDisplayedText(displayedTextRef.current); // 화면에 보일 텍스트 업데이트
     indexRef.current += 1; // 인덱스 증가
   };
-
+  
   useEffect(() => {
     setIsTyping(true);
   }, []);
@@ -144,7 +146,7 @@ function Chat() {
     displayedTextRef.current = ""; // 텍스트 ref 초기화
     setIsTyping(true); // 타이핑 시작
   }, [fullText]);
-
+  
   useEffect(() => {
     if (jsonResponse && jsonResponse.length > 0) {
       // API 응답이 있고, 응답이 비어 있지 않으면
@@ -157,7 +159,7 @@ function Chat() {
       console.error("API 응답이 비어 있습니다.");
     }
   }, [jsonResponse]);
-
+  
   useEffect(() => {
     if (menuResponse && menuResponse.select) {
       if (menuResponse.select === "없음") {
@@ -179,6 +181,18 @@ function Chat() {
       console.error("API 응답이 비어 있습니다.");
     }
   }, [menuResponse]);
+  
+  useEffect(() => {
+    if (restaurantResponse && restaurantResponse.length > 0) {
+      // API 응답이 있고, 응답이 비어 있지 않으면
+      questionRef.current = 3;
+      setFullText(
+        `식당 이름 : ${restaurantResponse[0].name}\n영업시간\n${restaurantResponse[0].time}\n메뉴\n${restaurantResponse[0].menu}\n\n\n\n식당 이름 : ${restaurantResponse[1].name}\n영업시간\n${restaurantResponse[1].time}\n메뉴\n${restaurantResponse[1].menu}\n\n\n\n식당 이름 : ${restaurantResponse[2].name}\n영업시간\n${restaurantResponse[2].time}\n메뉴\n${restaurantResponse[2].menu}\n\n\n\n메뉴를 골라주세요!!!!`
+      );
+    } else {
+      console.error("API 응답이 비어 있습니다.");
+    }
+  }, [restaurantResponse]);
 
   const handleApiCall = async () => {
     try {
@@ -212,6 +226,34 @@ function Chat() {
   //     console.error("API 호출 중 오류 발생:", error);
   //   }
   // };
+  const getAddress = (latitude, longitude) => {
+    axios
+      .get(`https://apis.openapi.sk.com/tmap/geo/reversegeocoding`, {
+        params: {
+          version: 1,
+          lat: latitude,
+          lon: longitude,
+          addressType: "A01",
+        },
+        headers: {
+          appKey: process.env.REACT_APP_NAVER_API_KEY,
+        },
+      })
+      .then((res) => {
+        console.log(res.data.addressInfo.fullAddress);
+
+        const fullAddress = res.data.addressInfo.fullAddress;
+        setAddress(fullAddress); // 현재 컴포넌트의 상태 업데이트
+      })
+      .catch((err) => {
+        console.error("주소를 가져오는 데 실패했습니다.", err);
+      });
+  };
+
+  const geolocation = useGeolocation({
+    enableHighAccuracy: true, // 정확도를 높임
+    maximumAge: 0, // 캐시된 위치를 사용하지 않음
+  });
 
   const startTyping = () => {
     if (questionRef.current === 2) findRestaurant();

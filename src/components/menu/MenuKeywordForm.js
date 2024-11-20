@@ -12,10 +12,12 @@ const Form = styled.form`
 `;
 
 const Title = styled.h3`
-  text-align: center;
   font-size: 1.4vw;
   color: #333;
   margin-bottom: 1vw;
+  margin-left: 2vw;
+  border-bottom: 1px solid;
+  width: 80%;
 `;
 
 const Label = styled.label`
@@ -217,7 +219,7 @@ const MenuKeywordForm = (props) => {
 
   return (
     <div>
-      <Title style={{marginTop:"0.3vw"}}> === 음식의 키워드를 선택하세요 ===</Title>
+      <Title style={{marginTop:"0.3vw"}}>키워드</Title>
       <label
         onClick={(event) => handleFoodChange("상관없음", event)}
         style={{cursor:"none", display: "block", textAlign: "right", marginRight:"30px" }}
@@ -259,7 +261,7 @@ const MenuKeywordForm = (props) => {
           </Label>
         </div>
       </Form>
-      <Title> === 국물 유무를 선택하세요 ===</Title>
+      <Title>국물 여부</Title>
       <label
         onClick={(event) => handleSoupChange("상관없음", event)}
         style={{cursor:"none", display: "block", textAlign: "right", marginRight:"30px" }}

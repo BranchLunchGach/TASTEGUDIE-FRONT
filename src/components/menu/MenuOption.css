@@ -15,6 +15,12 @@
   margin-bottom: 0.5em;
   background: left top no-repeat;
   background-size: cover;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar{
+    display:none;
+  }
 }
 .page:nth-child(even) {
   clear: both;
@@ -74,6 +80,7 @@
   transition: background 0.7s;
   z-index: 2;
 }
+
 .book .page:nth-child(odd) {
   pointer-events: all;
   transform: rotateY(0deg);
@@ -142,6 +149,7 @@
   transition: opacity 0.4s 0.2s;
   display: flex; /* 플렉스 박스 사용 */
   justify-content: center; /* 가로 중앙 정렬 */
+  align-items: center;
   height: 80vh; /* 화면 전체 높이 사용 */
 }
 .receiptPage {

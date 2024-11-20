@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
+import { HiChevronDoubleDown } from "react-icons/hi";
 
 const Label = styled.label`
   display: flex;
@@ -26,11 +27,13 @@ const Form = styled.form`
   `;
 
 const Title = styled.h3`
-  text-align: center;
   font-size: 1.4vw;
   color: #333;
   margin-bottom: 1vw;
   margin-top: 0.3vw;
+  margin-left: 2vw;
+  border-bottom: 1px solid;
+  width: 80%;
 `;
 
 const Span = styled.span`
@@ -145,7 +148,7 @@ const FoodCategoryForm = (props) => {
 
   return (
     <div>
-      <Title>=== 카테고리를 선택하세요 ===</Title>
+      <Title>음식종류</Title>
       <label
         onClick={(event) => handleFoodChange("상관없음", event)}
         style={{cursor:"none", display: "block", textAlign: "right", marginRight:"30px" }}
@@ -275,7 +278,7 @@ const FoodCategoryForm = (props) => {
           </Label>
         </div>
       </Form>
-      <Title>스크롤을 내려주세요</Title>
+      <HiChevronDoubleDown style={{ width:"3vw", height:"3vw", marginLeft:"9vw"}}/>
     </div>
   );
 };

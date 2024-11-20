@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 
 // 스타일 정의
@@ -12,11 +12,13 @@ const Form = styled.form`
 `;
 
 const Title = styled.h3`
-  text-align: center;
   font-size: 1.4vw;
   color: #333;
   margin-bottom: 1vw;
   margin-top: 0.3vw;
+  margin-left: 2vw;
+  border-bottom: 1px solid;
+  width: 80%;
 `;
 
 const Label = styled.label`
@@ -121,6 +123,7 @@ const FoodForm = (props) => {
       }, 0);
     }
 
+
     if (value === "상관없음") {
       // '상관없음' 클릭 시, 모든 선택을 토글
       if (isAllChecked) {
@@ -156,7 +159,7 @@ const FoodForm = (props) => {
 
   return (
     <div>
-      <Title> === 음식의 종류를 선택하세요 ===</Title>
+      <Title>국가</Title>
       <label
         onClick={(event) => handleFoodChange("상관없음", event)}
         style={{cursor:"none", display: "block", textAlign: "right", marginRight:"30px" }}

@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Home from "../commons/Home";
+import { Link } from "react-router-dom";
 
 const StyledHeader = styled.div`
   margin: 0 5px;
@@ -9,13 +10,13 @@ const StyledHeader = styled.div`
   align-items: center;
 `;
 
-const Header3 = ({ scrollToPage }) => {
+const Header3 = () => {
 
   return (
     <StyledHeader>
-      <div onClick={() => scrollToPage(1)}>
+      <Link to="/">
         <Home />
-      </div>
+      </Link>
     </StyledHeader>
   );
 };
