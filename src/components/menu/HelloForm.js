@@ -107,7 +107,6 @@ const SecondContainer = styled.div`
     width: 100vw;
     height: 60vh;
     margin-top: 100px;
-    border: 1px solid red;
 
     display: flex;
     align-items: center;
