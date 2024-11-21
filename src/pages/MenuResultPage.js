@@ -186,6 +186,7 @@ const MenuResultPage = () => {
     axios({
       url: process.env.REACT_APP_SPRING_IP+"/restaurant",
       method: "post",
+      timeout: 300000, // 타임아웃 설정: 300,000ms = 5분
       data: {
         menu: menu,
         avgX: x,
