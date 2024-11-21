@@ -183,7 +183,7 @@ const HelloForm = () => {
 
     const [search, setSearch] = useState("");  // 검색어 상태
     const [query, setQuery] = useState("");  // 버튼 클릭 시 호출할 쿼리 상태
-    const { data } = useNaver(query);  // query가 변경될 때만 useNaver 호출
+    const { data} = useNaver(query);  // query가 변경될 때만 useNaver 호출
 
     const [show, setShow] = useState(false);
 
@@ -409,7 +409,7 @@ const HelloForm = () => {
                         <LocationSearchBtn onClick={handleSearchClick}>검색하기</LocationSearchBtn> 
                     </LocationSearchDiv>
                     <LocationSearchResult>
-                        {(data !== null && data.length) > 0 ? (
+                        {(data !== null && data !== "" && data.length) > 0 ? (
                             <ul>
                                 {data.map(item => (
                                     <li key={item.title} 

@@ -1,4 +1,4 @@
-import { useReducer, useEffect } from 'react';
+import { useReducer, useEffect, useCallback } from 'react';
 import axios from 'axios';
 
 function reducer(state, action) {
@@ -27,38 +27,44 @@ function reducer(state, action) {
 }
 
 function useNaver(search) {
-    const [ state, dispatch ] = useReducer(reducer, {
+    const [state, dispatch] = useReducer(reducer, {
         loading: false,
         data: null,
-        error: null
+        error: null,
     });
 
-    const fetchData = async () => {
+    const fetchData = useCallback(async () => {
+        if (!search.trim()) {
+            dispatch({ type: 'SUCCESS', data: [] }); // 빈 검색어 처리
+            return;
+        }
+
         try {
             dispatch({ type: 'LOADING' });
 
-            const { data : { items }} = await axios.get(
-                '/v1/search/local.json', {
-                params: {
-                    query: search,
-                    display: 3
-                },
-                headers: {
-                    'X-Naver-Client-Id': process.env.REACT_APP_Naver_ID,
-                    'X-Naver-Client-Secret': process.env.REACT_APP_Naver_Secret
-                },
-            });
+            const { data: { items } } = await axios.get(
+                '/v1/search/local.json',
+                {
+                    params: {
+                        query: search,
+                        display: 3,
+                    },
+                    headers: {
+                        'X-Naver-Client-Id': process.env.REACT_APP_Naver_ID,
+                        'X-Naver-Client-Secret': process.env.REACT_APP_Naver_Secret,
+                    },
+                }
+            );
 
             dispatch({ type: 'SUCCESS', data: items });
-        }
-        catch(err) {
+        } catch (err) {
             dispatch({ type: 'ERROR', error: err });
         }
-    }
+    }, [search]);
 
     useEffect(() => {
         fetchData();
-    }, [search]);
+    }, [fetchData]);
 
     return state;
 }
