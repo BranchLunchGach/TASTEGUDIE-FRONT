@@ -39,6 +39,8 @@ function useNaver(search) {
             return;
         }
 
+        console.log(search);
+
         try {
             dispatch({ type: 'LOADING' });
             const { data: { items } } = await axios.get(
