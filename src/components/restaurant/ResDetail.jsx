@@ -281,9 +281,9 @@ const ResDetail = (props) => {
 
     try {
       const res = await axios.get(
-        "/v2/geocode?query=" + encodeURIComponent(address),
+        "/map-geocode/v2/geocode?query=" + encodeURIComponent(address),
         {
-          params: {
+          headers: {
             // params API 키 설정
             "X-NCP-APIGW-API-KEY-ID": clientId,
             "X-NCP-APIGW-API-KEY": clientSecret,
