@@ -39,6 +39,8 @@ function useNaver(search) {
             return;
         }
 
+        console.log(search);
+
         try {
             dispatch({ type: 'LOADING' });
             const { data: { items } } = await axios.get(
@@ -49,12 +51,16 @@ function useNaver(search) {
                         display: 3,
                     },
                     headers: {
-                        'X-Naver-Client-Id': process.env.REACT_APP_Naver_ID,
-                        'X-Naver-Client-Secret': process.env.REACT_APP_Naver_Secret,
+                        'X-Naver-Client-Id': process.env.REACT_APP_NAVER_ID,
+                        'X-Naver-Client-Secret': process.env.REACT_APP_NAVER_SECRET,
                     },
                 }
             );
-            dispatch({ type: 'SUCCESS', data: items });
+            if(!items || items.length === 0){
+                dispatch({ type: 'SUCCESS', data: [] });
+            } else{
+                dispatch({ type: 'SUCCESS', data: items });
+            }
         } catch (err) {
             dispatch({ type: 'ERROR', error: err });
         }

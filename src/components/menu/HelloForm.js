@@ -182,7 +182,7 @@ const HelloForm = () => {
 
     const [search, setSearch] = useState("");  // 검색어 상태
     const [query, setQuery] = useState("");  // 버튼 클릭 시 호출할 쿼리 상태
-    const { data} = useNaver(query);  // query가 변경될 때만 useNaver 호출
+    const { data, loading, error } = useNaver(query);  // query가 변경될 때만 useNaver 호출
 
     const [show, setShow] = useState(false);
 
@@ -203,6 +203,10 @@ const HelloForm = () => {
     useEffect(() => {
         console.log("현재 위치 저장 값 >>", locations);
     }, [locations]);
+
+    useEffect(()=>{
+        console.log(data);
+    },[data])
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -408,7 +412,7 @@ const HelloForm = () => {
                         <LocationSearchBtn onClick={handleSearchClick}>검색하기</LocationSearchBtn> 
                     </LocationSearchDiv>
                     <LocationSearchResult>
-                        {(data !== null && data !== "" && data.length) > 0 ? (
+                        {(data && data.length > 0) ? (
                             <ul>
                                 {data.map(item => (
                                     <li key={item.title} 
@@ -424,7 +428,9 @@ const HelloForm = () => {
                                 ))}
                             </ul>
                         ) : (
-                            <p style={{fontSize:"20px", marginTop:"50px",  marginBottom:"40px", textAlign: "center", color:"gray"}}>데이터가 없습니다</p>
+                            (loading)?
+                            <p style={{fontSize:"20px", marginTop:"50px",  marginBottom:"40px", textAlign: "center", color:"gray"}}>데이터를 가져오는 중입니다.</p>
+                            :<p style={{fontSize:"20px", marginTop:"50px",  marginBottom:"40px", textAlign: "center", color:"gray"}}>데이터가 없습니다</p>
                         )}
                     </LocationSearchResult>
                 </Modal.Body>

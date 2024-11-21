@@ -301,7 +301,7 @@ function Chat() {
 
   const findRestaurant = () => {
     axios({
-      url: "http://localhost:9000/ai-restaurant",
+      url: process.env.REACT_APP_SPRING_IP+"/ai-restaurant",
       method: "post",
       data: {
         menu: menuResponse.select,
