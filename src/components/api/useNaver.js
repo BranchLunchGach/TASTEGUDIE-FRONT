@@ -44,7 +44,7 @@ function useNaver(search) {
         try {
             dispatch({ type: 'LOADING' });
             const { data: { items } } = await axios.get(
-                'https://openapi.naver.com/v1/search/local.json',
+                '/v1/search/local.json',
                 {
                     params: {
                         query: search,
