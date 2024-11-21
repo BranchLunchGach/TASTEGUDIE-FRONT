@@ -12,11 +12,13 @@ const Form = styled.form`
 `;
 
 const Title = styled.h3`
-  text-align: center;
   font-size: 1.4vw;
   color: #333;
   margin-bottom: 1vw;
   margin-top: 0.3vw;
+  margin-left: 2vw;
+  border-bottom: 1px solid;
+  width: 80%;
 `;
 
 const Label = styled.label`
@@ -25,7 +27,7 @@ const Label = styled.label`
   align-items: flex-start;
   width: 100%;
   padding: 1vw;
-  cursor: pointer;
+  cursor: none;
 `;
 
 const highlightAnimation = keyframes`
@@ -133,10 +135,10 @@ const CoreKeywordForm = (props) => {
 
   return (
     <div>
-      <Title> === coreKeyword ===</Title>
+      <Title>시설ㆍ서비스</Title>
       <label
         onClick={(event) => handleCoreChange("상관없음", event)}
-        style={{cursor:"pointer", display: "block", textAlign: "right", marginRight:"30px" }}
+        style={{cursor:"none", display: "block", textAlign: "right", marginRight:"30px" }}
       >
         상관없음
       </label>

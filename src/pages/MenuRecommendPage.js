@@ -1,14 +1,22 @@
 import React from "react";
-import Header2 from "../components/layouts/Header2";
+import Header3 from "../components/layouts/Header3";
 import MenuOption from "../components/menu/MenuOption";
+import styled from "styled-components";
+
+const StyledPage = styled.div`
+background: url(menuBack.jpg);
+height: 100vh;
+background-repeat: no-repeat;
+background-size:cover;
+`
 
 const MenuRecommendPage = () => {
   return (
-    <div>
-      <Header2 />
+    <StyledPage>
+      <Header3 />
       {/* <MenuRecommendTitle /> */}
       <MenuOption />
-    </div>
+    </StyledPage>
   );
 };
 

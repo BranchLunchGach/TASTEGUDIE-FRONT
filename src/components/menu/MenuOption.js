@@ -12,6 +12,7 @@ import CoreKeywordForm from "./CoreKeywordForm";
 import MainKeywordForm from "./MainKeywordForm";
 import CopyRight from "./CopyRight";
 
+
 const Title = styled.span`
   border: 1px solid;
   background-color: darkgray;
@@ -28,29 +29,16 @@ const Title = styled.span`
     display: block;
   }
 `;
-const GoBtn = styled.button`
-  width: 14vw;
-  height: 7vw;
-  margin-top: 1.5vw;
-  border-radius: 20px;
-  font-size: 1.5vw;
-  color: white;
-  background: black;
-`;
 const StyledP = styled.p`
   margin-top: 8vw;
   text-align: center;
   font-size: 5vw;
   color: #000000;
 `;
-const StyledArrow = styled.img`
-  width: 7.3vw;
-  margin: 0.2vw 0;
-`;
 const StyledImage = styled.img`
   position: absolute;
-  width: 80px;
-  height: 80px;
+  width: 4vw;
+  height: 4vw;
   z-index: 99;
   pointer-events: none;
 `;
@@ -77,6 +65,8 @@ function MenuOption() {
   const [mouseIn, setMouseIn] = useState(false);
   const [highlightPosition, setHighlightPosition] = useState(null);
   const [isAnimating, setIsAnimating] = useState(false);
+  const isPageClicked = useRef(false);
+  const isreceiptClicked = useRef(false);
 
   const handleFoodChange = (food) => {
     setSelectedFoods(food);
@@ -100,6 +90,10 @@ function MenuOption() {
 
   const handleMainChange = (main) => {
     setSelectedMainKeywords(main);
+  };
+
+  const goButtonClick = () => {
+    handleRecommand();
   };
 
   useEffect(() => {
@@ -200,9 +194,7 @@ function MenuOption() {
       });
   };
 
-  const handleRecommand = (e) => {
-    e.preventDefault();
-
+  const handleRecommand = () => {
     receiptsRef.current[1].classList.remove("flipped");
     receiptsRef.current[0].classList.remove("flipped");
 
@@ -237,14 +229,76 @@ function MenuOption() {
     requestAnimationFrame(animate);
   };
 
+  
+  const xyHandler = (e) => {
+    if(!isAnimating){
+      const mouseX = e.clientX;
+      const mouseY = e.clientY;
+
+      setXY({x : mouseX, y: mouseY - 80});
+
+      if(e.currentTarget.classList.contains("right")){
+        const div = e.currentTarget; // div 요소
+        const divRect = div.getBoundingClientRect(); // div의 위치와 크기
+        const divWidth = divRect.width; // div의 너비
+        const divLeft = divRect.left; // div의 왼쪽 위치
+        const rightAreaStart = divLeft + divWidth * 0.1;
+
+        // 마우스가 div의 오른쪽 10% 영역에 있을 경우
+        if (e.clientX <= rightAreaStart) {
+          highlightRef.current.style.width = "2vw";
+          highlightRef.current.style.height = "2vw";
+          highlightRef.current.src = "left-arrow.png";
+        }else{
+          highlightRef.current.style.width = "4vw";
+          highlightRef.current.style.height = "4vw";
+          highlightRef.current.src = "highlighter.png";
+        }
+      } else if(e.currentTarget.classList.contains("left")){
+        const div = e.currentTarget; // div 요소
+        const divRect = div.getBoundingClientRect(); // div의 위치와 크기
+        const divWidth = divRect.width; // div의 너비
+        const divLeft = divRect.left; // div의 왼쪽 위치
+        const rightAreaStart = divLeft + divWidth * 0.85;
+
+        // 마우스가 div의 오른쪽 10% 영역에 있을 경우
+        if (e.clientX >= rightAreaStart) {
+          highlightRef.current.style.width = "2vw";
+          highlightRef.current.style.height = "2vw";
+          highlightRef.current.src = "right-arrow.png";
+        }else{
+          highlightRef.current.style.width = "4vw";
+          highlightRef.current.style.height = "4vw";
+          highlightRef.current.src = "highlighter.png";
+        }
+      }
+    }
+  }
+
+  const mouseEnterHandler = (e) => {
+    if(!isAnimating){
+      setTimeout(() => {
+        setMouseIn(true); // 0.5초 후 상태 변경
+      }, 500);
+    }
+  };
+  
+  const mouse = () =>{
+    if(!isAnimating){
+      highlightRef.current.style.width = "4vw";
+      highlightRef.current.style.height = "4vw";
+      highlightRef.current.src = "highlighter.png";
+      setMouseIn(false); 
+      setXY({x:500, y:0});
+    }
+  }
+
+
   const pageContents = [
     <StyledP>
       <Title>
-        <span>Taste</span>
-        <span>Guide</span>
+        <span>Taste Guide</span>
       </Title>
-      <br />
-      <span style={{ fontSize: 20 }}>-- 책을 넘겨 메뉴를 추천 받으세요 --</span>
     </StyledP>,
     <StyledP>
       Menu <br />
@@ -313,9 +367,6 @@ function MenuOption() {
     />,
     <CopyRight />,
     <StyledP>
-      Thank
-      <br />
-      You!!
     </StyledP>,
   ];
 
@@ -334,7 +385,10 @@ function MenuOption() {
     pages.forEach((page, i) => {
       page.pageNum = i + 1;
       page.onclick = function (event) {
+        if(isPageClicked.current) return;
         if (!["LABEL", "SPAN", "A"].includes(event.target.tagName)) {
+          event.stopPropagation();
+          isPageClicked.current = true;
           // 페이지 전환 처리
           event.preventDefault(); // 페이지 전환 기본 동작 막기
 
@@ -345,8 +399,16 @@ function MenuOption() {
             this.classList.add("flipped");
             this.nextElementSibling.classList.add("flipped");
           }
+
+          setTimeout(() => {
+            isPageClicked.current = false;
+          }, 1200);
         }
       };
+
+      page.onmouseenter = mouseEnterHandler;
+      page.onmousemove = xyHandler;
+      page.onmouseleave = mouse;
     });
 
     const receipts = receiptsRef.current;
@@ -363,7 +425,9 @@ function MenuOption() {
     receipts.forEach((page, i) => {
       page.pageNum = i + 1;
       page.onclick = function (event) {
-        if (!["BUTTON"].includes(event.target.tagName)) {
+        if(isreceiptClicked.current) return;
+        if (!["SPAN"].includes(event.target.tagName)) {
+          isreceiptClicked.current = true;
           // 페이지 전환 처리
           event.preventDefault(); // 페이지 전환 기본 동작 막기
 
@@ -374,9 +438,18 @@ function MenuOption() {
             this.classList.add("flipped");
             this.nextElementSibling.classList.add("flipped");
           }
+
+          setTimeout(() => {
+            isreceiptClicked.current = false;
+          }, 1200);
         }
       };
     });
+
+    setTimeout(() => {
+      pagesRef.current[0].classList.add("flipped");
+      pagesRef.current[1].classList.add("flipped");
+    }, 2000);
 
     getWeather();
   }, []);
@@ -402,30 +475,6 @@ function MenuOption() {
     }
   }, [weather]);
   
-  const xyHandler = (e) => {
-    if(!isAnimating){
-      const mouseX = e.clientX;
-      const mouseY = e.clientY;
-
-      setXY({x : mouseX, y: mouseY - 80});
-    }
-  }
-
-  const mouseEnterHandler = (e) => {
-    if(!isAnimating){
-      setTimeout(() => {
-          setMouseIn(true); // 0.5초 후 상태 변경
-      }, 500);
-    }
-  };
-
-  const mouse = () =>{
-    if(!isAnimating){
-      setMouseIn(false); 
-      setXY({x:500, y:0});
-    }
-  }
-
   useEffect(() => {
     if (isAnimating) {
       // 애니메이션 끝나면 highlightPosition을 xy로 동기화
@@ -439,48 +488,48 @@ function MenuOption() {
   }, [isAnimating]);
 
   return (
-    <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+    <div>
       <StyledImage alt='aa' src='highlighter.png' ref={highlightRef} style={{
-          left: isAnimating
-            ? `${highlightPosition?.x}px` // 애니메이션 중에는 highlightPosition을 따른다
-            : `${xy.x}px`, // 애니메이션이 끝나면 xy.x를 따른다
-          top: isAnimating
-            ? `${highlightPosition?.y}px`
-            : `${xy.y}px`, // 애니메이션 중에는 highlightPosition을 따른다
-          transition:!mouseIn || isAnimating ? "left 0.5s ease, top 0.5s ease" : "none",
-        }}/>
-      <div className="book">
-        <div id="pages" className="pages">
-          {/* 페이지를 짝수와 홀수로 나눠서 렌더링 */}
-          {Array.from({ length: 10 }).map((_, i) => (
-            <div
-              key={i}
-              className={`page ${i % 2 === 0 ? "left" : "right"}`} // 홀수 페이지는 left, 짝수 페이지는 right
-              ref={(el) => (pagesRef.current[i] = el)}
-              onMouseEnter={(i >= 1 && i <= 8) ? mouseEnterHandler : undefined}
-              onMouseMove={(i >= 1 && i <= 8) ? xyHandler : undefined}
-              onMouseLeave={(i >= 1 && i <= 8) ? mouse : undefined}
-            >
-              {/* 페이지 내용 출력 (JSX 컴포넌트 가져오기) */}
-              {pageContents[i] && pageContents[i]}
-            </div>
-          ))}
-        </div>
-      </div>
-      <div className="receipt">
-        <div id="receiptPages" className="receiptPages">
-          <div className="receiptPage receiptLeft flipped" ref={(el) => el && (receiptsRef.current[0] = el)}>Menu Receipt</div>
-          <div className="receiptPage receiptRight flipped" ref={(el) => el && (receiptsRef.current[1] = el)}><p style={{marginTop:"0.5vw"}}><FoodReceipt food={foods} /></p></div>
-          <div className="receiptPage receiptLeft" ref={(el) => el && (receiptsRef.current[2] = el)}>
-            <p style={{marginTop:"0.5vw"}}>
-              <RestaurantReceipt restaurant={restaurant} />
-              <GoBtn onClick={handleRecommand}>
-                주문하러가기
-                <StyledArrow className="arrow" src="/img_arrow.png" alt="" />
-              </GoBtn>
-            </p>
+        left: isAnimating
+          ? `${highlightPosition?.x}px` // 애니메이션 중에는 highlightPosition을 따른다
+          : `${xy.x}px`, // 애니메이션이 끝나면 xy.x를 따른다
+        top: isAnimating
+          ? `${highlightPosition?.y}px`
+          : `${xy.y}px`, // 애니메이션 중에는 highlightPosition을 따른다
+        transition:isAnimating ? "left 0.5s ease, top 0.5s ease" : "none",
+      }}/>
+      <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+        <div className="book">
+          <div id="pages" className="pages">
+            {/* 페이지를 짝수와 홀수로 나눠서 렌더링 */}
+            {Array.from({ length: 10 }).map((_, i) => (
+              <div
+                key={i}
+                className={`page ${i % 2 === 0 ? "left" : "right"}`} // 홀수 페이지는 left, 짝수 페이지는 right
+                ref={(el) => (pagesRef.current[i] = el)}
+                // onMouseEnter={(i >= 1 && i <= 8) ? mouseEnterHandler : undefined}
+                // onMouseMove={(i >= 1 && i <= 8) ? xyHandler : undefined}
+                // onMouseLeave={(i >= 1 && i <= 8) ? mouse : undefined}
+              >
+                {/* 페이지 내용 출력 (JSX 컴포넌트 가져오기) */}
+                {pageContents[i] && pageContents[i]}
+              </div>
+            ))}
           </div>
-          <div className="receiptPage receiptRight" ref={(el) => el && (receiptsRef.current[3] = el)}></div>
+        </div>
+        <div className="receipt">
+          <div id="receiptPages" className="receiptPages">
+            <div className="receiptPage receiptLeft flipped" ref={(el) => el && (receiptsRef.current[0] = el)}></div>
+            <div className="receiptPage receiptRight flipped" ref={(el) => el && (receiptsRef.current[1] = el)}><p style={{marginTop:"0.5vw"}}><div style={{position:"absolute", width:"8vw", height:"2.5vw", border:"4px solid silver", top:"0vw", left:"4.6vw"}}/><FoodReceipt food={foods} /></p></div>
+            <div className="receiptPage receiptLeft" ref={(el) => el && (receiptsRef.current[2] = el)}>
+              <div style={{position:"absolute", width:"8vw", height:"2.5vw", border:"4px solid silver", top:"0vw", left:"4.6vw"}}/>
+              <p style={{marginTop:"0.5vw"}}>
+                <RestaurantReceipt restaurant={restaurant} goButtonClick={goButtonClick} />
+                
+              </p>
+            </div>
+            <div className="receiptPage receiptRight" ref={(el) => el && (receiptsRef.current[3] = el)}></div>
+          </div>
         </div>
       </div>
     </div>

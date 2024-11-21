@@ -5,6 +5,8 @@ import styled from "styled-components";
 
 const StyledPage = styled.div`
   height: 100vh;
+  background: url(/wave-haikei2.svg);
+  background-attachment: fixed;
 `;
 
 const ChoiceListPage = () => {

@@ -42,18 +42,18 @@ const StyledBGFront = styled.img`
 const StyledComment = styled.div`
   position: absolute; /* Positioned in front */
   bottom: -90vh;
-  left: 5%;
+  left: 5vw;
   z-index: 2; /* Higher than bg-behind */
-  width: 929px;
   display: flex;
   flex-direction: column;
   align-items: baseline;
 
   & p {
-    font-family: "LOTTERIA CHAB-Regular", Hevetica;
+    font-family: "LOTTERIA CHAB-Regular";
     font-weight: 400;
     color: #fdd83e;
-    font-size: 96px;
+    font-size: 4.5vw;
+    mar
   }
 `;
 
@@ -162,7 +162,6 @@ const MainPage = () => {
         <StyledBGFront src="/Exclude.png" alt="Foreground" />
         <StyledComment>
           <p>Find Your Taste</p>
-          <p />
           <p>With Taste Guide</p>
         </StyledComment>
 

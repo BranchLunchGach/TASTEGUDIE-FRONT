@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import MyPageChart from '../../components/user/mypage/MyPageChart.js'
 
-import Header3 from '../../components/layouts/Header3';
+import Header4 from '../../components/layouts/Header4';
 import ChartNav from '../../components/user/mypage/ChartNav.js';
 import styled from 'styled-components';
 
@@ -19,7 +19,7 @@ const ChartPage = () => {
     },[chartNum])
     return (
         <div>
-            <Header3/>
+            <Header4/>
             <StyledFlexDiv>
                 <ChartNav set={setChartNum}/>
             </StyledFlexDiv>

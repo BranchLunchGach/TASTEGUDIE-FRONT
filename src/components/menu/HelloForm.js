@@ -258,13 +258,17 @@ const HelloForm = () => {
         console.log("현재 선택된 음식 >> " + menuInput);
     };
     
+    // 도로명 주소를 위도 경도로 변경해주는 함수
     const fetchGeocode = async (address) => {
+
+        console.log("address >> " + address);
+
         try {
             const res = await axios.get(
                 "https://naveropenapi.apigw.ntruss.com/map-geocode/v2/geocode?query=" +
                   encodeURIComponent(address),
                 {
-                  params : { // headers로 API 키 설정
+                  params : { // params API 키 설정
                     "X-NCP-APIGW-API-KEY-ID": clientId,
                     "X-NCP-APIGW-API-KEY": clientSecret,
                   },
@@ -272,6 +276,7 @@ const HelloForm = () => {
             );
     
             const result = res.data.addresses[0];
+
             if (result) {
                 return {
                     roadAddress: result.roadAddress,
@@ -323,7 +328,6 @@ const HelloForm = () => {
         console.log("페이지 이동 전 Y 값 데이터", avgY);
 
         recommand(avgX, avgY);
-        // navigate('/hello/result'); // 페이지 이동
     };
 
     const recommand = (x, y) => {
@@ -338,7 +342,13 @@ const HelloForm = () => {
         })
         .then((res) => {
             console.log(res.data);
-            navigate("/hello/result", { state: { menuData: res.data } });
+            navigate("/hello/result", { state: { 
+                menuData: res.data,
+                menu: selectedMenu,
+                avgX: x,
+                avgY: y,
+            },
+         });
         })
         .catch((err)=>{
           console.error("Error sending data:", err);

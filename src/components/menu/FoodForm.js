@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 
 // 스타일 정의
@@ -12,11 +12,13 @@ const Form = styled.form`
 `;
 
 const Title = styled.h3`
-  text-align: center;
   font-size: 1.4vw;
   color: #333;
   margin-bottom: 1vw;
   margin-top: 0.3vw;
+  margin-left: 2vw;
+  border-bottom: 1px solid;
+  width: 80%;
 `;
 
 const Label = styled.label`
@@ -25,8 +27,7 @@ const Label = styled.label`
   align-items: flex-start;
   width: 100%;
   padding: 1vw;
-  cursor: pointer;
-
+  cursor: none;
 `;
 
 const Span = styled.span`
@@ -122,6 +123,7 @@ const FoodForm = (props) => {
       }, 0);
     }
 
+
     if (value === "상관없음") {
       // '상관없음' 클릭 시, 모든 선택을 토글
       if (isAllChecked) {
@@ -152,14 +154,15 @@ const FoodForm = (props) => {
   
   useEffect(()=>{
     props.onFoodChange(selectedFoods);
-  }, [selectedFoods])
+  }, [selectedFoods]);
+
 
   return (
     <div>
-      <Title> === 음식의 종류를 선택하세요 ===</Title>
+      <Title>국가</Title>
       <label
         onClick={(event) => handleFoodChange("상관없음", event)}
-        style={{cursor:"pointer", display: "block", textAlign: "right", marginRight:"30px" }}
+        style={{cursor:"none", display: "block", textAlign: "right", marginRight:"30px" }}
       >
         상관없음
       </label>
@@ -205,9 +208,9 @@ const FoodForm = (props) => {
         <div style={{display:"flex", alignItems:"center"}}>
           <img alt='aa' src='/asian.png' style={{width:"2vw", height:"2vw"}}/>
           <Label
-            onClick={!props.isAnimating ? (event) => handleFoodChange("아시안 음식", event):undefined}
+            onClick={!props.isAnimating ? (event) => handleFoodChange("아시안", event):undefined}
           >
-            <HighlightText className={selectedFoods.includes("아시안 음식") ? "highlight" : ""}>아시안 음식</HighlightText>
+            <HighlightText className={selectedFoods.includes("아시안") ? "highlight" : ""}>아시안</HighlightText>
             <Span>ex. 월남쌈, 팟타이, 쌀국수, 분짜</Span>
           </Label>
         </div>
