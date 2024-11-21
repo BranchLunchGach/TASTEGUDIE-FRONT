@@ -17,7 +17,7 @@ export const ChatGPT = async (message) => {
           },
           {
             role: "user",
-            content: `식당에서 메인으로 먹을 수 있는 메뉴를 ${message} JSON형식으로 메뉴를 2개 추천해줘 KEY는 menuName, reason, imgUrl이야 reason에는 이 음식을 추천하는 이유를 3가지 적어줘`,
+            content: `입력받은 값이 ${message}일때 이와 관련된 식당에서 메인으로 먹을 수 있는 메뉴를 2개 추천해줘. KEY는 menuName, reason, imgUrl이야 reason에는 이 음식을 추천하는 이유를 3가지 적어줘`,
           },
         ],
         temperature: 0.7,
