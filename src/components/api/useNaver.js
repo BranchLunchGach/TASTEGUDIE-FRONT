@@ -56,6 +56,9 @@ function useNaver(search) {
                     },
                 }
             );
+            if(items!=null){
+                dispatch({ type: 'SUCCESS', data: ["데이터가 없습니다."] });
+            }
             dispatch({ type: 'SUCCESS', data: items });
         } catch (err) {
             dispatch({ type: 'ERROR', error: err });
