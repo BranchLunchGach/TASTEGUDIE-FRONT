@@ -53,7 +53,5 @@
   },
   "devDependencies": {
     "@types/jquery": "^3.5.32"
-  },
-  
-  "proxy": "https://openapi.naver.com"
+  }
 }

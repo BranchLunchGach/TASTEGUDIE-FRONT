@@ -44,7 +44,7 @@ function useNaver(search) {
         try {
             dispatch({ type: 'LOADING' });
             const { data: { items } } = await axios.get(
-                '/v1/search/local.json',
+                'https://openapi.naver.com/v1/search/local.json',
                 {
                     params: {
                         query: search,
@@ -57,7 +57,7 @@ function useNaver(search) {
                 }
             );
             if(!items || items.length === 0){
-                dispatch({ type: 'SUCCESS', data: ["데이터가 없습니다."] });
+                dispatch({ type: 'SUCCESS', data: [] });
             } else{
                 dispatch({ type: 'SUCCESS', data: items });
             }
