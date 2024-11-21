@@ -41,7 +41,6 @@ function useNaver(search) {
 
         try {
             dispatch({ type: 'LOADING' });
-
             const { data: { items } } = await axios.get(
                 '/v1/search/local.json',
                 {
@@ -55,7 +54,6 @@ function useNaver(search) {
                     },
                 }
             );
-
             dispatch({ type: 'SUCCESS', data: items });
         } catch (err) {
             dispatch({ type: 'ERROR', error: err });

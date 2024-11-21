@@ -368,8 +368,8 @@ const ResDetail = (props) => {
               <br />
               <hr />
               <br />
-              <h3 style={lineHeightStyle}>🚶‍♀️‍➡️ 이동 거리 {polylineData.totalDistance}</h3>
-              <h3 style={lineHeightStyle}>⏰ 이동 시간 {polylineData.totalTime}</h3>
+              <h3 style={lineHeightStyle}>🚶‍♀️‍➡️ 이동 거리, 약 {polylineData.totalDistance}</h3>
+              <h3 style={lineHeightStyle}>⏰ 이동 시간, 약 {polylineData.totalTime}</h3>
             </StyledMapDesc>
           </StyledMapBox>
           <br />

@@ -251,7 +251,7 @@ const ResRecommResult = () => {
   };
 
   const resComplete = () => {
-    navigate("/hello/complete");
+    navigate("/");
   }
 
   return (
@@ -296,7 +296,7 @@ const ResRecommResult = () => {
                 <Button style={{backgroundColor: "#FDD83E", fontWeight:"bold"}} onClick={handleRecom}>식당 재추천</Button>
                 <span style={{color:"red", fontSize:"0.8vw", fontWeight:"bold"}}>1회한하여 재추천이 가능합니다!</span>
               </div>
-              <Button style={{height:"70%", backgroundColor:"#F68A91", color:"white", fontWeight:"bold"}} onClick={resComplete}>방문하기</Button>
+              <Button style={{height:"70%", backgroundColor:"#F68A91", color:"white", fontWeight:"bold"}} onClick={resComplete}>홈으로</Button>
             </Buttons>
           </StyledResBox>
         </StyledResultBox>

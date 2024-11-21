@@ -3,7 +3,7 @@ name: Build, Deploy, and Update EC2
 on:
   push:
     branches:
-      - main # 'main' 브랜치에 푸시할 때 트리거
+      - main # main에 푸시할 때 트리거
 
 jobs:
   build:
