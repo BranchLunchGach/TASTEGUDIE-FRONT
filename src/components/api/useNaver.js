@@ -56,10 +56,11 @@ function useNaver(search) {
                     },
                 }
             );
-            if(items!=null){
+            if(!items || items.length === 0){
                 dispatch({ type: 'SUCCESS', data: ["데이터가 없습니다."] });
+            } else{
+                dispatch({ type: 'SUCCESS', data: items });
             }
-            dispatch({ type: 'SUCCESS', data: items });
         } catch (err) {
             dispatch({ type: 'ERROR', error: err });
         }
