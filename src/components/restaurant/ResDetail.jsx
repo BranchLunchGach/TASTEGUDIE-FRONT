@@ -245,8 +245,8 @@ const settings = {
 
 const ResDetail = (props) => {
   //api keys
-  const clientId = process.env.REACT_APP_clientId;
-  const clientSecret = process.env.REACT_APP_clientSecret;
+  const clientId = process.env.REACT_APP_CLIENT_ID;
+  const clientSecret = process.env.REACT_APP_CLIENT_SECRET;
 
   const [address, setAddress] = useState("");
   const [loading, setLoading] = useState(true); // 로딩 상태 관리
