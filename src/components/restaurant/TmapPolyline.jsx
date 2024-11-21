@@ -135,7 +135,7 @@ const TmapPolyline = (props) => {
       // 출발지 마커
       const startMarker = new window.Tmapv2.Marker({
         position: new Tmapv2.LatLng(startLatLng.lat, startLatLng.lng), // 마커의 위치 좌표 설정
-        // icon: "/icon_end.png",
+        icon: "/icon_end.png",
         label: "출발지",
         title: "출발",
         map: mapRef.current, // 마커가 표시될 지도 객체 설정
@@ -143,7 +143,7 @@ const TmapPolyline = (props) => {
       // 도착지 마커
       const endMarker = new window.Tmapv2.Marker({
         position: new Tmapv2.LatLng(endLatLng.lat, endLatLng.lng), // 마커의 위치 좌표 설정
-        // icon: "/icon_start.png",
+        icon: "/icon_start.png",
         label: "도착지",
         title: "도착",
         map: mapRef.current, // 마커가 표시될 지도 객체 설정
