@@ -204,6 +204,10 @@ const HelloForm = () => {
         console.log("현재 위치 저장 값 >>", locations);
     }, [locations]);
 
+    useEffect(()=>{
+        console.log(data);
+    },[data])
+
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
