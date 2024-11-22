@@ -5,7 +5,7 @@ const HelloResultCompleteForm = () => {
     const location = useLocation();
     const menuData = location.state?.menuData; // location.state.menuData로 수정
 
-    console.log("menuData: ", menuData);
+    // console.log("menuData: ", menuData);
 
     return (
         <div>

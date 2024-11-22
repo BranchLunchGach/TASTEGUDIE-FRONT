@@ -95,8 +95,9 @@ function Chat() {
   const navigate = useNavigate();
   const [displayedText, setDisplayedText] = useState(""); // 화면에 보여줄 텍스트
   const [isTyping, setIsTyping] = useState(false); // 타이핑 상태
+  const [isApi, setIsApi] = useState(false);
   const [fullText, setFullText] = useState(
-    "먹고싶은 메뉴의 느낌을 자유롭게 작성해주세요\n   (ex. 비도 오고 쌀쌀해서 따뜻한 음식이 먹고싶어)"
+    "먹고싶은 메뉴의 느낌을 자유롭게 작성해주세요\n(ex. 비가 추적추적 오는 날이라 따뜻한 음식 먹고 기분 전환하고 싶어)"
   );
   const [allText, setAlltext] = useState([{ user: "", text: "" }]);
   const [jsonResponse, setJsonResponse] = useState(null);
@@ -105,6 +106,7 @@ function Chat() {
   const [firstResponseShown, setFirstResponseShown] = useState(false);
 
   const inputRef = useRef(null);
+  const input2Ref = useRef(null);
   const indexRef = useRef(0); // 타이핑할 글자의 인덱스를 추적
   const questionRef = useRef(0);
   const displayedTextRef = useRef(""); // 실제 텍스트 값 추적
@@ -135,8 +137,8 @@ function Chat() {
           if (displayedRef.current) {
             displayedRef.current.style.borderRight = "none"; // 커서 숨기기
           }  
-        }, 60);
-      }, 80); // 50ms마다 타이핑
+        }, 40);
+      }, 50); // 50ms마다 타이핑
       return () => clearInterval(intervalId); // 클린업
     }
   }, [isTyping]); // isTyping이 변경될 때마다 실행
@@ -146,7 +148,7 @@ function Chat() {
       textBoxRef.current.scrollTop = textBoxRef.current.scrollHeight;
     }
     if (displayedText === fullText) {
-      inputRef.current.value = "";
+      setIsApi(false);
       setIsTyping(false); // 타이핑이 끝나면 상태 변경
     }
   }, [displayedText]);
@@ -202,7 +204,7 @@ function Chat() {
         const finalConsonantIndex = (code - baseCode) % 28;
 
         setFullText(
-          `${menuResponse.select}${finalConsonantIndex!==0?"를":"을"} 판매하는 식당 검색중.....`
+          `${menuResponse.select}${finalConsonantIndex!==0?"을":"를"} 판매하는 식당을 검색중.....`
         );
         findRestaurant();
       }
@@ -236,7 +238,7 @@ function Chat() {
 
   const handleApiCall = async () => {
     try {
-      const response = await ChatGPT(inputRef.current.value); // OpenAI API 호출
+      const response = await ChatGPT(input2Ref.current); // OpenAI API 호출
       setJsonResponse(response); // JSON 응답을 상태에 저장
     } catch (error) {
       console.error("API 호출 중 오류 발생:", error);
@@ -249,7 +251,7 @@ function Chat() {
       const response = await isMenu(
         jsonResponse[0].menuName,
         jsonResponse[1].menuName,
-        inputRef.current.value
+        input2Ref.current
       ); // OpenAI API 호출
       setMenuResponse(response); // JSON 응답을 상태에 저장
     } catch (error) {
@@ -274,14 +276,18 @@ function Chat() {
     }
     if (inputRef.current.value === "") return;
     if (isTyping) return; // 타이핑 중일 때는 더 이상 시작 못함
+    if(isApi) return;
+    setIsApi(true);
     setDisplayedText(""); // 텍스트 초기화
     setAlltext([
       ...allText,
       { user: "chat", text: fullText },
       { user: "user", text: inputRef.current.value },
     ]);
+    input2Ref.current = inputRef.current.value;
+    inputRef.current.value = "";
     if (questionRef.current === 0) {
-      setFullText(`메뉴를 준비중입니다.....`);
+      setFullText(`'${input2Ref.current}'에 어울리는 메뉴 찾는중.....`);
       handleApiCall();
     } else if (questionRef.current === 1 || questionRef.current === 1.5) {
       whatMenu();
@@ -296,7 +302,14 @@ function Chat() {
   };
 
   const handleInput = (e) => {
+    // 현재 스크롤 위치를 저장
+  const currentScrollTop = e.target.scrollTop;
+
+  // 사용자가 스크롤을 올리지 않았을 때만 높이를 조절
+  if (currentScrollTop === 0) {
+    e.target.style.height = 'auto'; // 높이를 초기화해 다시 계산
     e.target.style.height = `${e.target.scrollHeight}px`; // 스크롤 높이에 맞춰 자동 조절
+  }
   };
 
   const findRestaurant = () => {
@@ -308,7 +321,7 @@ function Chat() {
       },
     })
     .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         setRestaurantResponse(res.data);
     })
     .catch((err)=>{

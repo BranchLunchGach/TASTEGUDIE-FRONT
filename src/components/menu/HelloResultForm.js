@@ -68,7 +68,7 @@ const HelloResultForm = () => {
           },
         })
         .then((res) => {
-            console.log(res.data);
+            // console.log(res.data);
             navigate("/hello/result/complete", { state: { menuData: res.data } });
         })
         .catch((err)=>{
