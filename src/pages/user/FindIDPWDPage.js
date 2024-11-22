@@ -1,6 +1,6 @@
 import React from "react";
 import Header2 from "../../components/layouts/Header2";
-import FindIDPWDForm from "../../components/user/FindIDPWDForm";
+import FindIDPWDForm from "../../components/user/login/FindIDPWDForm";
 
 const FindIDPWDPage = () => {
   return (

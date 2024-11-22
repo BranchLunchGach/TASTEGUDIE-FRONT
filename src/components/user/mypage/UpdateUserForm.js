@@ -1,14 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
-import './MyPageForm.css';
+import './UpdateUserForm.css';
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import $ from 'jquery';
 import styled from 'styled-components';
 
-const StyledContainer = styled.div`
+const StyledContainer = styled.span`
   width: 45%;
-  padding: 100px;
 `;
 
 const StyledButton = styled.button`
@@ -25,7 +24,6 @@ const StyledButton = styled.button`
 const StyledInput = styled.input`
   width: 100%;
   padding: 10px;
-  margin-bottom: 16px;
   border-radius: 6px;
   border: 1px solid lightgray;
 
@@ -45,12 +43,12 @@ const StyledInput = styled.input`
     background-color: black;
   }
 `;
-const StyledFlexContainer = styled.div`
+const StyledFlexContainer = styled.span`
   display: flex;
   justify-content: center;
 `
 
-const MyPageForm = () => {
+const UpdateUserForm = () => {
     const SPRING_IP = process.env.REACT_APP_SPRING_IP;
     //db에서 회원 정보 받아오기
     useEffect(()=>{
@@ -241,10 +239,8 @@ const MyPageForm = () => {
         <StyledFlexContainer>
         <StyledContainer>
             <h2 className='register-title'>My Page</h2>
-
-            <p className='register-info'>추가 정보를 입력하고 맞춤 추천을 받으세요!! <br/>
-            모든 정보를 입력할 필요는 없습니다.
-            </p>
+            <h4 className='register-info'>추가 정보를 입력하고 맞춤 추천을 받으세요!! 
+            </h4>
             <p className='register-info'></p>
 
             <div className='register-container'>
@@ -333,4 +329,4 @@ const MyPageForm = () => {
     );
 };
 
-export default MyPageForm;
+export default UpdateUserForm;
