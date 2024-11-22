@@ -264,8 +264,8 @@ const ResDetail = (props) => {
     const fetchData = async () => {
       try {
         const address = await fetchGeocode(props.selectedRestaurant.address);
-        console.log("enxAddress endX >> " + address.longitude);
-        console.log("enxAddress endY >> " + address.latitude);
+        // console.log("enxAddress endX >> " + address.longitude);
+        // console.log("enxAddress endY >> " + address.latitude);
         setAddress(address);
       } catch (error) {
         console.error(error);
@@ -277,7 +277,7 @@ const ResDetail = (props) => {
 
   // 도로명 주소를 위도 경도로 변경해주는 함수
   const fetchGeocode = async (address) => {
-    console.log("address >> " + address);
+    // console.log("address >> " + address);
 
     try {
       const res = await axios.get(
@@ -291,7 +291,7 @@ const ResDetail = (props) => {
         }
       );
       const result = res.data.addresses[0];
-      console.log("fetchGeocode result >> " + JSON.stringify(result));
+      // console.log("fetchGeocode result >> " + JSON.stringify(result));
       if (result) {
         return {
           latitude: parseFloat(result.y),

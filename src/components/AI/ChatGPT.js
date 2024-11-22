@@ -43,8 +43,7 @@ export const ChatGPT = async (message) => {
     //     return { ...menu, imgUrl: image_url };
     //   })
     // );
-
-    console.log(menus);
+    //return menusWithImages;
 
     return menus;
   } catch (error) {
@@ -104,7 +103,6 @@ export const isMenu = async (firstMenu, secMenu, message) => {
     });
 
     const responseData = await response.json();
-    console.log(responseData);
     let content = responseData.choices[0].message.content.trim();
 
     // 불필요한 마크업 제거: ```json...``` 형태의 텍스트를 처리
@@ -114,7 +112,6 @@ export const isMenu = async (firstMenu, secMenu, message) => {
     try {
       // JSON 파싱 없이 바로 객체를 반환
       const menus = JSON.parse(content); // 만약 content가 JSON 객체라면, 바로 파싱
-      console.log(menus);
       return menus;
     } catch (parseError) {
       console.error("Failed to parse JSON:", parseError);
@@ -126,48 +123,46 @@ export const isMenu = async (firstMenu, secMenu, message) => {
   }
 };
 
-export const restaurant = async (address, message) => {
-  try {
-    const response = await fetch("https://api.openai.com/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${process.env.REACT_APP_OPENAI_API_KEY}`,
-      },
-      body: JSON.stringify({
-        model: "gpt-4o-mini",
-        messages: [
-          {
-            role: "system",
-            content:
-              "Respond only in JSON format without any additional explanation or text.",
-          },
-          {
-            role: "user",
-            content: `${address}근처의 ${message}집을 3곳 찾아줘. key는 name, time, menu야`,
-          },
-        ],
-        temperature: 0.7,
-      }),
-    });
+// export const restaurant = async (address, message) => {
+//   try {
+//     const response = await fetch("https://api.openai.com/v1/chat/completions", {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//         Authorization: `Bearer ${process.env.REACT_APP_OPENAI_API_KEY}`,
+//       },
+//       body: JSON.stringify({
+//         model: "gpt-4o-mini",
+//         messages: [
+//           {
+//             role: "system",
+//             content:
+//               "Respond only in JSON format without any additional explanation or text.",
+//           },
+//           {
+//             role: "user",
+//             content: `${address}근처의 ${message}집을 3곳 찾아줘. key는 name, time, menu야`,
+//           },
+//         ],
+//         temperature: 0.7,
+//       }),
+//     });
 
-    const responseData = await response.json();
-    let content = responseData.choices[0].message.content.trim();
+//     const responseData = await response.json();
+//     let content = responseData.choices[0].message.content.trim();
 
-    // Extract JSON if additional text is present
-    if (!content.startsWith("[")) {
-      const jsonStartIndex = content.indexOf("[");
-      const jsonEndIndex = content.lastIndexOf("]");
-      content = content.substring(jsonStartIndex, jsonEndIndex + 1);
-    }
+//     // Extract JSON if additional text is present
+//     if (!content.startsWith("[")) {
+//       const jsonStartIndex = content.indexOf("[");
+//       const jsonEndIndex = content.lastIndexOf("]");
+//       content = content.substring(jsonStartIndex, jsonEndIndex + 1);
+//     }
 
-    const restaurant = JSON.parse(content);
+//     const restaurant = JSON.parse(content);
 
-    console.log(restaurant);
-
-    return restaurant;
-  } catch (error) {
-    console.error("Failed to fetch or parse menu recommendations:", error);
-    throw new Error("Failed to get menu recommendations");
-  }
-};
+//     return restaurant;
+//   } catch (error) {
+//     console.error("Failed to fetch or parse menu recommendations:", error);
+//     throw new Error("Failed to get menu recommendations");
+//   }
+// };

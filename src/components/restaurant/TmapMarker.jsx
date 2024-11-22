@@ -15,8 +15,8 @@ const TmapMarker = (props) => {
 
   // useEffect 훅: 컴포넌트가 처음 렌더링될 때 지도를 초기화하는 함수
   useEffect(() => {
-    console.log(props.avgX);
-    console.log(props.avgY);
+    // console.log(props.avgX);
+    // console.log(props.avgY);
 
     // initMap 함수: Tmap API를 이용해 지도를 초기화하고 마커를 추가하는 함수
     const initMap = () => {
@@ -53,7 +53,7 @@ const TmapMarker = (props) => {
             },
           })
           .then((res) => {
-            console.log(res.data.addressInfo.fullAddress);
+            // console.log(res.data.addressInfo.fullAddress);
             setAddress(res.data.addressInfo.fullAddress);
 
             const fullAddress = res.data.addressInfo.fullAddress;

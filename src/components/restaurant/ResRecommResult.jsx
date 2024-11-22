@@ -225,9 +225,9 @@ const ResRecommResult = () => {
   const clientSecret = process.env.REACT_APP_clientSecret;
 
   useEffect(() => {
-    console.log("menu >> " + menu);
-    console.log("x >> " + x);
-    console.log("y >> " + y);
+    // console.log("menu >> " + menu);
+    // console.log("x >> " + x);
+    // console.log("y >> " + y);
     if (menuData && menuData.length > 0) {
       setDisplayedData(menuData.slice(0, 3)); // 처음 3개만 표시
     }
