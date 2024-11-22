@@ -116,9 +116,7 @@ function MenuOption() {
 
   // 받아온 날씨 값을 우리 db에 맞게 변환
   useEffect(() => {
-    if (weather === "") {
-      console.log("왜 빈값이라도 안 넣으면 안돌아가지??...");
-    } else {
+    if (weather !== "") {
       if (
         weather === "Rain" ||
         weather === "Thunderstorm" ||
@@ -128,10 +126,10 @@ function MenuOption() {
         setWeather("비");
       } else if (weather === "Snow") {
         setWeather("눈");
-      } else if (weather === "Clear") {
+      } else if (weather === "Clear" || weather === "Clouds") {
         setWeather("맑음");
       }
-      console.log("처리 마무리 weather = " + weather);
+      // console.log("처리 마무리 weather = " + weather);
     }
   }, [weather]);
 
@@ -142,7 +140,7 @@ function MenuOption() {
       const latitude = position.coords.latitude;
       const longitude = position.coords.longitude;
 
-      console.log("lat= " + latitude + "long= " + longitude);
+      // console.log("lat= " + latitude + "long= " + longitude);
 
       // 날씨 API 요청
       fetch(
@@ -406,9 +404,11 @@ function MenuOption() {
         }
       };
 
-      page.onmouseenter = mouseEnterHandler;
-      page.onmousemove = xyHandler;
-      page.onmouseleave = mouse;
+      if(i>0 && i<pages.length-1){
+        page.onmouseenter = mouseEnterHandler;
+        page.onmousemove = xyHandler;
+        page.onmouseleave = mouse;
+      }
     });
 
     const receipts = receiptsRef.current;
@@ -453,27 +453,6 @@ function MenuOption() {
 
     getWeather();
   }, []);
-
-  // 받아온 날씨 값을 우리 db에 맞게 변환
-  useEffect(() => {
-    if (weather === "") {
-      console.log("왜 빈값이라도 안 넣으면 안돌아가지??...");
-    } else {
-      if (
-        weather === "Rain" ||
-        weather === "Thunderstorm" ||
-        weather === "Drizzle" ||
-        weather === "Squall"
-      ) {
-        setWeather("비");
-      } else if (weather === "Snow") {
-        setWeather("눈");
-      } else if (weather === "Clear") {
-        setWeather("맑음");
-      }
-      console.log("처리 마무리 weather = " + weather);
-    }
-  }, [weather]);
   
   useEffect(() => {
     if (isAnimating) {

@@ -56,10 +56,10 @@ const Ring = styled.div`
     content: '';
     display: block;
     position: absolute;
-    top: -3px;
+    top: -3.3px;
     left: -3px;
-    width: 100%;
-    height: 100%;
+    width: 106%;
+    height: 106%;
     border: 3px solid transparent;
     border-top: 3px solid #fff000;
     border-left: 3px solid transparent;
@@ -88,7 +88,7 @@ const Span = styled.span`
     border-radius: 50%;
     box-shadow: 0 0 20px #fff000;
     position: absolute;
-    right: -8px;
+    right: -10px;
     top: calc(50% - 8px);
   }
 `;

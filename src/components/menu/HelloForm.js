@@ -198,11 +198,11 @@ const HelloForm = () => {
   const navigate = useNavigate(); // useNavigate 훅을 사용하여 페이지 이동
 
   useEffect(() => {
-    console.log("현재 위치 저장 값 >>", locations);
+    // console.log("현재 위치 저장 값 >>", locations);
   }, [locations]);
 
   useEffect(() => {
-    console.log(data);
+    // console.log(data);
   }, [data]);
 
   const handleClose = () => setShow(false);
@@ -221,7 +221,7 @@ const HelloForm = () => {
     if (selectedAddress && locations.length < 5) {
       setLocations((prevLocations) => {
         const updatedLocations = [...prevLocations, selectedAddress];
-        console.log("현재 위치 저장 값 >", updatedLocations);
+        // console.log("현재 위치 저장 값 >", updatedLocations);
         return updatedLocations;
       });
       setInputValue(selectedAddress); // inputValue를 선택한 주소로 설정
@@ -255,12 +255,12 @@ const HelloForm = () => {
   // 메뉴 선택하기 버튼 클릭 시 호출되는 함수
   const handleMenuSelect = () => {
     setSelectedMenu(menuInput); // 선택된 메뉴를 업데이트
-    console.log("현재 선택된 음식 >> " + menuInput);
+    // console.log("현재 선택된 음식 >> " + menuInput);
   };
 
   // 도로명 주소를 위도 경도로 변경해주는 함수
   const fetchGeocode = async (address) => {
-    console.log("address >> " + address);
+    // console.log("address >> " + address);
 
     try {
       const res = await axios.get(
@@ -308,11 +308,11 @@ const HelloForm = () => {
 
     if (validResults.length === 0) {
       console.log("유효한 좌표 데이터를 찾을 수 없습니다.");
-      alert("유효한 좌표 데이터를 찾을 수 없습니다.");
+      // alert("유효한 좌표 데이터를 찾을 수 없습니다.");
       return;
     }
 
-    console.log(validResults);
+    // console.log(validResults);
 
     // x, y 좌표 평균을 계산합니다.
     const avgX =
@@ -327,9 +327,9 @@ const HelloForm = () => {
 
     setContextData({ menu: selectedMenu, avgX: avgX, avgY: avgY }); // 예시 데이터 설정
 
-    console.log("페이지 이동 전 메뉴 데이터", selectedMenu);
-    console.log("페이지 이동 전 X 값 데이터", avgX);
-    console.log("페이지 이동 전 Y 값 데이터", avgY);
+    // console.log("페이지 이동 전 메뉴 데이터", selectedMenu);
+    // console.log("페이지 이동 전 X 값 데이터", avgX);
+    // console.log("페이지 이동 전 Y 값 데이터", avgY);
 
     recommand(avgX, avgY);
   };
@@ -345,7 +345,7 @@ const HelloForm = () => {
       },
     })
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         navigate("/hello/result", {
           state: {
             menuData: res.data,

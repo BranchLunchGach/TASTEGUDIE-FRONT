@@ -123,8 +123,8 @@ const RegisterForm = () => {
   //생년월일 값 변경 시
   const changeBirth = (e) => {
     setBirthDate({ ...birthDay, [e.target.name]: e.target.value });
-    console.log("name = " + e.target.name);
-    console.log("value = " + e.target.value);
+    // console.log("name = " + e.target.name);
+    // console.log("value = " + e.target.value);
   };
   useEffect(() => {
     if (birthDay.year !== "") {
@@ -192,13 +192,13 @@ const RegisterForm = () => {
   //가입하기
   const submitJoin = (e) => {
     e.preventDefault();
-    console.log(user);
+    // console.log(user);
     let phonearray = $("#phone").val().split("-");
-    console.log("phonearray= " + phonearray);
+    // console.log("phonearray= " + phonearray);
     //입력된 값 유효성 검사
     if (user.birthDate !== "") {
       //생일 값이 입력되었다면
-      console.log("birthDate=" + user.birthDate);
+      // console.log("birthDate=" + user.birthDate);
       if ((birthDay.year === "") | (birthDay.year === "년(4자)")) {
         alert("연도를 선택해주세요");
         $("#year").focus();
@@ -211,9 +211,9 @@ const RegisterForm = () => {
       }
     }
     if (phonearray.length === 3) {
-      console.log("[0]=" + phonearray[0]);
-      console.log("[1]=" + phonearray[1].length);
-      console.log("[2]=" + phonearray[2].length);
+      // console.log("[0]=" + phonearray[0]);
+      // console.log("[1]=" + phonearray[1].length);
+      // console.log("[2]=" + phonearray[2].length);
 
       if ((phonearray[1].length < 3) | (phonearray[2].length < 4)) {
         alert("알맞은 번호를 입력해주세요.");
@@ -256,7 +256,7 @@ const RegisterForm = () => {
           let formData = new FormData();
           formData.append("username", user.userId);
           formData.append("password", user.password);
-          console.log(res);
+          // console.log(res);
           axios({
             url: SPRING_IP + "/login",
             method: "POST",
@@ -293,7 +293,7 @@ const RegisterForm = () => {
     e.preventDefault();
     if (idCheckResult === "사용 가능합니다.") {
       let email = $("#userId").val();
-      console.log(email);
+      // console.log(email);
       let emailArray = email.split("@");
       if (emailArray.length === 2) {
         let emailArray2 = emailArray[1].split(".");
@@ -309,7 +309,7 @@ const RegisterForm = () => {
         ) {
           alert("이메일 형식이 올바르지 않습니다.");
         } else {
-          console.log("url=" + SPRING_IP + "/mail");
+          // console.log("url=" + SPRING_IP + "/mail");
           axios({
             url: SPRING_IP + "/mail",
             method: "post",
@@ -319,7 +319,7 @@ const RegisterForm = () => {
             data: email,
           }).then((res) => {
             alert("이메일을 보냈습니다.");
-            console.log(res.data);
+            // console.log(res.data);
             setEmailCode(res.data);
           });
         }

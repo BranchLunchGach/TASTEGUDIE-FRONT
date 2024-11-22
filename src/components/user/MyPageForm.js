@@ -61,7 +61,7 @@ const MyPageForm = () => {
                 method:"get"
             })
             .then((res)=>{
-                console.log(res.data);
+                // console.log(res.data);
                 let birth = res.data.birthDate;
                 if(birth !== null){ //기존 생년월일 존재
                     const birthDateArray = res.data.birthDate.split("-");
@@ -215,7 +215,7 @@ const MyPageForm = () => {
             $('#phone').focus();
        }
        else{
-        console.log(user);
+        // console.log(user);
         //회원정보 수정 요청
             
             axios({
