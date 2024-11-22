@@ -55,6 +55,7 @@ const StyledName = styled.div`
 
 const ChoiceList = () => {
   const navigator = useNavigate();
+  
   return (
     <>
       {/* <div className="staticDiv"></div> */}

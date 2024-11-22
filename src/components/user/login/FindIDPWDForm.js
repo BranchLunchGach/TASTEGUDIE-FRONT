@@ -192,6 +192,7 @@ const FindIDPWDForm = () => {
         })
         .catch((err) => {
           console.log(err);
+          alert("문제가 발생했습니다.")
           //navigator("/error");
         });
     } else {
