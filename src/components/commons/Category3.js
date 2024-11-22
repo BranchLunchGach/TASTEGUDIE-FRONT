@@ -48,6 +48,8 @@ const Category = () => {
     })
     .then((res)=>{
       alert("회원탈퇴가 완료되었습니다.");
+      localStorage.removeItem("Authorization");
+      localStorage.removeItem("id");
       navigator("/");
     })
     .catch((err)=>{
