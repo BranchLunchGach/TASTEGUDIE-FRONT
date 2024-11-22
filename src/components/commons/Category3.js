@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const StyledCategory = styled.div`
   display: flex;
@@ -35,7 +36,27 @@ const signInStyle = {
 };
 
 const Category = () => {
-  
+  const navigator = useNavigate();
+  const DeleteUser=()=>{
+    const userId = localStorage.getItem("id");
+    console.log("userId="+userId);
+    // eslint-disable-next-line no-restricted-globals
+    if(confirm("정말 삭제하시겠습니까?") ){
+    axios({
+      url:process.env.REACT_APP_SPRING_IP+"/users/"+userId,
+      method:"delete",
+    })
+    .then((res)=>{
+      alert("성공");
+      console.log(res.data);
+      //navigator("/");
+    })
+    .catch((err)=>{
+      alert("실패");
+      console.log(err);
+    })
+    }
+  }
   return (
     <StyledCategory className="category">
       <Link to="/chart">
@@ -44,7 +65,7 @@ const Category = () => {
       <Link to={"/update"}>
         <StyledButton style={courseStyle}>회원정보수정</StyledButton>
       </Link>
-        <StyledButton style={signInStyle} onClick={()=>{alert("안 돼 못 해") }}>회원탈퇴</StyledButton>
+        <StyledButton style={signInStyle} onClick={DeleteUser} >회원탈퇴</StyledButton>
     </StyledCategory>
   );
 };
