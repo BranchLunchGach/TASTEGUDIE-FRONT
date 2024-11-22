@@ -48,12 +48,11 @@ const Category = () => {
     })
     .then((res)=>{
       alert("성공");
-      console.log(res.data);
-      //navigator("/");
+      navigator("/");
     })
     .catch((err)=>{
-      alert("실패");
       console.log(err);
+      navigator("/error");
     })
     }
   }
