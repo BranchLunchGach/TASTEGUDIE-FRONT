@@ -205,7 +205,11 @@ const HelloForm = () => {
     // console.log(data);
   }, [data]);
 
-  const handleClose = () => setShow(false);
+  const handleClose = () => {
+    setSearch("");
+    setQuery("");
+    setShow(false);
+  }
   const handleShow = () => setShow(true);
 
   // const handleAddLocation = () => {
