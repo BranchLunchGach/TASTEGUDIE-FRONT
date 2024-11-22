@@ -47,11 +47,11 @@ const Category = () => {
       method:"delete",
     })
     .then((res)=>{
-      alert("성공");
+      alert("회원탈퇴가 완료되었습니다.");
       navigator("/");
     })
     .catch((err)=>{
-      console.log(err);
+      //console.log(err);
       navigator("/error");
     })
     }
