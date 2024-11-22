@@ -202,6 +202,7 @@ const MenuResultPage = () => {
             menu: menu,
             avgX: x,
             avgY: y,
+            beforeUrl: "menu",
           },
         });
     })

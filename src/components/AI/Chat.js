@@ -97,7 +97,7 @@ function Chat() {
   const [isTyping, setIsTyping] = useState(false); // 타이핑 상태
   const [isApi, setIsApi] = useState(false);
   const [fullText, setFullText] = useState(
-    "먹고싶은 메뉴의 느낌을 자유롭게 작성해주세요\n   (ex. 비도 오고 쌀쌀해서 따뜻한 음식이 먹고싶어)"
+    "먹고싶은 메뉴의 느낌을 자유롭게 작성해주세요\n(ex. 비가 추적추적 오는 날이라 따뜻한 음식 먹고 기분 전환하고 싶어)"
   );
   const [allText, setAlltext] = useState([{ user: "", text: "" }]);
   const [jsonResponse, setJsonResponse] = useState(null);
@@ -204,7 +204,7 @@ function Chat() {
         const finalConsonantIndex = (code - baseCode) % 28;
 
         setFullText(
-          `${menuResponse.select}${finalConsonantIndex!==0?"을":"를"} 판매하는 식당 검색중.....`
+          `${menuResponse.select}${finalConsonantIndex!==0?"을":"를"} 판매하는 식당을 검색중.....`
         );
         findRestaurant();
       }
@@ -287,7 +287,7 @@ function Chat() {
     input2Ref.current = inputRef.current.value;
     inputRef.current.value = "";
     if (questionRef.current === 0) {
-      setFullText(`메뉴를 준비중입니다.....`);
+      setFullText(`'${input2Ref.current}'에 어울리는 메뉴 찾는중.....`);
       handleApiCall();
     } else if (questionRef.current === 1 || questionRef.current === 1.5) {
       whatMenu();
@@ -302,7 +302,14 @@ function Chat() {
   };
 
   const handleInput = (e) => {
+    // 현재 스크롤 위치를 저장
+  const currentScrollTop = e.target.scrollTop;
+
+  // 사용자가 스크롤을 올리지 않았을 때만 높이를 조절
+  if (currentScrollTop === 0) {
+    e.target.style.height = 'auto'; // 높이를 초기화해 다시 계산
     e.target.style.height = `${e.target.scrollHeight}px`; // 스크롤 높이에 맞춰 자동 조절
+  }
   };
 
   const findRestaurant = () => {

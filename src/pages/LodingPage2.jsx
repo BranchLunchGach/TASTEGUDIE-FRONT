@@ -117,7 +117,7 @@ const LodingPage2 = () => {
   const [messageIndex, setMessageIndex] = useState(0);
 
   const messages = [
-    '약 1분 정도 소요됩니다. \n잠시만 기다려주세요.',
+    '약 2분 정도 소요됩니다. \n잠시만 기다려주세요.',
     '점심 메뉴만 고민하지 않았어도 대머리가 되지는 않았을 텐데... \n- 머리를 지켜주는 Taste Guide -',
     '최적의 맛집을 찾기 위해 분석 중입니다.\n잠시만 기다려주세요.',
     '어떤 음식을 먹을지 고민하는 것은 엄마가 좋아? 아빠가 좋아? 의 고민과 같다.\n - Taste Guide -'

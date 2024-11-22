@@ -294,6 +294,10 @@ const HelloForm = () => {
   };
 
   const handleStart = async () => {
+    if(selectedMenu===""||locations.length===0) {
+      alert("정보를 입력해주세요");
+      return;
+    }
     setIsLoading(true); // 로딩 상태 활성화
 
     // 모든 주소에 대해 fetchGeocode를 호출하고 결과를 기다립니다.
@@ -352,6 +356,7 @@ const HelloForm = () => {
             menu: selectedMenu,
             avgX: x,
             avgY: y,
+            beforeUrl: "hello",
           },
         });
       })
