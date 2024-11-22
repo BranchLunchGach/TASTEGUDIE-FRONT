@@ -270,7 +270,7 @@ const RegisterForm = () => {
             })
             .catch((error) => {
               alert("id와 password가 올바르지 않습니다.");
-              console.log(error);
+              //console.log(error);
             });
         }) //then
         .catch((err) => {

@@ -118,8 +118,8 @@ const LoginForm = () => {
       })
       .catch((error) => {
         alert("id와 password가 올바르지 않습니다.");
-        console.log(error);
-        navigator("/error");
+        //console.log(error);
+        //navigator("/error");
       });
   };
 
