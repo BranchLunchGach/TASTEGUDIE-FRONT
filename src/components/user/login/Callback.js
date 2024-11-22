@@ -7,21 +7,21 @@ const Callback = () => {
     const navigator = useNavigate();
     const SPRING_IP = process.env.REACT_APP_SPRING_IP;
     useEffect(()=>{
-        console.log("callback page start");
-        console.log("url = "+ window.location);
+        // console.log("callback page start");
+        // console.log("url = "+ window.location);
         const urlParams = new URLSearchParams(window.location.search);
         const code = urlParams.get("code");
-        console.log("code= "+code );
+        // console.log("code= "+code );
         
         axios({
             url: SPRING_IP+"/auth/google/code?code="+code,
             method:"get",
         })
         .then((res)=>{
-            console.log(res.data); 
+            // console.log(res.data); 
             const user = res.data;
             user.password= "1111";
-            console.log("user = "+user);
+            // console.log("user = "+user);
 
              if( user.userNo === 0 ){//db에 정보가 없다면 회원가입 진행
                  //이 사이에 추가 정보 입력받으러 간다.
@@ -32,7 +32,7 @@ const Callback = () => {
                     data:user,
                 })
                 .then((res)=>{
-                    console.log(res.data);
+                    // console.log(res.data);
                     user.userNo=res.data.userNo;
                 })
             }

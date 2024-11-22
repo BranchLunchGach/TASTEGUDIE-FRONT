@@ -124,10 +124,10 @@ const MenuResultPage = () => {
 
   function local(men) {
     let get = localStorage.getItem("selectMenuName");
-    console.log("get=" + get);
-    console.log("menu=" + men[0].menuName + "," + men[1].menuName);
+    // console.log("get=" + get);
+    // console.log("menu=" + men[0].menuName + "," + men[1].menuName);
     if (get === null || get === "") {
-      console.log("null이다");
+      // console.log("null이다");
       setMenName(men[0].menuName + "," + men[1].menuName);
     } else {
       setMenName(get + "," + men[0].menuName + "," + men[1].menuName);
@@ -136,8 +136,8 @@ const MenuResultPage = () => {
 
   useEffect(() => {
     local(menu);
-    console.log(coreK);
-    console.log(mainK);
+    // console.log(coreK);
+    // console.log(mainK);
   }, []);
   
   useEffect(() => {
@@ -145,10 +145,11 @@ const MenuResultPage = () => {
   }, [menName]);
 
   const reRecommand = () => {
-    console.log(menu[0].selectNation);
-    console.log(menu[0].selectCategory);
-    console.log(menu[0].selectKeyword);
-    console.log(menu[0].selectSoup);
+
+    // console.log(menu[0].selectNation);
+    // console.log(menu[0].selectCategory);
+    // console.log(menu[0].selectKeyword);
+    // console.log(menu[0].selectSoup);
     axios({
       url: process.env.REACT_APP_SPRING_IP + "/menu",
       method: "post",
@@ -161,7 +162,7 @@ const MenuResultPage = () => {
       },
     }).then((res) => {
       SetMenu(res.data);
-      console.log(res.data[0].menuName);
+      // console.log(res.data[0].menuName);
       local(res.data);
     });
   };
@@ -195,13 +196,14 @@ const MenuResultPage = () => {
       },
     })
     .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         navigate("/hello/result", { 
           state: { 
             menuData: res.data,
             menu: menu,
             avgX: x,
             avgY: y,
+            beforeUrl: "menu",
           },
         });
     })

@@ -39,7 +39,7 @@ function useNaver(search) {
             return;
         }
 
-        console.log(search);
+        // console.log(search);
 
         try {
             dispatch({ type: 'LOADING' });

@@ -208,6 +208,7 @@ const ResRecommResult = () => {
   const menu = location.state?.menu || []; // 전달받은 데이터
   const x = location.state?.avgX || []; // 전달받은 데이터(시작 위도)
   const y = location.state?.avgY || []; // 전달받은 데이터(시작 경도)
+  const beforeUrl = location.state?.beforeUrl || "menu"; // 전달받은 데이터(시작 경도)
 
   const { menuData } = location.state || {}; // state에서 menuData를 안전하게 가져오기
   const [displayedData, setDisplayedData] = useState([]); // 현재 보여지는 3개의 데이터
@@ -225,9 +226,9 @@ const ResRecommResult = () => {
   const clientSecret = process.env.REACT_APP_clientSecret;
 
   useEffect(() => {
-    console.log("menu >> " + menu);
-    console.log("x >> " + x);
-    console.log("y >> " + y);
+    // console.log("menu >> " + menu);
+    // console.log("x >> " + x);
+    // console.log("y >> " + y);
     if (menuData && menuData.length > 0) {
       setDisplayedData(menuData.slice(0, 3)); // 처음 3개만 표시
     }
@@ -264,10 +265,16 @@ const ResRecommResult = () => {
         </StyledTitle>
         <StyledResultBox>
           <ResultLeftBox>
-            <SubTitle>
-              <p>오늘 우리가 만날 곳은 "{address}" 입니다.</p>
-              <p>그 주변 "{menu}" 관련 음식점 세 곳을 추천드립니다.</p>
-            </SubTitle>
+              {beforeUrl==="menu"?
+                <SubTitle>
+                  <p>현재 위치는 "{address}" 입니다.</p>
+                  <p>이 근처 "{menu}"을 판매하는 음식점 세 곳을 추천드리겠습니다.</p>
+                </SubTitle>:
+                <SubTitle>
+                  <p>이번 만남의 장소는 "{address}" 근처입니다.</p>
+                  <p>그 주변 "{menu}"을 판매하는 음식점 세 곳을 추천드리겠습니다.</p>
+                </SubTitle>
+              }
             <LocationMap>
               <TmapMarker avgX={x} avgY={y} onAddressChange={setAddress} />
             </LocationMap>

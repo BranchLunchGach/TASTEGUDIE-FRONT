@@ -53,7 +53,7 @@ const TmapPolyline = (props) => {
         const totalDistanceData = res.data.features[0].properties.totalDistance;
         const totalTimeData = res.data.features[0].properties.totalTime;
 
-        console.log(routeData); // 콘솔에서 응답 확인
+        // console.log(routeData); // 콘솔에서 응답 확인
         setRoute(routeData); // 응답 데이터를 상태에 저장
 
         if (totalDistanceData >= 1000) {
@@ -84,13 +84,13 @@ const TmapPolyline = (props) => {
 
   // 2. 지도 초기화 및 경로 그리기 : useEffect()
   useEffect(() => {
-    console.log("[TmapPolyline] startY >> " + props.startX);
-    console.log("[TmapPolyline] startX >> " + props.startY);
-    console.log("[TmapPolyline] endX >> " + props.endX);
-    console.log("[TmapPolyline] endY >> " + props.endY);
+    // console.log("[TmapPolyline] startY >> " + props.startX);
+    // console.log("[TmapPolyline] startX >> " + props.startY);
+    // console.log("[TmapPolyline] endX >> " + props.endX);
+    // console.log("[TmapPolyline] endY >> " + props.endY);
 
-    console.log("totalDistance >> " + totalDistance);
-    console.log("totalTime >> " + totalTime);
+    // console.log("totalDistance >> " + totalDistance);
+    // console.log("totalTime >> " + totalTime);
 
     // 상위 컴포넌트로 데이터 전달
     props.onDataReady({ totalDistance, totalTime });

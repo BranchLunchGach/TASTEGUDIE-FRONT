@@ -56,10 +56,10 @@ const Ring = styled.div`
     content: '';
     display: block;
     position: absolute;
-    top: -3px;
+    top: -3.3px;
     left: -3px;
-    width: 100%;
-    height: 100%;
+    width: 106%;
+    height: 106%;
     border: 3px solid transparent;
     border-top: 3px solid #fff000;
     border-left: 3px solid transparent;
@@ -88,7 +88,7 @@ const Span = styled.span`
     border-radius: 50%;
     box-shadow: 0 0 20px #fff000;
     position: absolute;
-    right: -8px;
+    right: -10px;
     top: calc(50% - 8px);
   }
 `;
@@ -117,7 +117,7 @@ const LodingPage2 = () => {
   const [messageIndex, setMessageIndex] = useState(0);
 
   const messages = [
-    '약 1분 정도 소요됩니다. \n잠시만 기다려주세요.',
+    '약 2분 정도 소요됩니다. \n잠시만 기다려주세요.',
     '점심 메뉴만 고민하지 않았어도 대머리가 되지는 않았을 텐데... \n- 머리를 지켜주는 Taste Guide -',
     '최적의 맛집을 찾기 위해 분석 중입니다.\n잠시만 기다려주세요.',
     '어떤 음식을 먹을지 고민하는 것은 엄마가 좋아? 아빠가 좋아? 의 고민과 같다.\n - Taste Guide -'

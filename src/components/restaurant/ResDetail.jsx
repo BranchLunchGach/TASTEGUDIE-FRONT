@@ -245,8 +245,8 @@ const settings = {
 
 const ResDetail = (props) => {
   //api keys
-  const clientId = process.env.REACT_APP_clientId;
-  const clientSecret = process.env.REACT_APP_clientSecret;
+  const clientId = process.env.REACT_APP_CLIENT_ID;
+  const clientSecret = process.env.REACT_APP_CLIENT_SECRET;
 
   const [address, setAddress] = useState("");
   const [loading, setLoading] = useState(true); // 로딩 상태 관리
@@ -264,8 +264,8 @@ const ResDetail = (props) => {
     const fetchData = async () => {
       try {
         const address = await fetchGeocode(props.selectedRestaurant.address);
-        console.log("enxAddress endX >> " + address.longitude);
-        console.log("enxAddress endY >> " + address.latitude);
+        // console.log("enxAddress endX >> " + address.longitude);
+        // console.log("enxAddress endY >> " + address.latitude);
         setAddress(address);
       } catch (error) {
         console.error(error);
@@ -277,7 +277,7 @@ const ResDetail = (props) => {
 
   // 도로명 주소를 위도 경도로 변경해주는 함수
   const fetchGeocode = async (address) => {
-    console.log("address >> " + address);
+    // console.log("address >> " + address);
 
     try {
       const res = await axios.get(
@@ -291,7 +291,7 @@ const ResDetail = (props) => {
         }
       );
       const result = res.data.addresses[0];
-      console.log("fetchGeocode result >> " + JSON.stringify(result));
+      // console.log("fetchGeocode result >> " + JSON.stringify(result));
       if (result) {
         return {
           latitude: parseFloat(result.y),
