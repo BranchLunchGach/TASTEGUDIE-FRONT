@@ -383,6 +383,14 @@ const RegisterForm = () => {
                   인증번호 보내기
                 </StyledButton>
               </label>
+              <label>
+                <div
+                  style={isCheckResult ? { color: "red" } : { color: "blue" }}
+                >
+                  {" "}
+                  {idCheckResult}
+                </div>
+              </label>
               <br />
               <br />
 
@@ -396,14 +404,7 @@ const RegisterForm = () => {
               <br />
               <br />
 
-              <label>
-                <div
-                  style={isCheckResult ? { color: "red" } : { color: "blue" }}
-                >
-                  {" "}
-                  {idCheckResult}
-                </div>
-              </label>
+              
 
               <label>
                 <h5>*비밀번호</h5>
