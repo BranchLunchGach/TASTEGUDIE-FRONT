@@ -281,10 +281,10 @@ const ResDetail = (props) => {
 
     try {
         const res = await axios.get(
-            "https://naveropenapi.apigw.ntruss.com/map-geocode/v2/geocode?query=" +
+            "/map-geocode/v2/geocode?query=" +
               encodeURIComponent(address),
             {
-              params : { // params API 키 설정
+              headers: { // params API 키 설정
                 "X-NCP-APIGW-API-KEY-ID": clientId,
                 "X-NCP-APIGW-API-KEY": clientSecret,
               },
