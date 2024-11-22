@@ -65,7 +65,7 @@ const StyledImg = styled.img`
   left: 2.5%;
   position: absolute;
   border-radius: 100%;
-  background-color: lightgray;
+  background-color: rgba(255,255,255,0);
   filter: drop-shadow(0px 2px 5px lightgray);
   transition: transform 0.2s;
 
