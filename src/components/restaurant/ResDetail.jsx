@@ -4,14 +4,14 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import TmapPolyline from "./TmapPolyline";
-import axios from 'axios';
+import axios from "axios";
 
 const messages = [
   "맛있어요!!",
   "괜찮은 맛이에요",
   "괜찮은 곳 같아요. 재방문 의사가 있어요.",
   "친절한 서비스였어요",
-  "분위기도 괜찮아요."
+  "분위기도 괜찮아요.",
 ];
 
 const StyledContentBox = styled.p`
@@ -43,7 +43,7 @@ const StyledResName = styled.p`
 const ReviewInfo = styled.div`
   display: flex;
   justify-content: center;
-`
+`;
 
 const StyledSubTitle = styled.p`
   font-family: "LOTTERIA CHAB-Regular";
@@ -62,7 +62,6 @@ const StyledButton = styled.button`
   background: black;
 
   display: flex;
-
 `;
 const StyledMapBox = styled.div`
   display: flex;
@@ -177,7 +176,7 @@ const StyledReview = styled.div`
   position: relative;
   overflow: visible; /* 인용 기호가 잘리지 않도록 설정 */
   transition: transform 0.3s ease;
-  
+
   /* 인용 기호 */
   &::before {
     content: "“";
@@ -187,7 +186,7 @@ const StyledReview = styled.div`
     top: -5px;
     left: 4px;
   }
-  
+
   &::after {
     content: "”";
     font-size: 3rem;
@@ -245,15 +244,17 @@ const settings = {
 };
 
 const ResDetail = (props) => {
-
   //api keys
-  const clientId = process.env.REACT_APP_clientId;
-  const clientSecret = process.env.REACT_APP_clientSecret;
+  const clientId = process.env.REACT_APP_CLIENT_ID;
+  const clientSecret = process.env.REACT_APP_CLIENT_SECRET;
 
   const [address, setAddress] = useState("");
   const [loading, setLoading] = useState(true); // 로딩 상태 관리
 
-  const [polylineData, setPolylineData] = useState({ totalDistance: 0, totalTime: 0 });
+  const [polylineData, setPolylineData] = useState({
+    totalDistance: 0,
+    totalTime: 0,
+  });
 
   const handlePolylineData = (data) => {
     setPolylineData(data); // totalDistance와 totalTime 업데이트
@@ -276,34 +277,33 @@ const ResDetail = (props) => {
 
   // 도로명 주소를 위도 경도로 변경해주는 함수
   const fetchGeocode = async (address) => {
-
     console.log("address >> " + address);
 
     try {
-        const res = await axios.get(
-            "https://naveropenapi.apigw.ntruss.com/map-geocode/v2/geocode?query=" +
-              encodeURIComponent(address),
-            {
-              params : { // params API 키 설정
-                "X-NCP-APIGW-API-KEY-ID": clientId,
-                "X-NCP-APIGW-API-KEY": clientSecret,
-              },
-            }
-        );
-        const result = res.data.addresses[0];
-        console.log("fetchGeocode result >> " + JSON.stringify(result));
-        if (result) {
-            return {
-                latitude: parseFloat(result.y),
-                longitude: parseFloat(result.x),
-            };
-        } else {
-            console.log("해당 주소의 결과를 찾을 수 없습니다.");
-            return null;
+      const res = await axios.get(
+        "/map-geocode/v2/geocode?query=" + encodeURIComponent(address),
+        {
+          headers: {
+            // params API 키 설정
+            "X-NCP-APIGW-API-KEY-ID": clientId,
+            "X-NCP-APIGW-API-KEY": clientSecret,
+          },
         }
-    } catch (err) {
-        console.log("API 호출 에러:", err);
+      );
+      const result = res.data.addresses[0];
+      console.log("fetchGeocode result >> " + JSON.stringify(result));
+      if (result) {
+        return {
+          latitude: parseFloat(result.y),
+          longitude: parseFloat(result.x),
+        };
+      } else {
+        console.log("해당 주소의 결과를 찾을 수 없습니다.");
         return null;
+      }
+    } catch (err) {
+      console.log("API 호출 에러:", err);
+      return null;
     } finally {
       setLoading(false); // 로딩 완료
     }
@@ -324,27 +324,44 @@ const ResDetail = (props) => {
         </StyledTitle>
 
         <StyledResultBox>
-          <div style={{textAlign:"center"}}>
-            <StyledResName style={{display:"inline", marginLeft:"2vw"}}>
-                {props.selectedRestaurant.restaurantName}
+          <div style={{ textAlign: "center" }}>
+            <StyledResName style={{ display: "inline", marginLeft: "2vw" }}>
+              {props.selectedRestaurant.restaurantName}
             </StyledResName>
-            <span style={{marginLeft:"1vw", color:"grey", fontSize:"1.2vw"}}>{props.selectedRestaurant.restaurantType}</span>
+            <span
+              style={{ marginLeft: "1vw", color: "grey", fontSize: "1.2vw" }}
+            >
+              {props.selectedRestaurant.restaurantType}
+            </span>
           </div>
           <ReviewInfo>
-            <p style={{margin:"3px 20px"}}>별점 : {props.selectedRestaurant.horoscope || 0}⭐</p>
-            <p style={{margin:"3px 20px"}}>블로그 리뷰 : {props.selectedRestaurant.blogReviewCnt}개</p>
-            <p style={{margin:"3px 20px"}}>방문자 리뷰 : {props.selectedRestaurant.visitorReviewCnt}개</p>
+            <p style={{ margin: "3px 20px" }}>
+              별점 : {props.selectedRestaurant.horoscope || 0}⭐
+            </p>
+            <p style={{ margin: "3px 20px" }}>
+              블로그 리뷰 : {props.selectedRestaurant.blogReviewCnt}개
+            </p>
+            <p style={{ margin: "3px 20px" }}>
+              방문자 리뷰 : {props.selectedRestaurant.visitorReviewCnt}개
+            </p>
           </ReviewInfo>
-          <p style={{textAlign: "center", lineHeight: "220%"}}> 🏠 편의시설 ::
-                {props.selectedRestaurant.restauranService === "0" 
-                ? "편의시설 정보를 제공하지 않습니다."
-                : props.selectedRestaurant.restauranService}</p>
+          <p style={{ textAlign: "center", lineHeight: "220%" }}>
+            {" "}
+            🏠 편의시설 ::
+            {props.selectedRestaurant.restauranService === "0"
+              ? "편의시설 정보를 제공하지 않습니다."
+              : props.selectedRestaurant.restauranService}
+          </p>
           <br />
           <StyledSubTitle>매장 소개</StyledSubTitle>
           <StyledMapBox>
-            <StyledInfoImg imgUrl={props.selectedRestaurant.mainImg}/>
+            <StyledInfoImg imgUrl={props.selectedRestaurant.mainImg} />
             <StyledInfo>
-              <p>{props.selectedRestaurant.restauranInfo === "0" ? "정보를 제공하지 않습니다." : props.selectedRestaurant.restauranInfo}</p>
+              <p>
+                {props.selectedRestaurant.restauranInfo === "0"
+                  ? "정보를 제공하지 않습니다."
+                  : props.selectedRestaurant.restauranInfo}
+              </p>
             </StyledInfo>
           </StyledMapBox>
           <br />
@@ -352,24 +369,33 @@ const ResDetail = (props) => {
           <StyledSubTitle>가는 길</StyledSubTitle>
           <StyledMapBox>
             <StyledMap>
-              <TmapPolyline 
-                  startX={props.startX} 
-                  startY={props.startY} 
-                  endX={address.longitude} 
-                  endY={address.latitude} 
-                  onDataReady={handlePolylineData} // 콜백 함수 전달
-            />
+              <TmapPolyline
+                startX={props.startX}
+                startY={props.startY}
+                endX={address.longitude}
+                endY={address.latitude}
+                onDataReady={handlePolylineData} // 콜백 함수 전달
+              />
             </StyledMap>
             <StyledMapDesc>
-              <p style={lineHeightStyle}>🚩 {props.selectedRestaurant.address}</p>
-              <p style={lineHeightStyle}>🚉 {props.selectedRestaurant.subwayAddress === "0"
-                ? "정보를 제공하지 않습니다."
-                : props.selectedRestaurant.subwayAddress}</p>
+              <p style={lineHeightStyle}>
+                🚩 {props.selectedRestaurant.address}
+              </p>
+              <p style={lineHeightStyle}>
+                🚉{" "}
+                {props.selectedRestaurant.subwayAddress === "0"
+                  ? "정보를 제공하지 않습니다."
+                  : props.selectedRestaurant.subwayAddress}
+              </p>
               <br />
               <hr />
               <br />
-              <h3 style={lineHeightStyle}>🚶‍♀️‍➡️ 이동 거리, 약 {polylineData.totalDistance}</h3>
-              <h3 style={lineHeightStyle}>⏰ 이동 시간, 약 {polylineData.totalTime}</h3>
+              <h3 style={lineHeightStyle}>
+                🚶‍♀️‍➡️ 이동 거리, 약 {polylineData.totalDistance}
+              </h3>
+              <h3 style={lineHeightStyle}>
+                ⏰ 이동 시간, 약 {polylineData.totalTime}
+              </h3>
             </StyledMapDesc>
           </StyledMapBox>
           <br />
@@ -383,12 +409,16 @@ const ResDetail = (props) => {
               const [imgUrl, name, price] = menu.split("\\\\");
               return (
                 <div key={index}>
-                  <StyledMenuImg 
-                    src={imgUrl === "0" ? "/img-sample_nongdam.jpg" : imgUrl} 
-                    alt={name} 
+                  <StyledMenuImg
+                    src={imgUrl === "0" ? "/img-sample_nongdam.jpg" : imgUrl}
+                    alt={name}
                   />
-                  <StyledMenuName style={{textAlign:"center"}}>{name}</StyledMenuName>
-                  <p className="menuPrice" style={{textAlign:"center"}}>{price}</p>
+                  <StyledMenuName style={{ textAlign: "center" }}>
+                    {name}
+                  </StyledMenuName>
+                  <p className="menuPrice" style={{ textAlign: "center" }}>
+                    {price}
+                  </p>
                 </div>
               );
             })}
@@ -402,7 +432,9 @@ const ResDetail = (props) => {
           <StyledReviewBox {...settingsReview}>
             {props.selectedRestaurant.textReviews.map((review, index) => (
               <StyledReview key={index}>
-                  {review === "0" || review.trim() === "" ? messages[index] : review}
+                {review === "0" || review.trim() === ""
+                  ? messages[index]
+                  : review}
               </StyledReview>
             ))}
           </StyledReviewBox>
