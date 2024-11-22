@@ -270,7 +270,7 @@ const RegisterForm = () => {
             })
             .catch((error) => {
               alert("id와 password가 올바르지 않습니다.");
-              console.log(error);
+              //console.log(error);
             });
         }) //then
         .catch((err) => {
@@ -383,6 +383,14 @@ const RegisterForm = () => {
                   인증번호 보내기
                 </StyledButton>
               </label>
+              <label>
+                <div
+                  style={isCheckResult ? { color: "red" } : { color: "blue" }}
+                >
+                  {" "}
+                  {idCheckResult}
+                </div>
+              </label>
               <br />
               <br />
 
@@ -396,14 +404,7 @@ const RegisterForm = () => {
               <br />
               <br />
 
-              <label>
-                <div
-                  style={isCheckResult ? { color: "red" } : { color: "blue" }}
-                >
-                  {" "}
-                  {idCheckResult}
-                </div>
-              </label>
+              
 
               <label>
                 <h5>*비밀번호</h5>
@@ -470,7 +471,7 @@ const RegisterForm = () => {
                   >
                     <option>월</option>
                     {[...Array(12).keys()].map((month) => (
-                      <option key={month + 1} value={month + 1}>
+                      <option key={month + 1} value={month<9 ? "0"+(month+1) : month+1}>
                         {month + 1}
                       </option>
                     ))}
@@ -484,7 +485,7 @@ const RegisterForm = () => {
                   >
                     <option>일</option>
                     {[...Array(31).keys()].map((day) => (
-                      <option key={day + 1} value={day + 1}>
+                      <option key={day + 1} value={day<9 ? "0"+(day+1) : day+1}>
                         {day + 1}
                       </option>
                     ))}

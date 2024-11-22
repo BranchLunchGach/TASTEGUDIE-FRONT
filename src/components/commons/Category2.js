@@ -72,7 +72,7 @@ const Category2 = () => {
       <Link to="/choice">
         <StyledMenuButton>Menu</StyledMenuButton>
       </Link>
-      <Link to="/mypage">
+      <Link to="/chart">
         <StyledCourseButton>MyPage</StyledCourseButton>
       </Link>
 

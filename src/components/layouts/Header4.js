@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Home from "../commons/Home";
 import { Link } from "react-router-dom";
-
+import Category3 from "../commons/Category3"
 
 const StyledHeader = styled.div`
   margin: 0 5px;
@@ -19,6 +19,7 @@ const Header3 = () => {
       <Link to="/">
         <Home />
       </Link>
+      <Category3/>
     </StyledHeader>
   );
 };
