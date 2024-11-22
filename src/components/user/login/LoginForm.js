@@ -165,7 +165,7 @@ const LoginForm = () => {
           />
           <h5>비밀번호</h5>
           <StyledInput
-            type="text"
+            type="password"
             name="password"
             id="passinput"
             placeholder="비밀번호"
