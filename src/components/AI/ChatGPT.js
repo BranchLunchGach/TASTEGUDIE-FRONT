@@ -36,16 +36,16 @@ export const ChatGPT = async (message) => {
 
     const menus = JSON.parse(content);
 
-    //Fetch images for each menu item
-    // const menusWithImages = await Promise.all(
-    //   menus.map(async (menu) => {
-    //     const image_url = await generateImage(menu.menuName);
-    //     return { ...menu, imgUrl: image_url };
-    //   })
-    // );
-    //return menusWithImages;
+    // Fetch images for each menu item
+    const menusWithImages = await Promise.all(
+      menus.map(async (menu) => {
+        const image_url = await generateImage(menu.menuName);
+        return { ...menu, imgUrl: image_url };
+      })
+    );
+    return menusWithImages;
 
-    return menus;
+    // return menus;
   } catch (error) {
     console.error("Failed to fetch or parse menu recommendations:", error);
     throw new Error("Failed to get menu recommendations");
@@ -53,29 +53,29 @@ export const ChatGPT = async (message) => {
 };
 
 //Utility function to generate image for a given menu name
-// const generateImage = async (menuName) => {
-//   try {
-//     const response = await fetch("https://api.openai.com/v1/images/generations", {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//         Authorization: `Bearer ${process.env.REACT_APP_OPENAI_API_KEY}`,
-//       },
-//       body: JSON.stringify({
-//         prompt: menuName,
-//         model:"dall-e-3",
-//         n: 1,
-//         size: "1024x1024",
-//       }),
-//     });
+const generateImage = async (menuName) => {
+  try {
+    const response = await fetch("https://api.openai.com/v1/images/generations", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${process.env.REACT_APP_OPENAI_API_KEY}`,
+      },
+      body: JSON.stringify({
+        prompt: menuName,
+        model:"dall-e-3",
+        n: 1,
+        size: "1024x1024",
+      }),
+    });
 
-//     const imgData = await response.json();
-//     return imgData.data[0].url;
-//   } catch (error) {
-//     console.error("Failed to generate image:", error);
-//     throw new Error("Image generation failed");
-//   }
-// };
+    const imgData = await response.json();
+    return imgData.data[0].url;
+  } catch (error) {
+    console.error("Failed to generate image:", error);
+    throw new Error("Image generation failed");
+  }
+};
 
 export const isMenu = async (firstMenu, secMenu, message) => {
   try {
