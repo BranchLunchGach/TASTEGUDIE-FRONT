@@ -242,11 +242,7 @@ const MenuResultPage = () => {
                   <StyledTextOverlay>식당 추천받기</StyledTextOverlay>
                 </StyledImgContainer>
                 <StyledMenuTitle>{m.menuName}</StyledMenuTitle>
-                {/* <StyledMenuDescBox>
-                  <StyledMenuDesc>{m.recoReason[0]}</StyledMenuDesc>
-                  <StyledMenuDesc>{m.recoReason[1]}</StyledMenuDesc>
-                  <StyledMenuDesc>{m.recoReason[2]}</StyledMenuDesc>
-                </StyledMenuDescBox> */}
+                
               </StyledResultItem>
             ))
           ) : (

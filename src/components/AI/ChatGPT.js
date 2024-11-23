@@ -72,7 +72,7 @@ const generateImage = async (menuName) => {
     const imgData = await response.json();
     return imgData.data[0].url;
   } catch (error) {
-    console.error("Failed to generate image:", error);
+    console.error("Failed to generate images:", error);
     throw new Error("Image generation failed");
   }
 };
