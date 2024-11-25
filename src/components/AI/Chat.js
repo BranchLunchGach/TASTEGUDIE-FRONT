@@ -148,7 +148,9 @@ function Chat() {
       textBoxRef.current.scrollTop = textBoxRef.current.scrollHeight;
     }
     if (displayedText === fullText) {
-      setIsApi(false);
+      if (!fullText.endsWith("찾는중.....") && !fullText.endsWith("검색중.....")) {
+        setIsApi(false);
+      }
       setIsTyping(false); // 타이핑이 끝나면 상태 변경
     }
   }, [displayedText]);
@@ -293,7 +295,7 @@ function Chat() {
       whatMenu();
     }
   };
-
+  
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
       event.preventDefault(); // 기본 엔터키 동작 방지 (폼 제출 등)
