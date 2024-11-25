@@ -61,12 +61,12 @@ const Category = () => {
   return (
     <StyledCategory className="category">
       <Link to="/chart">
-        <StyledButton style={menuStyle}>나의 추천 기록</StyledButton>
+        <StyledButton style={menuStyle}>My Menu</StyledButton>
       </Link>
       <Link to={"/update"}>
-        <StyledButton style={courseStyle}>회원정보수정</StyledButton>
+        <StyledButton style={courseStyle}>My Info</StyledButton>
       </Link>
-        <StyledButton style={signInStyle} onClick={DeleteUser} >회원탈퇴</StyledButton>
+        <StyledButton style={signInStyle} onClick={DeleteUser} >Sign Out</StyledButton>
     </StyledCategory>
   );
 };
