@@ -68,7 +68,7 @@ jobs:
           cat ~/.aws/config
 
           # AWS CLI 명령어 실행하여 자격증명 확인
-          aws sts get-caller-identity
+          aws sts get-caller-identity || exit 1  # 자격증명 확인 실패 시 워크플로우 종료
           aws --version  # AWS CLI 버전 확인
 
       # 7. 빌드 파일을 S3로 업로드 (덮어쓰기, TASTEGUDIE-FRONT 폴더에 업로드)
@@ -85,6 +85,9 @@ jobs:
           
           # private-key.pem 파일이 올바르게 생성되었는지 확인
           cat private-key.pem  # private-key.pem의 내용을 출력해 확인
+
+          # EC2와의 SSH 연결 확인
+          ssh -o StrictHostKeyChecking=no -i private-key.pem ${{ secrets.EC2_USER }}@${{ secrets.EC2_IP }} "echo 'SSH 연결 성공'"
 
           # S3에서 파일 다운로드
           ssh -o StrictHostKeyChecking=no -i private-key.pem ${{ secrets.EC2_USER }}@${{ secrets.EC2_IP }} \
