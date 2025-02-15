@@ -59,23 +59,18 @@ jobs:
           aws s3 cp build/ s3://tasteguide/TASTEGUDIE-FRONT/ --recursive  # build 폴더를 TASTEGUDIE-FRONT 폴더에 업로드
 
       # 8. EC2에 SSH로 접속하여 S3에서 파일 다운로드 후 Nginx 재시작
+      # 8. EC2에 SSH로 접속하여 S3에서 파일 다운로드 후 Nginx 재시작
       - name: Deploy to EC2 and Restart Nginx
         run: |
           echo "${{ secrets.EC2_SSH_PRIVATE_KEY }}" > private-key.pem
           chmod 600 private-key.pem
           
-          # EC2에 SSH로 접속하여 AWS 자격 증명 설정
-          ssh -v -o StrictHostKeyChecking=no -i private-key.pem ${{ secrets.EC2_USER }}@${{ secrets.EC2_IP }} \
-            "mkdir -p /home/${{ secrets.EC2_USER }}/.aws && \
-             chmod 700 /home/${{ secrets.EC2_USER }}/.aws && \
-             echo '[default]' > /home/${{ secrets.EC2_USER }}/.aws/config && \
-             echo 'aws_access_key_id=${{ secrets.AWS_ACCESS_KEY_ID }}' >> /home/${{ secrets.EC2_USER }}/.aws/credentials && \
-             echo 'aws_secret_access_key=${{ secrets.AWS_SECRET_ACCESS_KEY }}' >> /home/${{ secrets.EC2_USER }}/.aws/credentials && \
-             echo 'region=${{ secrets.AWS_REGION }}' >> /home/${{ secrets.EC2_USER }}/.aws/credentials && \
-             chmod 600 /home/${{ secrets.EC2_USER }}/.aws/credentials && \
-             aws s3 cp s3://tasteguide/TASTEGUDIE-FRONT/ /home/${{ secrets.EC2_USER }}/TASTEGUDIE-FRONT --recursive && \
-             sudo systemctl restart nginx"
+          # S3에서 파일 다운로드
+          ssh -o StrictHostKeyChecking=no -i private-key.pem ${{ secrets.EC2_USER }}@${{ secrets.EC2_IP }} \
+            "aws s3 cp s3://tasteguide/TASTEGUDIE-FRONT/ /home/ubuntu/TASTEGUDIE-FRONT --recursive && \
+            sudo systemctl restart nginx"
         env:
           EC2_SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
           EC2_USER: ${{ secrets.EC2_USER }}
+          EC2_HOST: ${{ secrets.EC2_IP }}
           EC2_IP: ${{ secrets.EC2_IP }}
