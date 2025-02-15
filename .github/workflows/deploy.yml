@@ -38,11 +38,13 @@ jobs:
         env:
           CI: false  # CI 환경 변수를 false로 설정하여 ESLint 경고를 무시
 
-      # 5. AWS CLI 설치
+      # 5. AWS CLI 설치 (기존 APT 방식 대신 공식 설치 스크립트 사용)
       - name: Install AWS CLI
         run: |
-          sudo apt-get update
-          sudo apt-get install -y awscli
+          curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+          unzip awscliv2.zip
+          sudo ./aws/install
+          aws --version  # 설치 확인
 
       # 6. AWS 설정
       - name: Configure AWS
