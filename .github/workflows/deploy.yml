@@ -64,13 +64,15 @@ jobs:
           echo "${{ secrets.EC2_SSH_PRIVATE_KEY }}" > private-key.pem
           chmod 600 private-key.pem
           
-          # S3에서 파일 다운로드
+          # EC2에 SSH로 접속하여 AWS 자격 증명 설정
           ssh -o StrictHostKeyChecking=no -i private-key.pem ${{ secrets.EC2_USER }}@${{ secrets.EC2_IP }} \
-            "aws s3 cp s3://tasteguide/TASTEGUDIE-FRONT/ /home/ubuntu/TASTEGUDIE-FRONT --recursive && \
-            sudo systemctl restart nginx"
+            "mkdir -p ~/.aws && \
+             echo '[default]' > ~/.aws/config && \
+             echo 'aws_access_key_id=${{ secrets.AWS_ACCESS_KEY_ID }}' >> ~/.aws/credentials && \
+             echo 'aws_secret_access_key=${{ secrets.AWS_SECRET_ACCESS_KEY }}' >> ~/.aws/credentials && \
+             aws s3 cp s3://tasteguide/TASTEGUDIE-FRONT/ /home/ubuntu/TASTEGUDIE-FRONT --recursive && \
+             sudo systemctl restart nginx"
         env:
           EC2_SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
           EC2_USER: ${{ secrets.EC2_USER }}
           EC2_HOST: ${{ secrets.EC2_IP }}
-
-          
