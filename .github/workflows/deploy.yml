@@ -3,7 +3,7 @@ name: Build, Deploy, and Update EC2
 on:
   push:
     branches:
-      - main # main에 푸시할 때 트리거
+      - main  # main에 푸시할 때 트리거
 
 jobs:
   build:
@@ -72,7 +72,6 @@ jobs:
              echo 'aws_secret_access_key=${{ secrets.AWS_SECRET_ACCESS_KEY }}' >> ~/.aws/credentials && \
              aws s3 cp s3://tasteguide/TASTEGUDIE-FRONT/ /home/ubuntu/TASTEGUDIE-FRONT --recursive && \
              sudo systemctl restart nginx"
-
              
         env:
           EC2_SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
