@@ -46,9 +46,11 @@ jobs:
           sudo ./aws/install --update  # 이미 설치된 버전이 있으면 업데이트
           aws --version  # 설치 확인
 
-      # 6. AWS 설정
+      # 6. AWS 설정 (명시적으로 자격증명 경로 설정)
       - name: Configure AWS
         run: |
+          mkdir -p ~/.aws  # .aws 디렉토리 생성
+          export AWS_SHARED_CREDENTIALS_FILE=~/.aws/credentials  # 자격증명 파일 경로 지정
           aws configure set aws_access_key_id "${{ secrets.AWS_ACCESS_KEY_ID }}"
           aws configure set aws_secret_access_key "${{ secrets.AWS_SECRET_ACCESS_KEY }}"
           aws configure set default.region "${{ secrets.AWS_REGION }}"  # AWS_REGION 환경 변수를 사용하여 리전 설정
@@ -58,7 +60,6 @@ jobs:
         run: |
           aws s3 cp build/ s3://tasteguide/TASTEGUDIE-FRONT/ --recursive  # build 폴더를 TASTEGUDIE-FRONT 폴더에 업로드
 
-      # 8. EC2에 SSH로 접속하여 S3에서 파일 다운로드 후 Nginx 재시작
       # 8. EC2에 SSH로 접속하여 S3에서 파일 다운로드 후 Nginx 재시작
       - name: Deploy to EC2 and Restart Nginx
         run: |
@@ -72,5 +73,4 @@ jobs:
         env:
           EC2_SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
           EC2_USER: ${{ secrets.EC2_USER }}
-          EC2_HOST: ${{ secrets.EC2_IP }}
           EC2_IP: ${{ secrets.EC2_IP }}
