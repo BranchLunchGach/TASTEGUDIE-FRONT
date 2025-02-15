@@ -89,6 +89,9 @@ jobs:
           # EC2와의 SSH 연결 확인
           ssh -o StrictHostKeyChecking=no -i private-key.pem ${{ secrets.EC2_USER }}@${{ secrets.EC2_IP }} "echo 'SSH 연결 성공'"
 
+          # EC2에서 현재 사용자 확인
+          ssh -o StrictHostKeyChecking=no -i private-key.pem ${{ secrets.EC2_USER }}@${{ secrets.EC2_IP }} "whoami"
+
           # S3에서 파일 다운로드
           ssh -o StrictHostKeyChecking=no -i private-key.pem ${{ secrets.EC2_USER }}@${{ secrets.EC2_IP }} \
             "aws s3 cp s3://tasteguide/TASTEGUDIE-FRONT/ /home/ubuntu/TASTEGUDIE-FRONT --recursive && \
