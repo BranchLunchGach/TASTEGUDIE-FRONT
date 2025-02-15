@@ -50,11 +50,22 @@ jobs:
       - name: Configure AWS
         run: |
           mkdir -p ~/.aws  # .aws 디렉토리 생성
-          export AWS_SHARED_CREDENTIALS_FILE=~/.aws/credentials  # 자격증명 파일 경로 지정
-          aws configure set aws_access_key_id "${{ secrets.AWS_ACCESS_KEY_ID }}"
-          aws configure set aws_secret_access_key "${{ secrets.AWS_SECRET_ACCESS_KEY }}"
-          aws configure set default.region "${{ secrets.AWS_REGION }}"  # AWS_REGION 환경 변수를 사용하여 리전 설정
+          echo "[default]" > ~/.aws/credentials
+          echo "aws_access_key_id=${{ secrets.AWS_ACCESS_KEY_ID }}" >> ~/.aws/credentials
+          echo "aws_secret_access_key=${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> ~/.aws/credentials
+          echo "region=${{ secrets.AWS_REGION }}" >> ~/.aws/config
 
+          # 환경 변수 설정
+          export AWS_SHARED_CREDENTIALS_FILE=~/.aws/credentials  # 자격증명 파일 경로 지정
+
+          # 자격증명 파일이 제대로 생성되었는지 확인
+          cat ~/.aws/credentials
+          cat ~/.aws/config
+
+          # AWS CLI 명령어 실행하여 자격증명 확인
+          aws sts get-caller-identity
+          aws --version  # AWS CLI 버전 확인
+          
       # 7. 빌드 파일을 S3로 업로드 (덮어쓰기, TASTEGUDIE-FRONT 폴더에 업로드)
       - name: Upload to S3
         run: |
